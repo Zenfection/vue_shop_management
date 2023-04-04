@@ -7,7 +7,7 @@
                     <div class="col-lg-3 col-md-4 col-6" data-aos="fade-in" data-aos-duration="1000">
                         <div class="header-logo">
                             
-                            <router-link :to="{name: Home}">
+                            <router-link :to="{name: 'home'}">
                                 <img :src="logoURL" alt="Site Logo" />
                             </router-link>
                         </div>
@@ -22,20 +22,24 @@
                             <ul>
                                 <!-- render session -->
                                 <li class="nav-item">
-                                    <a href="javascript:;" class="nav-link" id="homeNav" onclick="loadContent('home')">Trang
-                                        Chủ</a>
+                                    <router-link :to="{name: 'home'}" class="nav-link" exact-active-class="active" active-class="active">
+                                        Trang Chủ
+                                    </router-link>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="javascript:;" class="nav-link" id="aboutNav"
-                                        onclick="loadContent('about')">Giới Thiệu</a>
+                                    <router-link :to="{name: 'about'}" class="nav-link" exact-active-class="active" active-class="active">
+                                            Giới Thiệu
+                                    </router-link>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="javascript:;" class="nav-link" id="shopNav"
-                                        onclick="loadContent('shop')">Shop</a>
+                                    <router-link :to="{name: 'shop'}" class="nav-link" exact-active-class="active" active-class="active" >
+                                        Shop
+                                    </router-link>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="javascript:;" class="nav-link" id="contactNav"
-                                        onclick="loadContent('contact')">Liên Hệ</a>
+                                    <router-link :to="{name: 'contact'}" class="nav-link" exact-active-class="active" active-class="active">
+                                        Liên Hệ
+                                    </router-link>
                                 </li>
                             </ul>
                         </div>

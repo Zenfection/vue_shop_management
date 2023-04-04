@@ -12,6 +12,8 @@ const logoURL = ref(_GIT_SOURCE + 'assets/images/logo.png');
 
 <template>
     <Header />
+    
+    <router-view />
 
     <Footer />
 </template>
