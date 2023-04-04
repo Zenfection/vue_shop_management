@@ -1,9 +1,6 @@
 lockfileVersion: '6.0'
 
 dependencies:
-  anime.css:
-    specifier: ^1.0.1
-    version: 1.0.1
   animejs:
     specifier: ^3.2.1
     version: 3.2.1
@@ -16,9 +13,6 @@ dependencies:
   jquery:
     specifier: ^3.6.4
     version: 3.6.4
-  lobibox:
-    specifier: ^1.2.7
-    version: 1.2.7
   nice-select2:
     specifier: ^2.1.0
     version: 2.1.0(webpack@5.77.0)
@@ -664,10 +658,6 @@ packages:
       json-schema-traverse: 0.4.1
       uri-js: 4.4.1
 
-  /anime.css@1.0.1:
-    resolution: {integrity: sha512-HMmbinXfWNEy6GHCPnRjPCLq5z4HmP3lhs8lMOOdIzOHK0qiDrRXnSY73VdycUXpstwaEmEGVoDnfILKy30gsw==}
-    dev: false
-
   /animejs@3.2.1:
     resolution: {integrity: sha512-sWno3ugFryK5nhiDm/2BKeFCpZv7vzerWUcUPyAZLDhMek3+S/p418ldZJbJXo5ZUOpfm2kP2XRO4NJcULMy9A==}
     dev: false
@@ -1287,10 +1277,6 @@ packages:
   /loader-runner@4.3.0:
     resolution: {integrity: sha512-3R/1M+yS3j5ou80Me59j7F9IMs4PXs3VqRrm0TU3AbKPxlmpoY1TNscJV/oGJXo8qCatFGTfDbY6W6ipGOYXfg==}
     engines: {node: '>=6.11.5'}
-    dev: false
-
-  /lobibox@1.2.7:
-    resolution: {integrity: sha512-d6GpmeC2+JndidJK789gwkOze7WKIO3hkgmwW0NJFm+GCXCYX90nQzFAwncX13zP1iw+tnJrrMk1gMt2sqyv6Q==}
     dev: false
 
   /locate-path@6.0.0:

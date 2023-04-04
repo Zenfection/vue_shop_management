@@ -1,11 +1,53 @@
 <script setup>
 import { shape, homeBackground } from '@/config.js'
-import { ref } from 'vue';
+import { ref, onMounted, computed } from 'vue';
+import anime from 'animejs';
 
-// Select elements
 const lettersEl = ref(null);
-const lineEl = ref(null);
-const letterEls = ref([]);
+
+const widthLetter = computed(() => {
+    if (lettersEl.value) {
+        return lettersEl.value.getBoundingClientRect().width;
+    }
+});
+
+onMounted(() => {
+    if (lettersEl.value) {
+        lettersEl.value.innerHTML = lettersEl.value.textContent.replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>");
+    }
+
+    anime.timeline({
+        loop: true
+    })
+        .add({
+            targets: '.ml11 .line',
+            scaleY: [0, 1],
+            opacity: [0.5, 1],
+            easing: "easeOutExpo",
+            duration: 700
+        })
+        .add({
+            targets: '.ml11 .line',
+            translateX: [0, widthLetter + 10],
+            easing: "easeOutExpo",
+            duration: 700,
+            delay: 100
+        }).add({
+            targets: '.ml11 .letter',
+            opacity: [0, 1],
+            easing: "easeOutExpo",
+            duration: 600,
+            offset: '-=775',
+            delay: (el, i) => 34 * (i + 1)
+        }).add({
+            targets: '.ml11',
+            opacity: 0,
+            duration: 1000,
+            easing: "easeOutExpo",
+            delay: 1000
+        });
+});
+
 </script>
 
 <template>
@@ -25,32 +67,33 @@ const letterEls = ref([]);
                             <u><i class="fa-duotone fa-at"></i>Zenfection</u>
                         </a>
                     </h6>
-                    <h1 class="ml11 mb-2">
+                    <h1 class="ml11 mb-2" ref="lettersEl" >
                         <span class="text-wrapper">
-                        <span class="line line1"></span>
-                        <span class="letters pb-0 fw-hero">Zen Shop Order</span>
-                    </span>
-                </h1>
-                <h5 class="my-4 fw-hero"><i class="fa-duotone fa-phone-volume"></i> Liên hệ với tôi nếu bạn có ý tưởng
-                </h5>
+                            <span class="line line1"></span>
+                            <span class="letters pb-0 fw-hero">Zen Shop Order</span>
+                        </span>
+                    </h1>
+                    <h5 class="my-4 fw-hero">
+                        <i class="fa-duotone fa-phone-volume"></i> Liên hệ với tôi nếu bạn có ý tưởng
+                    </h5>
 
-                <p class="text-danger mb-2 fw-hero">Sản phẩm được phát triển cả nhân nên có rất nhiều lỗi <br> nếu bạn
-                    phát hiện hãy liên hệ với tôi bên trên.</p>
-                <!-- <?php
-                if (!empty($user)) {
-                ?>
-                    <a href="javascript:;" class="btn btn-primary mt-4" onclick="loadContent('shop')">Mua Hàng
-                        <i class="fa-duotone fa-cart-shopping-fast fa-xl"></i>
-                        </a>
-                    <?php
-                    } else {
+                    <p class="text-danger mb-2 fw-hero">Sản phẩm được phát triển cả nhân nên có rất nhiều lỗi <br> nếu bạn
+                        phát hiện hãy liên hệ với tôi bên trên.</p>
+                    <!-- <?php
+                    if (!empty($user)) {
                     ?>
-                        <a href="javascript:;" class="btn btn-primary mt-4" onclick="loadContent('login')">Đăng Nhập
-                            <i class="fa-duotone fa-arrow-right-to-bracket fa-xl"></i>
-                        </a>
-                    <?php
-                    }
-                    ?> -->
+                        <a href="javascript:;" class="btn btn-primary mt-4" onclick="loadContent('shop')">Mua Hàng
+                            <i class="fa-duotone fa-cart-shopping-fast fa-xl"></i>
+                            </a>
+                        <?php
+                        } else {
+                        ?>
+                            <a href="javascript:;" class="btn btn-primary mt-4" onclick="loadContent('login')">Đăng Nhập
+                                <i class="fa-duotone fa-arrow-right-to-bracket fa-xl"></i>
+                            </a>
+                        <?php
+                        }
+                        ?> -->
                 </div>
                 <div class="col-lg-6 mt-lg-4 pt-2 mt-5 d-lg-flex d-none" data-aos="fade-left">
                     <img class="fit-image" :src="homeBackground" alt="home Image">
@@ -176,10 +219,11 @@ const letterEls = ref([]);
     </section>
     <!-- end solution -->
 
-<!-- Category Section Start -->
+    <!-- Category Section Start -->
 
-<!-- Category Section End -->
+    <!-- Category Section End -->
 
-<!-- Product Section Start -->
+    <!-- Product Section Start -->
 
-<!-- Product Section End --></template>
+    <!-- Product Section End -->
+</template>
