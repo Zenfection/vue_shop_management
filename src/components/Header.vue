@@ -1,3 +1,38 @@
+<script setup>
+
+//* Header Search Action
+
+import { logoURL } from '@/config.js'
+import { ref } from 'vue';
+import { defineStore } from 'pinia';
+
+const isSearchOpen = ref(false);
+
+const handleSearchToggle = () => {
+    isSearchOpen.value = !isSearchOpen.value
+}
+
+const useUserStore = defineStore({
+    id: 'user',
+    state: () => ({
+        user: null,
+    }),
+    getters: {
+        isLoggedIn() {
+            return !!this.user
+        },
+    },
+    actions: {
+        login(user) {
+            this.user = user
+        },
+        logout() {
+            this.user = null
+        },
+    },
+})
+</script>
+
 <template>
     <div class="header-bottom">
         <div class="header-sticky">
@@ -6,8 +41,7 @@
                     <!-- Header Logo Start -->
                     <div class="col-lg-3 col-md-4 col-6" data-aos="fade-in" data-aos-duration="1000">
                         <div class="header-logo">
-                            
-                            <router-link :to="{name: 'home'}">
+                            <router-link :to="{ name: 'home' }">
                                 <img :src="logoURL" alt="Site Logo" />
                             </router-link>
                         </div>
@@ -15,29 +49,31 @@
                     <!-- Header Logo End -->
 
                     <!-- Header Menu Start -->
-
                     <div class="col-lg-5 d-none d-lg-block navbar navbar-expand-lg" data-aos="fade-in"
                         data-aos-duration="1000">
                         <div class="main-menu">
                             <ul>
-                                <!-- render session -->
                                 <li class="nav-item">
-                                    <router-link :to="{name: 'home'}" class="nav-link" exact-active-class="active" active-class="active">
+                                    <router-link :to="{ name: 'home' }" class="nav-link" exact-active-class="active"
+                                        active-class="active">
                                         Trang Chủ
                                     </router-link>
                                 </li>
                                 <li class="nav-item">
-                                    <router-link :to="{name: 'about'}" class="nav-link" exact-active-class="active" active-class="active">
-                                            Giới Thiệu
+                                    <router-link :to="{ name: 'about' }" class="nav-link" exact-active-class="active"
+                                        active-class="active">
+                                        Giới Thiệu
                                     </router-link>
                                 </li>
                                 <li class="nav-item">
-                                    <router-link :to="{name: 'shop'}" class="nav-link" exact-active-class="active" active-class="active" >
+                                    <router-link :to="{ name: 'shop' }" class="nav-link" exact-active-class="active"
+                                        active-class="active">
                                         Shop
                                     </router-link>
                                 </li>
                                 <li class="nav-item">
-                                    <router-link :to="{name: 'contact'}" class="nav-link" exact-active-class="active" active-class="active">
+                                    <router-link :to="{ name: 'contact' }" class="nav-link" exact-active-class="active"
+                                        active-class="active">
                                         Liên Hệ
                                     </router-link>
                                 </li>
@@ -52,39 +88,36 @@
                             <!-- Header Action Start -->
                             <!-- Header Action Search Button Start -->
                             <div class="header-action-btn header-action-btn-search d-none d-md-flex">
-                                <div class="action-execute">
-                                    <a class="action-search-open" href="javascript:void(0)"><i
-                                            class="fa-duotone fa-magnifying-glass fa-xl"></i></a>
-                                    <a class="action-search-close" href="javascript:void(0)"><i
-                                            class="fa-duotone fa-xmark fa-xl"></i></a>
+                                <div class="action-execute" @click="handleSearchToggle">
+                                    <div class="cursor-pointer" :class="{'action-search-open': !isSearchOpen, 'action-search-close': isSearchOpen}">
+                                        <i class="fa-duotone fa-xl fa-magnifying-glass"></i>
+                                    </div>
+
+                                    <div class="cursor-pointer" :class="{'action-search-close': !isSearchOpen, 'action-search-open': isSearchOpen}">
+                                        <i class="fa-duotone fa-xmark fa-xl"></i>
+                                    </div>
                                 </div>
                                 <!-- Search Form and Button Start -->
-                                <div class="header-search-form" id="searchProduct">
-                                    <input type="text" class="header-search-input" placeholder="Tìm kiếm"
-                                        style="width: 200px !important">
-                                    <button class="header-search-button"><i
-                                            class="fa-duotone fa-magnifying-glass"></i></button>
+                                <div class="header-search-form" :class="{ 'visible-execute': isSearchOpen }">
+                                    <input class="header-search-input" type="text" placeholder="Tìm kiếm"
+                                        style="width: 200px !important" />
+                                    <button class="header-search-button">
+                                        <i class="fa-duotone fa-magnifying-glass"></i>
+                                    </button>
                                 </div>
                                 <!-- Search Form and Button End -->
                             </div>
                             <!-- Header Action Search Button End -->
 
                             <!-- account login -->
-                            <!-- <?php
-                        if (!empty($user)) {
-                        ?>
-                            <a id='account' href="javascript:;" class='header-action-btn header-action-btn-wishlist' onclick="loadContent('account')">
+                            <router-link :to="{name: 'account'}"  class='header-action-btn header-action-btn-wishlist'>
                                 <i class='fa-duotone fa-user-gear fa-xl'></i>
-                            </a>
-                        <?php
-                        } else {
-                        ?>
-                            <a id='logged' href="javascript:;" class='header-action-btn header-action-btn-wishlist' onclick="loadContent('login')">
+                            </router-link>
+
+                            <!-- <router-link :to="{name: 'login'}" id='logged' class='header-action-btn header-action-btn-wishlist'>
                                 <i class='fa-duotone fa-user fa-xl'></i>
-                            </a>
-                        <?php
-                        }
-                        ?>
+                            </router-link> -->
+                            <!-- <?php
 
                         <?php $this->render('blocks/cart', $data) ?> -->
 
@@ -101,17 +134,3 @@
         </div>
     </div>
 </template>
-
-<script>
-import { logoURL } from '@/config.js';
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-    name: 'Header',
-    setup() {
-        return {
-            logoURL,
-        };
-    },
-});
-</script>

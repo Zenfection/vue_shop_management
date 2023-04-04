@@ -4,22 +4,42 @@ const routes = [
     {
         path: '/',
         name: 'home',
-        component: import ('@/views/Home.vue'),
+        component: () =>  import ('@/views/Home.vue'),
     },
     {
         path: '/about',
         name: 'about',
-        component: import ('@/views/About.vue'),
+        component: () => import ('@/views/About.vue'),
     },
     {
         path: '/shop',
         name: 'shop',
-        component: import ('@/views/Shop.vue'),
+        component: () => import ('@/views/Shop.vue'),
     },
     {
         path: '/contact',
         name: 'contact',
-        component: import ('@/views/Contact.vue'),
+        component: () => import ('@/views/Contact.vue'),
+    },
+    {
+        path: '/account',
+        name: 'account',
+        component: () => import ('@/views/Account.vue'),
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: () => import ('@/views/Login.vue'),
+    },
+    {
+        path: '/register',
+        name: 'register',
+        component: () => import ('@/views/Register.vue'),
+    },
+    {
+        path: '/cart',
+        name: 'cart',
+        component: () => import ('@/views/Cart.vue'),
     }
 ];
 
