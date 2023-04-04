@@ -1,5 +1,5 @@
 <script setup>
-    import { aboutBackground } from '@/config.js';
+    import { aboutBackground, team1 } from '@/config.js';
 </script>
 
 <template>
@@ -52,7 +52,7 @@
                     <div class="single-team-wrapper">
                         <div class="thumb">
                             <a href="javascript:;" onclick="loadContent('contact')">
-                                <img class="fit-image" src="<?php echo _GIT_SOURCE; ?>/assets/images/team/1.jpg"
+                                <img class="fit-image" :src="team1"
                                     alt="Team Image" style="height: 270px" />
                             </a>
                             <!-- Social Shear Start -->

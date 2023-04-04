@@ -24,3 +24,5 @@ for (let i = 1; i <= 8; i++) {
     shape.push(`${_GIT_SOURCE}/assets/images/shapes/shape-${i}.svg`)
 }
 export { shape }
+
+export const team1 = `${_GIT_SOURCE}/assets/images/team/1.jpg`

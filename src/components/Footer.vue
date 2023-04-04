@@ -75,7 +75,7 @@
             <div class="row align-items-center m-b-n20">
                 <div class="col-md-6 text-center text-md-start order-2 order-md-1 m-b-20">
                     <div class="copyright-content">
-                        <p class="mb-0"><i class="fa-duotone fa-at"></i> 2023 <a href="https://github.com/zenfection/vue_shop_management">Php_Shop_Order</a> Made with <i class="fa-duotone fa-heart"></i> by <a href="https://github.com/zenfection">Zenfection.</a></p>
+                        <p class="mb-0"><i class="fa-duotone fa-at"></i> 2023 <a href="https://github.com/zenfection/vue_shop_management">Zen Shop Order</a> Made with <i class="fa-duotone fa-heart"></i> by <a href="https://github.com/zenfection">Zenfection.</a></p>
                     </div>
                 </div>
                 <div class="col-md-6 text-center text-md-end order-1 order-md-2 m-b-20">
