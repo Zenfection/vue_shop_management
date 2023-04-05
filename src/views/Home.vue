@@ -14,41 +14,40 @@ onMounted(() => {
             /([^\x00-\x80]|\w)/g,
             "<span class='letter'>$&</span>"
         )
+        const widthLetter = lettersEl.value.getBoundingClientRect().width
+        anime.timeline({
+            loop: true
+        })
+            .add({
+                targets: '.ml11 .line',
+                scaleY: [0, 1],
+                opacity: [0.5, 1],
+                easing: 'easeOutExpo',
+                duration: 700
+            })
+            .add({
+                targets: '.ml11 .line',
+                translateX: [0, widthLetter + 10],
+                easing: 'easeOutExpo',
+                duration: 700,
+                delay: 100
+            })
+            .add({
+                targets: '.ml11 .letter',
+                opacity: [0, 1],
+                easing: 'easeOutExpo',
+                duration: 600,
+                offset: '-=775',
+                delay: (el, i) => 34 * (i + 1)
+            })
+            .add({
+                targets: '.ml11',
+                opacity: 0,
+                duration: 1000,
+                easing: 'easeOutExpo',
+                delay: 1000
+            })
     }
-    const widthLetter = lettersEl.value.getBoundingClientRect().width
-
-    anime.timeline({
-        loop: true
-    })
-        .add({
-            targets: '.ml11 .line',
-            scaleY: [0, 1],
-            opacity: [0.5, 1],
-            easing: 'easeOutExpo',
-            duration: 700
-        })
-        .add({
-            targets: '.ml11 .line',
-            translateX: [0, widthLetter + 10],
-            easing: 'easeOutExpo',
-            duration: 700,
-            delay: 100
-        })
-        .add({
-            targets: '.ml11 .letter',
-            opacity: [0, 1],
-            easing: 'easeOutExpo',
-            duration: 600,
-            offset: '-=775',
-            delay: (el, i) => 34 * (i + 1)
-        })
-        .add({
-            targets: '.ml11',
-            opacity: 0,
-            duration: 1000,
-            easing: 'easeOutExpo',
-            delay: 1000
-        })
 
     tns({
         container: '.feature-slider',
@@ -114,7 +113,7 @@ onMounted(() => {
                     <router-link v-if="isLogged" :to="{ name: 'shop' }" class="btn btn-primary mt-4">Mua Hàng
                         <i class="fa-duotone fa-cart-shopping-fast fa-xl"></i>
                     </router-link>
-                    <router-link v-if="!isLogged" :to="{ name: 'login'}"  class="btn btn-primary mt-4">Đăng Nhập
+                    <router-link v-if="!isLogged" :to="{ name: 'login' }" class="btn btn-primary mt-4">Đăng Nhập
                         <i class="fa-duotone fa-arrow-right-to-bracket fa-xl"></i>
                     </router-link>
                 </div>
@@ -145,9 +144,9 @@ onMounted(() => {
                                     <div class="sw-1 mb-4 sol-icon">
                                         <i :class="slider.icon"></i>
                                     </div>
+                                    <h5 class="lh-base fs-16 mb-2">{{ slider.title }}</h5>
+                                    <a class="text-secondary" v-html="slider.description"></a>
                                 </div>
-                                <h5 class="lh-base fs-16 mb-2">{{ slider.title }}</h5>
-                                <a class="text-secondary" v-html="slider.description"></a>
                             </div>
                         </div>
                     </div>
