@@ -1,13 +1,4 @@
 <template>
-    <!-- <?php
-if (!empty($msg)) {
-    $type_msg = $msg['type'];
-    $icon_msg = $msg['icon'];
-    $pos_msg = $msg['position'];
-    $content_msg = $msg['content'];
-    echo "<script>notify('$type_msg', '$icon_msg', '$pos_msg', '$content_msg')</script>";
-}
-?> -->
 <!-- Login Section Start -->
 <div class="section section-margin login" data-aos="fade-right">
     <div class="container">
@@ -36,7 +27,7 @@ if (!empty($msg)) {
                         </div>
                     </form>
                     <div class="register">
-                        <a href="javascript:;" id="register" onclick="loadContent('register')">Tạo tài khoản</a>
+                        <router-link :to="{name: 'register'}" id="register">Tạo tài khoản</router-link>
                     </div>
                 </div>
             </div>

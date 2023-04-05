@@ -1,12 +1,4 @@
 <template>
-    <!-- if (!empty($msg)) {
-    $type_msg = $msg['type'];
-    $icon_msg = $msg['icon'];
-    $pos_msg = $msg['position'];
-    $content_msg = $msg['content'];
-    echo "<script>notify('$type_msg', '$icon_msg', '$pos_msg', '$content_msg')</script>";
-}
-?> -->
 <!-- Register Section Start -->
 <div data-aos="fade-right" data-aos-offset="300" data-aos-easing="ease-in-sine">
     <div class="section section-margin">
@@ -42,7 +34,7 @@
                             </div>
                         </form>
                         <div>
-                            <a href="javascript:;" class="hover-text-primary" onclick="loadContent('login')">Đăng Nhập</a>
+                            <router-link :to="{name: 'login'}" class="hover-text-primary">Đăng Nhập</router-link>
                         </div>
                         <!-- Form Action End -->
                     </div>
