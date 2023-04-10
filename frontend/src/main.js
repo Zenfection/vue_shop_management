@@ -5,10 +5,13 @@ import router from './routers';
 
 //! lost animate.css
 import AOS from 'aos';
-import 'aos/dist/aos.css';
+import Pace from 'pace-js';
 
-const app = createApp(App).use(router).use(createPinia());
+createApp(App)
+    .use(router)
+    .use(createPinia())
+    .mount('#app');
 
-app.mount('#app');
+Pace.start();
 
 AOS.init({ disable: 'phone' });
