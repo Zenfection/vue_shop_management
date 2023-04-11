@@ -1,3 +1,3 @@
 <template>
-    Đây là Cart
+    Cart Product
 </template>
