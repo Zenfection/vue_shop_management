@@ -1,36 +1,23 @@
 <script setup>
 
-//* Header Search Action
-
 import { logoURL } from '@/config.js'
-import { ref } from 'vue';
-import { defineStore } from 'pinia';
+import { ref, watchEffect } from 'vue';
+import { useUserStore } from '@/stores/user.store.js'
 
-const isSearchOpen = ref(false);
+const isSearchOpen = ref(false)
+
+const userStore = useUserStore()
+userStore.restoreState()
+
+const isLogged = ref(userStore.isAuthenticated ?? false)
+
+watchEffect(() => {
+    isLogged.value = userStore.isAuthenticated ?? false
+})
 
 const handleSearchToggle = () => {
     isSearchOpen.value = !isSearchOpen.value
 }
-
-const useUserStore = defineStore({
-    id: 'user',
-    state: () => ({
-        user: null,
-    }),
-    getters: {
-        isLoggedIn() {
-            return !!this.user
-        },
-    },
-    actions: {
-        login(user) {
-            this.user = user
-        },
-        logout() {
-            this.user = null
-        },
-    },
-})
 </script>
 
 <template>
@@ -110,13 +97,13 @@ const useUserStore = defineStore({
                             <!-- Header Action Search Button End -->
 
                             <!-- account login -->
-                            <router-link :to="{name: 'account'}"  class='header-action-btn header-action-btn-wishlist'>
+                            <router-link v-if="isLogged" :to="{name: 'account'}"  class='header-action-btn header-action-btn-wishlist'>
                                 <i class='fa-duotone fa-user-gear fa-xl'></i>
                             </router-link>
 
-                            <!-- <router-link :to="{name: 'login'}" id='logged' class='header-action-btn header-action-btn-wishlist'>
+                            <router-link v-if="!isLogged" :to="{name: 'login'}" id='logged' class='header-action-btn header-action-btn-wishlist'>
                                 <i class='fa-duotone fa-user fa-xl'></i>
-                            </router-link> -->
+                            </router-link>
                             <!-- <?php
 
                         <?php $this->render('blocks/cart', $data) ?> -->

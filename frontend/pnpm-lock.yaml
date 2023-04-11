@@ -7,6 +7,9 @@ dependencies:
   aos:
     specifier: ^2.3.4
     version: 2.3.4
+  axios:
+    specifier: ^1.3.5
+    version: 1.3.5
   bootstrap:
     specifier: ^5.2.3
     version: 5.2.3(@popperjs/core@2.11.7)
@@ -699,6 +702,16 @@ packages:
     dependencies:
       follow-redirects: 1.15.2
       form-data: 4.0.0
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
+  /axios@1.3.5:
+    resolution: {integrity: sha512-glL/PvG/E+xCWwV8S6nCHcrfg1exGx7vxyUIivIA1iL7BIh6bePylCfVHwp6k13ao7SATxB6imau2kqY+I67kw==}
+    dependencies:
+      follow-redirects: 1.15.2
+      form-data: 4.0.0
+      proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
     dev: false
@@ -1591,6 +1604,10 @@ packages:
     engines: {node: '>=10.13.0'}
     hasBin: true
     dev: true
+
+  /proxy-from-env@1.1.0:
+    resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
+    dev: false
 
   /punycode@2.3.0:
     resolution: {integrity: sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==}

@@ -3,10 +3,13 @@ import { shape, homeBackground, sliders } from '@/config.js'
 import { ref, onMounted } from 'vue'
 import anime from 'animejs'
 import { tns } from "tiny-slider/src/tiny-slider"
+import { useUserStore } from '@/stores/user.store.js'
+
+const userStore = useUserStore()
+userStore.restoreState()
 
 const lettersEl = ref(null)
-
-const isLogged = ref(false)
+const isLogged = ref(userStore.isAuthenticated ?? false)
 
 onMounted(() => {
     if (lettersEl.value) {
