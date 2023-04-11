@@ -1,3 +1,7 @@
+<script setup>
+
+</script>
+
 <template>
-    Đây là Account
+    
 </template>

@@ -1,5 +1,5 @@
 <script setup>
-import { shape, homeBackground, sliders } from '@/config.js'
+import { contents, images } from '@/global/index.js'
 import { ref, onMounted } from 'vue'
 import anime from 'animejs'
 import { tns } from "tiny-slider/src/tiny-slider"
@@ -85,7 +85,7 @@ onMounted(() => {
     <!-- start hero -->
     <section class="hero-1 bg-white position-relative d-flex align-items-center justify-content-center overflow-hidden">
         <div class="shapes">
-            <div v-for="(item, index) in shape" :key="index" :class="`shape-${index + 1}`">
+            <div v-for="(item, index) in images.shape" :key="index" :class="`shape-${index + 1}`">
                 <img :src="item" alt="shape" />
             </div>
         </div>
@@ -121,7 +121,7 @@ onMounted(() => {
                     </router-link>
                 </div>
                 <div class="col-lg-6 mt-lg-4 pt-2 mt-5 d-lg-flex d-none" data-aos="fade-left">
-                    <img class="fit-image" :src="homeBackground" alt="home Image" />
+                    <img class="fit-image" :src="images.homeBackground" alt="home Image" />
                 </div>
             </div>
         </div>
@@ -141,7 +141,7 @@ onMounted(() => {
             <div class="row text-center">
                 <div class="col-lg-12">
                     <div class="feature-slider">
-                        <div v-for="slider in sliders" :key="slider.title">
+                        <div v-for="slider in contents.sliders" :key="slider.title">
                             <div class="mt-4 pt-2">
                                 <div class="solution border rounded position-relative px-4 py-5 ">
                                     <div class="sw-1 mb-4 sol-icon">

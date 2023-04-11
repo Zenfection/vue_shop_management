@@ -1,5 +1,5 @@
 <script setup>
-    import { aboutBackground, team1 } from '@/config.js';
+    import { images  } from '@/global/index.js';
 </script>
 
 <template>
@@ -10,7 +10,7 @@
                 <div class="col-md-6 pe-lg-5 p-r-15 m-b-30" data-aos="fade-right" data-aos-duration="1000">
                     <!-- About Thumb Start -->
                     <div class="about-thumb">
-                        <img class="fit-image" :src="aboutBackground" />
+                        <img class="fit-image" :src="images.aboutBackground" />
                     </div>
                     <!-- About Thumb End -->
                 </div>
@@ -52,7 +52,7 @@
                     <div class="single-team-wrapper">
                         <div class="thumb">
                             <a href="javascript:;" onclick="loadContent('contact')">
-                                <img class="fit-image" :src="team1"
+                                <img class="fit-image" :src="images.team1"
                                     alt="Team Image" style="height: 270px" />
                             </a>
                             <!-- Social Shear Start -->

@@ -1,6 +1,6 @@
 <script setup>
 
-import { logoURL } from '@/config.js'
+import { images } from '@/global/index.js'
 import { ref, watchEffect } from 'vue';
 import { useUserStore } from '@/stores/user.store.js'
 
@@ -29,7 +29,7 @@ const handleSearchToggle = () => {
                     <div class="col-lg-3 col-md-4 col-6" data-aos="fade-in" data-aos-duration="1000">
                         <div class="header-logo">
                             <router-link :to="{ name: 'home' }">
-                                <img :src="logoURL" alt="Site Logo" />
+                                <img :src="images.logo" alt="Site Logo" />
                             </router-link>
                         </div>
                     </div>
