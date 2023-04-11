@@ -1,12 +1,21 @@
 import express from 'express'
-import { body } from 'express-validator'
+import { body, oneOf, validationResult } from 'express-validator'
 import { userController } from '../controllers/index.js'
 
 const router = express.Router()
 
-router.get(':id', userController.getDetailUser)
+router.get('/:id', userController.getDetailUser)
 
-router.post('/login', body('email').isEmail(), body('password').isLength({ min: 5 }), userController.login)
+router.post('/login', [
+    oneOf([
+    body('username')
+        .exists().withMessage('Username is required')
+        .isLength({ min: 5 }).withMessage('Username must be at least 5 characters'),
+    body('email')
+        .exists().withMessage('Email is required')
+        .isEmail().withMessage('Invalid email address')
+    ])
+], userController.login);
 
 router.post('/register', userController.register)
 

@@ -6,42 +6,73 @@ class UserService {
         this.User = client.db().collection('users')
     }
 
-    async validate(user){
+    async validate(user) {
         const errors = {};
 
-        if (!validator.isEmail(user.email)) {
+        //* username, fullname, email, password, phone, address, province, city, ward
+        if (!validator.isLength(user.username, { min: 6 }) || !validator.isAlphanumeric(user.username)) {
+            errors.username = 'Username length must be at least 6 characters and only contain letters and numbers'
+        } else if (!validator.isLength(user.fullname, { min: 6 })) {
+            errors.fullname = 'Fullname length must be at least 6 characters'
+        } else if (!validator.isEmail(user.email)) {
             errors.email = 'Email is not valid'
-        } else if(!validator.isMobilePhone(user.phone, 'vi-VN')) {
-            errors.phone = 'Phone is not valid'
-        } else if(!validator.isLength(user.password, { min: 6})) {
+        } else if (!validator.isLength(user.password, { min: 6 })) {
             errors.password = 'Password length must be at least 6 characters'
-        } else if(!validator.isLength(user.name, { min: 6})) {
-            errors.name = 'Name length must be at least 6 characters'
-        } else if(!validator.isLength(user.address, { min: 6})) {
-            errors.address = 'Address length must be at least 6 characters'
         }
 
-        let existUser = await this.User.findOne({ email: user.email })
-        if(existUser){
+        //* phone
+        if (user.phone && !validator.isMobilePhone(user.phone)) {
+            errors.phone = 'Phone is not valid';
+        }
+
+        //* address, province, city, ward
+        if (user.address && !validator.isLength(user.address, { min: 6 })) {
+            errors.address = 'Address length must be at least 6 characters';
+        }
+        if (user.province && !validator.isLength(user.province, { min: 2 })) {
+            errors.province = 'Province length must be at least 2 characters';
+        }
+        if (user.city && !validator.isLength(user.city, { min: 2 })) {
+            errors.city = 'City length must be at least 2 characters';
+        }
+        if (user.ward && !validator.isLength(user.ward, { min: 2 })) {
+            errors.ward = 'Ward length must be at least 2 characters';
+        }
+
+        let existUser = await this.User.findOne({ email })
+        let existUsername = await this.User.findOne({ username })
+        if (existUser) {
             errors.email = 'Email is already exist'
-        }
-
-        if (Object.keys(errors).length > 0) {
-            throw new Error(JSON.stringify(errors))
-        }
-    }
-
-    extactUserData(payload) {
-        const user = {
-            _id: payload._id && ObjectId.createFromHexString(payload._id),
-            name: payload.name,
-            email: payload.email,
-            password: payload.password,
-            phone: payload.phone,
-            address: payload.address,
+        } else if(existUsername) {
+            errors.username = 'Username is already exist'
         }
         
-        this.validate(user)
+        return Object.keys(errors).length > 0 ? errors : null
+    }
+
+    async extactUserData(payload) {
+        // accept null: phone, address, province, city, ward
+        const user = {
+            _id: payload._id && ObjectId.createFromHexString(payload._id),
+            username: payload.username,
+            fullname: payload.fullname,
+            email: payload.email,
+            password: payload.password,
+            active: payload.active ?? true,
+            phone: payload.phone ?? null,
+            address: payload.address ?? null,
+            province: payload.province ?? null,
+            city: payload.city ?? null,
+            ward: payload.ward ?? null,
+        }
+
+        const errors = await this.validate(user)
+        if (!!errors) {
+            return {
+                messageError: "Input Error",
+                validationErrors: errors
+            }
+        }
 
         Object.keys(user).forEach(
             (key) => (user[key] === undefined) && delete user[key]
@@ -50,8 +81,12 @@ class UserService {
     }
 
     async create(payload) {
-        const user = this.extactUserData(payload)
-        
+        const user = await this.extactUserData(payload)
+    
+        if (user.messageError) {
+            return user
+        }
+
         await this.User.findOneAndUpdate(
             { email: user.email },
             { $set: user },
@@ -60,24 +95,30 @@ class UserService {
         return user
     }
 
-    async find(filter){
+    async find(filter) {
         const cursor = this.User.find(filter);
         return cursor.toArray()
     }
 
-    async findById(id){
+    async findById(id) {
         return await this.User.findOne({
             _id: ObjectId.createFromHexString(id)
         })
     }
 
-    async findByEmail(email){
+    async findByEmail(email) {
         return await this.User.findOne({
             email
-        })  
+        })
     }
 
-    async update(id, payload){
+    async findByUsername(username) {
+        return await this.User.findOne({
+            username
+        })
+    }
+
+    async update(id, payload) {
         const filter = {
             _id: ObjectId.createFromHexString(id)
         }
@@ -90,14 +131,14 @@ class UserService {
         return result.value
     }
 
-    async delete(id){
+    async delete(id) {
         const result = await this.User.findOneAndDelete({
             _id: ObjectId.createFromHexString(id)
         })
         return result.value
     }
 
-    async deleteAll(){
+    async deleteAll() {
         const result = await this.User.deleteMany({})
         return result.deletedCount
     }

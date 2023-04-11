@@ -4,10 +4,15 @@ import { Exception } from '../errors/index.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-const login = async ({ email, password }) => {
+const login = async ({username, email, password }) => {
     try {
         const User = new UserService(MongoDB.client)
-        let existUser = await User.findByEmail(email)
+        let existUser = null
+        if(!!username){
+            existUser = await User.findByUsername(username)
+        } else {
+            existUser = await User.findByEmail(email)
+        }
         if(existUser){
             let isMatch = await bcrypt.compare(password, existUser.password)
             if(!!isMatch){
@@ -31,7 +36,7 @@ const login = async ({ email, password }) => {
     }
 }
 
-const register = async ({ email, password, name, phone, address }) => {
+const register = async ({ username, fullname, email, password, active, phone, address, province, city, ward }) => {
     try{
         // hash password
         let hashedPassword = await bcrypt.hash(password, parseInt(process.env.SECRET_PHARSE))
@@ -39,11 +44,16 @@ const register = async ({ email, password, name, phone, address }) => {
         // use service create
         const User = new UserService(MongoDB.client);
         const result = await User.create({
+            username,
+            fullname,
             email,
             password: hashedPassword,
-            name,
+            active,
             phone,
-            address
+            address,
+            province,
+            city,
+            ward
         });
         return result
     } catch (error){
@@ -52,7 +62,18 @@ const register = async ({ email, password, name, phone, address }) => {
     }
 }
 
+const getDetailUser = async (id) => {
+    try {
+        const user = new UserService(MongoDB.client)
+        const result = await user.findById(id)
+        return result
+    } catch (error) {
+        throw new Exception('Can not get detail student', error)
+    }
+}
+
 export default {
     login,
-    register
+    register,
+    getDetailUser
 }
