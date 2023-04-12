@@ -1,9 +1,9 @@
 import ApiService from './api.service';
 
-const baseUrl = '/api/users';
+const baseUrl = 'https://vue-shop-qfco.onrender.com/users'
 class UserService {
     
-    constructor(baseUrl = '/api/users') {
+    constructor() {
         this.api = ApiService;
         this.api.init(baseUrl);
     }
