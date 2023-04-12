@@ -1,8 +1,11 @@
-import createApiClient from './api.service';
+import ApiService from './api.service';
 
+const baseUrl = '/api/users';
 class UserService {
+    
     constructor(baseUrl = '/api/users') {
-        this.api = createApiClient(baseUrl);
+        this.api = ApiService;
+        this.api.init(baseUrl);
     }
 
     async getAll(){

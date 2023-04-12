@@ -26,6 +26,7 @@
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
     "chalk": "^5.2.0",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "wrangler": "2.15.0"
   }
 }

@@ -2,13 +2,19 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 
 import express from 'express'
+import cors from 'cors'
 import {MongoDB, print, type} from './app/utils/index.js'
 import { usersRouter, studentsRouter } from './app/routes/index.js'
 import { Exception }  from './app/errors/index.js'
-
 import checkToken from './app/middlewares/auth.js'
 
 const app = express();
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+}))
 const PORT = process.env.PORT || 3000;
 
 app.use(checkToken)
