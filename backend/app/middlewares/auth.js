@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 
 
 const byPassToken = (req) => {
-    const PUBLIC_URLS = ['/users/login', '/users/register'];
+    const PUBLIC_URLS = ['/users/login', '/users/register', '/categories'];
     let url = req.url.toLowerCase().trim()
     return PUBLIC_URLS.includes(url)
 }

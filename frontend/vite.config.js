@@ -1,39 +1,46 @@
-import { fileURLToPath, URL } from 'node:url'
-
+import path from 'path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import * as dotenv from 'dotenv'
-dotenv.config()
-
-// BACKEND_URL_DEV, BACKEND_URL_PROD
-const backendUrl = process.env.PROJECT == 'production'
-  ? process.env.BACKEND_URL_PROD
-  : process.env.BACKEND_URL_DEV;
-
-console.log('backendUrl', backendUrl)
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import VueRouter from 'unplugin-vue-router/vite'
+import { VueRouterAutoImports } from 'unplugin-vue-router'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    Components({ /* options */ }),
+    AutoImport({
+      imports: [
+        'vue',
+        'pinia',
+        VueRouterAutoImports
+      ],
+      dts: true,
+    }),
+    vue(),
+  ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': path.resolve(__dirname, 'src'),
     }
   },
   // server port
   server: {
-    // host: true,
     port: 8080,
-    proxy: {
-      '/api': {
-        target: backendUrl,
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      }
-    },
-    //https: true,
+    // proxy: {
+    //   '/api': {
+    //     target: 'http://localhost:3000',
+    //     changeOrigin: true,
+    //     rewrite: (path) => path.replace(/^\/api/, ''),
+    //   }
+    // },
+    // https: true,
     sourcemapIgnoreList(sourcePath, sourcemapPath) {
       return sourcePath.includes('node_modules')
-    }
-  }
+    },
+  },
+  optimizeDeps: {
+    include: ['axios'],
+  },
 })

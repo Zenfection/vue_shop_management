@@ -1,6 +1,8 @@
 <script setup>
-import Slider from '../components/home/Slider.vue'
-import HeroIntro from '../components/home/HeroIntro.vue'
+import Slider from '@/components/home/Slider.vue'
+import HeroIntro from '@/components/home/HeroIntro.vue'
+import Category from '@/components/home/Category.vue'
+import ProductFeatureVue from '@/components/home/ProductFeature.vue'
 </script>
 
 <template>
@@ -8,11 +10,7 @@ import HeroIntro from '../components/home/HeroIntro.vue'
 
     <Slider/>
 
-    <!-- Category Section Start -->
+    <Category/>
 
-    <!-- Category Section End -->
-
-    <!-- Product Section Start -->
-
-    <!-- Product Section End -->
+    <ProductFeatureVue/>
 </template>

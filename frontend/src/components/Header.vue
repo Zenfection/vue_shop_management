@@ -4,7 +4,7 @@
     import Search from './header/Search.vue'
     import UserMenu from './header/UserMenu.vue'
     import Cart from './header/CartMenu.vue'
-    import Mobile from './header/Mobile.vue'
+    import Mobile from './header/MobileReponsitive.vue'
 </script>
 
 <template>

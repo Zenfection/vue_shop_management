@@ -4,13 +4,13 @@ dotenv.config()
 import express from 'express'
 import cors from 'cors'
 import {MongoDB, print, type} from './app/utils/index.js'
-import { usersRouter, studentsRouter } from './app/routes/index.js'
+import { usersRouter, studentsRouter, categoriesRouter } from './app/routes/index.js'
 import { Exception }  from './app/errors/index.js'
 import checkToken from './app/middlewares/auth.js'
 
 const app = express();
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
+  origin: process.env.FRONTEND_URL.split(','), // allow to server to accept request from different origin
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Requested-With'],
@@ -23,6 +23,7 @@ app.use(express.json())
 // routers
 app.use('/users', usersRouter)
 app.use('/students', studentsRouter)
+app.use('/categories', categoriesRouter)
 
 const handleMongoDBError = (error) => {
   const { code } = error;
