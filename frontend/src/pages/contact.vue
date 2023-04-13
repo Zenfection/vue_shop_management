@@ -1,3 +1,9 @@
+<script setup>
+useHead({
+    title: 'Liên Hệ',
+})
+</script>
+
 <template>
     <!-- Contact Us Section Start -->
     <div class="section section-margin">
@@ -20,25 +26,29 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="input-area m-b-20">
-                                                <input class="input-item form-control" type="text" placeholder="Họ Tên *" name="name">
+                                                <input class="input-item form-control" type="text" placeholder="Họ Tên *"
+                                                    name="name">
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="input-area m-b-20">
-                                                <input class="input-item form-control" type="email" placeholder="Email *" name="email">
+                                                <input class="input-item form-control" type="email" placeholder="Email *"
+                                                    name="email">
                                             </div>
                                         </div>
 
                                         <div class="col-12">
                                             <div class="input-area m-b-20">
-                                                <input class="input-item form-control" type="text" placeholder="Chủ đề *" name="subject">
+                                                <input class="input-item form-control" type="text" placeholder="Chủ đề *"
+                                                    name="subject">
                                             </div>
                                         </div>
 
                                         <div class="col-12">
                                             <div class="input-area m-b-40">
-                                                <textarea cols="30" rows="5" class="textarea-item form-control" name="message" placeholder="Tin nhắn"></textarea>
+                                                <textarea cols="30" rows="5" class="textarea-item form-control"
+                                                    name="message" placeholder="Tin nhắn"></textarea>
                                             </div>
                                         </div>
 
@@ -67,8 +77,8 @@
                             referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                     <!-- Google Map Area Start -->
+                </div>
             </div>
-        </div>
 
     </div>
 </div>

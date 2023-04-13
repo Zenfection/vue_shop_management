@@ -1,7 +1,8 @@
 <script setup>
 
-import { useRouter } from 'vue-router';
-import { UserService } from '@/services/server.service.js'
+useHead({
+    title: 'Đăng nhập',
+})
 
 const userStore = UserStore();
 const router = useRouter();
@@ -18,7 +19,7 @@ const handleSubmit = async () => {
         const response = await UserService.login(data);
         if (response.user) {
             userStore.login(response.user)
-            router.push({ name: 'home' });
+            router.push(`/`)
         }
     } catch (error) {
         console.log(error);
@@ -57,7 +58,7 @@ const handleSubmit = async () => {
                             </div>
                         </form>
                         <div class="register">
-                            <router-link :to="{ name: 'register' }" id="register">Tạo tài khoản</router-link>
+                            <RouterLink to="register" id="register">Tạo tài khoản</RouterLink>
                         </div>
                     </div>
                 </div>

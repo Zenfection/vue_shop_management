@@ -5,7 +5,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import Inspector from 'vite-plugin-vue-inspector'
 import Pages from 'vite-plugin-pages'
-import Layouts from 'vite-plugin-vue-layouts';
+import Layouts from 'vite-plugin-vue-layouts'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -22,8 +22,9 @@ export default defineConfig({
       ],
       imports: [
         'vue',
-        'vue-router',
         'pinia',
+        'vue-router',
+        '@vueuse/head',
         // custom imports
         {
           'axios': [
@@ -60,9 +61,7 @@ export default defineConfig({
       ],
     }),
     vue(),
-    Pages({
-      dirs: ['./src/views'],
-    }),
+    Pages(),
     Layouts(),
     Inspector(),
   ],

@@ -4,19 +4,19 @@
             <div class="container">
                 <div class="row align-items-center position-relative">
                     
-                    <logo></logo>
+                    <Logo />
                     
-                    <nav-menu></nav-menu>
+                    <NavMenu />
     
                     <div class="col-lg-4 col-md-8 col-6">
                         <div class="header-actions" id="header">
-                            <search></search>
+                            <Search />
 
-                            <user-menu></user-menu>
+                            <UserMenu />
 
-                            <cart-menu></cart-menu>
+                            <CartMenu />
 
-                            <mobile-reponsitive></mobile-reponsitive>
+                            <MobileReponsitive />
                         </div>
                     </div>
                 </div>

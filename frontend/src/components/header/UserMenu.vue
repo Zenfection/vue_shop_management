@@ -1,4 +1,6 @@
 <script setup>
+import { RouterLink } from 'vue-router';
+
 
 const userStore = UserStore()
 userStore.restoreState()
@@ -11,11 +13,11 @@ watchEffect(() => {
 </script>
 
 <template>
-    <router-link v-if="isLogged" :to="{ name: 'account' }" class='header-action-btn header-action-btn-wishlist'>
+    <RouterLink v-if="isLogged" to="account" class='header-action-btn header-action-btn-wishlist'>
         <i class='fa-duotone fa-user-gear fa-xl'></i>
-    </router-link>
+    </RouterLink>
 
-    <router-link v-if="!isLogged" :to="{ name: 'login' }" id='logged' class='header-action-btn header-action-btn-wishlist'>
+    <RouterLink v-if="!isLogged" to="login" id='logged' class='header-action-btn header-action-btn-wishlist'>
         <i class='fa-duotone fa-user fa-xl'></i>
-    </router-link>
+    </RouterLink>
 </template>

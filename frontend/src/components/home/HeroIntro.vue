@@ -88,12 +88,12 @@ onMounted(() => {
                         Sản phẩm được phát triển cả nhân nên có rất nhiều lỗi <br />
                         nếu bạn phát hiện hãy liên hệ với tôi bên trên.
                     </p>
-                    <router-link v-if="isLogged" :to="{ name: 'shop' }" class="btn btn-primary mt-4">Mua Hàng
+                    <RouterLink v-if="isLogged" to="shop" class="btn btn-primary mt-4">Mua Hàng
                         <i class="fa-duotone fa-cart-shopping-fast fa-xl"></i>
-                    </router-link>
-                    <router-link v-if="!isLogged" :to="{ name: 'login' }" class="btn btn-primary mt-4">Đăng Nhập
+                    </RouterLink>
+                    <RouterLink v-if="!isLogged" to="login" class="btn btn-primary mt-4">Đăng Nhập
                         <i class="fa-duotone fa-arrow-right-to-bracket fa-xl"></i>
-                    </router-link>
+                    </RouterLink>
                 </div>
                 <div class="col-lg-6 mt-lg-4 pt-2 mt-5 d-lg-flex d-none" data-aos="fade-left">
                     <IKImage class="fit-image" :path="homeBackground.src" :alt="homeBackground.alt" :width="homeBackground.width" /> 

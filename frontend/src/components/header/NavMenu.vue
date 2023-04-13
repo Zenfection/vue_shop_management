@@ -3,25 +3,25 @@
         <div class="main-menu">
             <ul>
                 <li class="nav-item">
-                    <router-link :to="{ name: 'home' }" class="nav-link" exact-active-class="active" active-class="active">
+                    <RouterLink to="/" exact-active-class="active" active-class="active">
                         Trang Chủ
-                    </router-link>
+                    </RouterLink>
                 </li>
                 <li class="nav-item">
-                    <router-link :to="{ name: 'about' }" class="nav-link" exact-active-class="active" active-class="active">
+                    <RouterLink to="about" exact-active-class="active" active-class="active">
                         Giới Thiệu
-                    </router-link>
+                    </RouterLink>
                 </li>
                 <li class="nav-item">
-                    <router-link :to="{ name: 'shop' }" class="nav-link" exact-active-class="active" active-class="active">
+                    <RouterLink to="shop" exact-active-class="active" active-class="active">
                         Shop
-                    </router-link>
+                    </RouterLink>
                 </li>
                 <li class="nav-item">
-                    <router-link :to="{ name: 'contact' }" class="nav-link" exact-active-class="active"
+                    <RouterLink to="contact" exact-active-class="active"
                         active-class="active">
                         Liên Hệ
-                    </router-link>
+                    </RouterLink>
                 </li>
             </ul>
         </div>
