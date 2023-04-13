@@ -1,7 +1,7 @@
 <script setup>
 
 const userStore = UserStore()
-if(!!userStore.user){
+if (!!userStore.user) {
     userStore.restoreState()
 }
 
@@ -16,7 +16,7 @@ watchEffect(() => {
 <template>
     <!-- Header Action Button Start -->
     <div class="header-action-btn header-action-btn-cart d-none d-sm-flex">
-        <a class="cart-visible" href="javascript:void(0)">
+    <div class="cart-visible cursor-pointer">
         <i class="fa-duotone fa-bag-shopping fa-xl"></i>
         <!-- <?php
         if (!empty($user)) {
@@ -24,7 +24,7 @@ watchEffect(() => {
             echo "<span class='header-action-num' id='count-cart'>" . $countCart . "</span>";
         }
         ?> -->
-    </a>
+    </div>
 
     <!-- Header Cart Content Start -->
     <div class="header-cart-content animate__animated">
@@ -36,20 +36,20 @@ watchEffect(() => {
                     $id = $value['id_product'];
                     $name = $value['name'];
                     $amount = $value['amount'];
-                        $image = $value['image'];
-                        $price = $value['price'];
-                        $discount = $value['discount'];
-                        $discount_price = $price - ($price * $discount / 100);
+                            $image = $value['image'];
+                            $price = $value['price'];
+                            $discount = $value['discount'];
+                            $discount_price = $price - ($price * $discount / 100);
 
                     $cart_product = [
                         'id' => $id,
-                            'name' => $name,
-                            'amount' => $amount,
-                            'image' => $image,
-                            'price' => number_price($price),
-                            'discount' => $discount,
-                            'discount_price' => number_price($discount_price),
-                        ];
+                                'name' => $name,
+                                'amount' => $amount,
+                                'image' => $image,
+                                'price' => number_price($price),
+                                'discount' => $discount,
+                                'discount_price' => number_price($discount_price),
+                            ];
             ?> -->
             <!-- Cart Product/Price Start -->
             <!-- <?php $this->render('blocks/cart_product', $cart_product)?> -->
@@ -57,7 +57,7 @@ watchEffect(() => {
             <!-- <?php
                 }
             }
-                ?> -->
+                    ?> -->
             </div>
             <!-- Cart Procut Wrapper -->
 
@@ -65,22 +65,20 @@ watchEffect(() => {
             <div class="cart-product-total p-b-20 m-b-20 border-bottom">
                 <span class="value">Tổng tiền</span>
                 <!-- <?php
-                if(!empty($user)){
-                    //number format
-                    echo "<span class='value' id='totalmoney'>" . number_price($total_money) . "</span>";
-                } else {
-                    echo "<span class='value' id='totalmoney'>0 </span>";
-                }
-                ?> -->
+                    if(!empty($user)){
+                        //number format
+                        echo "<span class='value' id='totalmoney'>" . number_price($total_money) . "</span>";
+                    } else {
+                        echo "<span class='value' id='totalmoney'>0 </span>";
+                    }
+                    ?> -->
             </div>
             <!-- Cart Product Total End -->
 
             <!-- Cart Product Button Start -->
             <div class="cart-product-btn m-t-20">
-            <a href="javascript:;" class="btn btn-outline-light btn-hover-primary w-100"
-                onclick="loadContent('viewcart')">Giỏ Hàng</a>
-            <a href="javascript:;" class="btn btn-outline-light btn-hover-primary w-100 m-t-20"
-                onclick="loadContent('checkout')">Thanh Toán</a>
+                <RouterLink to="" class="btn btn-outline-light btn-hover-primary w-100">Giỏ Hàng</RouterLink>
+                <RouterLink to="" class="btn btn-outline-light btn-hover-primary w-100 m-t-20">Thanh Toán</RouterLink>
             </div>
             <!-- Cart Product Button End -->
         </div>

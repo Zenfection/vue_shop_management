@@ -1,21 +1,21 @@
 
 const userService = (baseUrl) => ({
-    getAll: async () => await http.get(baseUrl),
-    create: async (data) => await http.post(`${baseUrl}/register`, data),
+    //getAll: async () => await http.get(baseUrl),
+    //create: async (data) => await http.post(`${baseUrl}/register`, data),
     login: async (data) => await http.post(`${baseUrl}/login`, data),
-    get: async (id) => await http.get(`${baseUrl}/${id}`),
-    update: async (id, data) => await http.put(`${baseUrl}/${id}`, data),
-    delete: async (id) => await http.delete(`${baseUrl}/${id}`),
-    deleteAll: async () => await http.delete(baseUrl),
+    //get: async (id) => await http.get(`${baseUrl}/${id}`),
+    //update: async (id, data) => await http.put(`${baseUrl}/${id}`, data),
+    //delete: async (id) => await http.delete(`${baseUrl}/${id}`),
+    //deleteAll: async () => await http.delete(baseUrl),
 })
 
 const categoryService = (baseUrl) => ({
     getAll: async () => await http.get(baseUrl),
-    create: async (data) => await http.post(baseUrl, data),
-    get: async (id) => await http.get(`${baseUrl}/${id}`),
-    update: async (id, data) => await http.put(`${baseUrl}/${id}`, data),
-    delete: async (id) => await http.delete(`${baseUrl}/${id}`),
-    deleteAll: async () => await http.delete(baseUrl),
+    // create: async (data) => await http.post(baseUrl, data),
+    // get: async (id) => await http.get(`${baseUrl}/${id}`),
+    // update: async (id, data) => await http.put(`${baseUrl}/${id}`, data),
+    // delete: async (id) => await http.delete(`${baseUrl}/${id}`),
+    // deleteAll: async () => await http.delete(baseUrl),
 })
 
 

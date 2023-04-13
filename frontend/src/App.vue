@@ -1,6 +1,13 @@
 <script setup>
 import "@/assets/icon/icon-zen.min.js"; // icon fontAwesomePro 6
 
+useHead({
+    title: "ZenShop",
+    meta: {
+        name: "description",
+        content: "ZenShop - Dự án mua sắm trực tuyến Vue3"
+    }
+})
 </script>
 
 <template>

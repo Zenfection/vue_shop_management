@@ -6,7 +6,7 @@
                 <li><RouterLink to="login">Đăng nhập</RouterLink></li>
                 <li><RouterLink to="register">Đăng ký</RouterLink></li>
                 <li><RouterLink to="cart">Xem Giỏ Hàng</RouterLink></li>
-                <li><a>Thanh Toán</a></li>
+                <li><RouterLink to="">Thanh Toán</RouterLink></li> 
             </ul>
         </div>
     </div>

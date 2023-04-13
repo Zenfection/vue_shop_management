@@ -21,23 +21,17 @@
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="top-product-ranking">
                         <div class="row m-b-n40">
-                            <!-- <?php
-                            $this->render('products/list', $top_product_ranking, false);
-                            ?> -->
+                            <TopProduct>Top Product Ranking</TopProduct>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="top-product-discount">
                         <div class="row m-b-n40">
-                            <!-- <?php
-                            $this->render('products/list', $top_product_discount, false);
-                            ?> -->
+                            <TopProduct>Top Product Discount</TopProduct>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="top-product-seller">
                         <div class="row m-b-n40">
-                            <!-- <?php
-                            $this->render('products/list', $top_product_seller, false);
-                            ?> -->
+                            <TopProduct>Top Product Seller</TopProduct>
                         </div>
                     </div>
                 </div>

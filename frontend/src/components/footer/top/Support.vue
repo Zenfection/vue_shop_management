@@ -3,9 +3,9 @@
         <div class="single-footer-widget">
             <h2 class="widget-title">Hỗ Trợ</h2>
             <ul class="widget-list">
-                <li><a href="#">Phí Giao hàng</a></li>
-                <li><a href="#">Tra cứu đơn hàng</a></li>
-                <li><a href="#">Hoàn trả hàng</a></li>
+                <li><RouterLink to="">Phí Giao hàng</RouterLink></li>
+                <li><RouterLink to="">Tra cứu đơn hàng</RouterLink></li>
+                <li><RouterLink to="">Hoàn trả hàng</RouterLink></li>
             </ul>
         </div>
     </div>

@@ -32,6 +32,7 @@ declare module '@vue/runtime-core' {
     Slider: typeof import('./components/home/Slider.vue')['default']
     SocialLink: typeof import('./components/footer/top/SocialLink.vue')['default']
     Support: typeof import('./components/footer/top/Support.vue')['default']
+    TopProduct: typeof import('./components/home/ProductFeature/TopProduct.vue')['default']
     UserMenu: typeof import('./components/header/UserMenu.vue')['default']
   }
 }

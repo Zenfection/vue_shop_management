@@ -6,6 +6,7 @@ export {}
 declare global {
   const Aos: typeof import('aos')['default']
   const CategoryService: typeof import('./services/server.service.js')['CategoryService']
+  const CategoryStore: typeof import('./stores/category.store.js')['CategoryStore']
   const EffectScope: typeof import('vue')['EffectScope']
   const IKContext: typeof import('imagekit-vue3')['IKContext']
   const IKImage: typeof import('imagekit-vue3')['IKImage']
@@ -18,7 +19,6 @@ declare global {
   const anime: typeof import('animejs')['default']
   const api: typeof import('@/global/index.js')['api']
   const axios: typeof import('axios')['default']
-  const categoryService: typeof import('./services/category.service.js')['default']
   const computed: typeof import('vue')['computed']
   const contents: typeof import('@/global/index.js')['contents']
   const createApp: typeof import('vue')['createApp']

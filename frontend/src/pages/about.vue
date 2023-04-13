@@ -65,9 +65,9 @@
                     <!-- Single Team Wrapper Start -->
                     <div class="single-team-wrapper">
                         <div class="thumb">
-                            <a href="javascript:;" onclick="loadContent('contact')">
+                            <RouterLink to="contact">
                                 <IKImage class="fit-image" :path="team1.src" :alt="team1.alt" :height="team1.height"/>
-                            </a>
+                            </RouterLink>
                             <!-- Social Shear Start -->
                             <div class="social-share">
                                 <a title="Facebook" href="https://facebook.com/zenfection" target="_blank">

@@ -61,6 +61,8 @@ onMounted(() => {
             <div v-for="(item, index) in shapes" :key="index" :class="`shape-${index + 1}`">
                 <IKImage
                     :path="item"
+                    :alt="`shape-${index + 1}`"
+                    :width="25"
                 />
             </div>
         </div>
@@ -68,21 +70,21 @@ onMounted(() => {
         <div class="container">
             <div class="row align-items-center text-center text-lg-start">
                 <div class="col-lg-6 mt-4 pt-2" data-aos="fade-in">
-                    <h6 class="text-primary mb-3 fw-hero">
+                    <div class="text-primary mb-3 fw-hero h6">
                         Được phát triển bởi
                         <a href="https://facebook.com/zenfection" target="_blank">
                             <u><i class="fa-duotone fa-at"></i>Zenfection</u>
                         </a>
-                    </h6>
-                    <h1 class="ml11 mb-2">
+                    </div>
+                    <div class="ml11 mb-2 h1">
                         <span class="text-wrapper">
                             <span class="line line1"></span>
                             <span class="letters pb-0 fw-hero" ref="lettersEl">Zen Shop Order</span>
                         </span>
-                    </h1>
-                    <h5 class="my-4 fw-hero">
+                    </div>
+                    <p class="my-4 fw-hero h5">
                         <i class="fa-duotone fa-phone-volume"></i> Liên hệ với tôi nếu bạn có ý tưởng
-                    </h5>
+                    </p>
 
                     <p class="text-danger mb-2 fw-hero">
                         Sản phẩm được phát triển cả nhân nên có rất nhiều lỗi <br />

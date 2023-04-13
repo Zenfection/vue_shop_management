@@ -13,11 +13,11 @@ watchEffect(() => {
 </script>
 
 <template>
-    <RouterLink v-if="isLogged" to="account" class='header-action-btn header-action-btn-wishlist'>
+    <RouterLink v-if="isLogged" to="account" class='header-action-btn header-action-btn-wishlist' tabindex="0">
         <i class='fa-duotone fa-user-gear fa-xl'></i>
     </RouterLink>
 
-    <RouterLink v-if="!isLogged" to="login" id='logged' class='header-action-btn header-action-btn-wishlist'>
+    <RouterLink v-if="!isLogged" to="login" class='header-action-btn header-action-btn-wishlist' tabindex="0">
         <i class='fa-duotone fa-user fa-xl'></i>
     </RouterLink>
 </template>

@@ -4,7 +4,7 @@ dotenv.config()
 import express from 'express'
 import cors from 'cors'
 import {MongoDB, print, type} from './app/utils/index.js'
-import { usersRouter, studentsRouter, categoriesRouter } from './app/routes/index.js'
+import { usersRouter, studentsRouter, categoriesRouter, productsRouter } from './app/routes/index.js'
 import { Exception }  from './app/errors/index.js'
 import checkToken from './app/middlewares/auth.js'
 
@@ -24,6 +24,7 @@ app.use(express.json())
 app.use('/users', usersRouter)
 app.use('/students', studentsRouter)
 app.use('/categories', categoriesRouter)
+app.use('/products', productsRouter)
 
 const handleMongoDBError = (error) => {
   const { code } = error;

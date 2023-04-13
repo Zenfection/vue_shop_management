@@ -1,12 +1,12 @@
 <template>
     <div class="header-action-btn header-action-btn-cart d-flex d-sm-none">
-        <a href="javascript:;" class="nav-content" onclick="loadContent('viewcart')">
+        <RouterLink to="" class="nav-content">
             <i class="fa-duotone fa-bag-shopping fa-xl"></i>
             <!-- <?php
             if (!empty($user)) {
                 echo "<span class='header-action-num'>" . $countCart . "</span>";
             }
             ?> -->
-        </a>
+        </RouterLink>
     </div>
 </template>

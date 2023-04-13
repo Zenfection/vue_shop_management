@@ -5,9 +5,7 @@
 <template>
     <div class="col-md-6 text-center text-md-end order-1 order-md-2 m-b-20">
         <div class="payment">
-            <a href="#">
-                <IKImage :path="payment" alt="Payment" />
-            </a>
+            <IKImage :path="payment" alt="Payment" />
         </div>
     </div>
 </template>

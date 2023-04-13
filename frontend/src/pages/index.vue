@@ -1,10 +1,3 @@
-<script setup>
-
-useHead({
-    title: 'Trang Chủ',
-})
-</script>
-
 <template>
     <HeroIntro />
 
@@ -12,5 +5,5 @@ useHead({
 
     <Category />
 
-    <!-- <ProductFeatureVue /> -->
+    <ProductFeature />
 </template>

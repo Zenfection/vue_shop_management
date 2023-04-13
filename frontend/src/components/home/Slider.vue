@@ -36,8 +36,8 @@
         <div class="container">
             <div class="row justify-content-center text-center">
                 <div class="col-12 mb-4">
-                    <h4 class="fw-semibold mb-3 fw-hero">Chức Năng Nổi Bật</h4>
-                    <h5 class="text-secondary fw-normal fw-hero">Liệt kê các nổi bật trong trang web</h5>
+                    <p class="fw-semibold mb-3 fw-hero h4">Chức Năng Nổi Bật</p>
+                    <p class="text-secondary fw-normal fw-hero h5">Liệt kê các nổi bật trong trang web</p>
                 </div>
             </div>
             <div class="row text-center">
@@ -49,8 +49,8 @@
                                     <div class="sw-1 mb-4 sol-icon">
                                         <i :class="slider.icon"></i>
                                     </div>
-                                    <h5 class="lh-base fs-16 mb-2">{{ slider.title }}</h5>
-                                    <a class="text-secondary" v-html="slider.description"></a>
+                                    <p class="lh-base fs-16 mb-2 h5">{{ slider.title }}</p>
+                                    <p class="text-secondary" v-html="slider.description"></p>
                                 </div>
                             </div>
                         </div>
