@@ -1,17 +1,13 @@
 <script setup>
-import Header from '@/components/Header.vue';
-import Footer from '@/components/Footer.vue';
-
-import "@/assets/icon/icon-zen.min.js"; // icon fontAwesomePro 6
-
+    import "@/assets/icon/icon-zen.min.js"; // icon fontAwesomePro 6
 </script>
 
 <template>
-    <Header />
+    <Header></Header>
     
     <router-view />
 
-    <Footer />
+    <Footer></Footer>
 </template>
 
 <style>

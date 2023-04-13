@@ -1,6 +1,3 @@
-import ApiService from './api.service.js'
-import { api } from '@/global/index.js'
-
 const baseUrl = api.backend + '/categories'
 
 class CategoryService {

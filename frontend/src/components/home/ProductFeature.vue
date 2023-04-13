@@ -1,7 +1,3 @@
-<script setup>
-
-</script>
-
 <template>
     <div class="section position-relative">
     <div class="container">

@@ -1,6 +1,4 @@
 <script setup>
-import { ref } from 'vue';
-
 const isSearchOpen = ref(false)
 
 const handleSearchToggle = () => {

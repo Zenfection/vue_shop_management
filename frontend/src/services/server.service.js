@@ -1,4 +1,3 @@
-import { http } from './api.service.js';
 
 const userService = (baseUrl) => ({
     getAll: async () => await http.get(baseUrl),

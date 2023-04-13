@@ -1,5 +1,15 @@
 <script setup>
-    import { images  } from '@/global/index.js';
+    let aboutBackground = {
+        src: images.aboutBackground.src,
+        alt: images.aboutBackground.alt,
+        width: images.aboutBackground.width,
+    }
+
+    let team1 = {
+        src: images.team1.src,
+        alt: images.team1.alt,
+        height: images.team1.height,
+    }
 </script>
 
 <template>
@@ -10,7 +20,7 @@
                 <div class="col-md-6 pe-lg-5 p-r-15 m-b-30" data-aos="fade-right" data-aos-duration="1000">
                     <!-- About Thumb Start -->
                     <div class="about-thumb">
-                        <img class="fit-image" :src="images.aboutBackground" />
+                        <IKImage class="fit-image" :path="aboutBackground.src" :width="aboutBackground.width" :alt="aboutBackground.alt" />
                     </div>
                     <!-- About Thumb End -->
                 </div>
@@ -52,8 +62,7 @@
                     <div class="single-team-wrapper">
                         <div class="thumb">
                             <a href="javascript:;" onclick="loadContent('contact')">
-                                <img class="fit-image" :src="images.team1"
-                                    alt="Team Image" style="height: 270px" />
+                                <IKImage class="fit-image" :path="team1.src" :alt="team1.alt" :height="team1.height"/>
                             </a>
                             <!-- Social Shear Start -->
                             <div class="social-share">

@@ -2,9 +2,8 @@
 
 import { useRouter } from 'vue-router';
 import { UserService } from '@/services/server.service.js'
-import { useUserStore } from '@/stores/user.store.js'
 
-const userStore = useUserStore();
+const userStore = UserStore();
 const router = useRouter();
 
 const username = ref(null);

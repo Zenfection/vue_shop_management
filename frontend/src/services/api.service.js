@@ -1,6 +1,3 @@
-import axios from 'axios';
-import { api } from '@/global/index.js';
-
 const instance = axios.create({
     baseURL: api.backend,
     headers: {

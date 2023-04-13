@@ -1,7 +1,3 @@
-<script setup>
-
-</script>
-
 <template>
     <div class="section section-margin">
     <div class="container">
@@ -19,9 +15,9 @@
                 $image = $value['image'];
                 ?> -->
                 <div class="col m-b-30" data-aos="fade-in">
-                    <a href="javascript:;" class="banner hover-style" onclick="loadContent('shop/<?php echo $id?>')">
+                    <!-- <a href="javascript:;" class="banner hover-style" onclick="loadContent('shop/<?php echo $id?>')">
                         <img class="fit-image p-10" src="<?php echo _CDN_IMAGE_450 . '/category/' . $image ?>" alt="Banner Image">
-                    </a>
+                    </a> -->
                 </div>
                 <!-- <?php
             }

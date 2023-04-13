@@ -1,14 +1,9 @@
-<script setup>
-    import FooterTop from './footer/FooterTop.vue'
-    import FooterBottom from './footer/FooterBottom.vue'
-</script>
-
 <template>
     <!-- Footer Section Start -->
 <footer class="section footer-section">
-    <FooterTop/>
+    <footer-top></footer-top>
 
-    <FooterBottom/>
+    <footer-bottom></footer-bottom>
 </footer>
 <!-- Footer Section End -->
 

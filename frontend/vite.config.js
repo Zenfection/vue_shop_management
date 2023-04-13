@@ -3,22 +3,68 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
-import VueRouter from 'unplugin-vue-router/vite'
-import { VueRouterAutoImports } from 'unplugin-vue-router'
+import Inspector from 'vite-plugin-vue-inspector'
+import Pages from 'vite-plugin-pages'
+import Layouts from 'vite-plugin-vue-layouts';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    Components({ /* options */ }),
+    Components({
+      dirs: ['./src/components'],
+      dts: "./src/components.d.ts"
+    }),
     AutoImport({
+      include: [
+        /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+        /\.vue\??/, // .vue
+        /\.mdx?$/, // .md
+      ],
       imports: [
         'vue',
+        'vue-router',
         'pinia',
-        VueRouterAutoImports
+        // custom imports
+        {
+          'axios': [
+            ['default', 'axios'],
+          ],
+          'animejs': [
+            ['default', 'anime'],
+          ],
+          'aos': [
+            ['default', 'Aos'],
+          ],
+          'pace-js': [
+            ['default', 'Pace'],
+          ],
+        },
+        // import { createImageKitVue } from "imagekit-vue3"
+        {
+          from: 'imagekit-vue3',
+          imports: ['createImageKitVue', 'IKImage', 'IKContext', 'IKUpload', 'IKVideo'],
+        },
+        {
+          from: 'tiny-slider/src/tiny-slider',
+          imports: ['tns'],
+        },
+        {
+          from: '@/global/index.js',
+          imports: ['images', 'contents', 'api'],
+        }
       ],
-      dts: true,
+      dts: "./src/auto-imports.d.ts",
+      dirs: [
+        './src/stores',
+        './src/services',
+      ],
     }),
     vue(),
+    Pages({
+      dirs: ['./src/views'],
+    }),
+    Layouts(),
+    Inspector(),
   ],
   resolve: {
     alias: {

@@ -1,8 +1,6 @@
 <script setup>
-import { ref, watchEffect } from 'vue';
-import { useUserStore } from '@/stores/user.store.js'
 
-const userStore = useUserStore()
+const userStore = UserStore()
 userStore.restoreState()
 
 const isLogged = ref(userStore.isAuthenticated ?? false)

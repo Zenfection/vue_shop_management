@@ -1,7 +1,5 @@
 <script setup>
-    import { contents } from '@/global/index.js'
-    import { onMounted } from 'vue';
-    import { tns } from "tiny-slider/src/tiny-slider"
+    let sliders = contents.sliders;
 
     onMounted(() => {
         tns({
@@ -45,7 +43,7 @@
             <div class="row text-center">
                 <div class="col-lg-12">
                     <div class="feature-slider">
-                        <div v-for="slider in contents.sliders" :key="slider.title">
+                        <div v-for="slider in sliders" :key="slider.title">
                             <div class="mt-4 pt-2">
                                 <div class="solution border rounded position-relative px-4 py-5 ">
                                     <div class="sw-1 mb-4 sol-icon">

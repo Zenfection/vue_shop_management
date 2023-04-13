@@ -1,9 +1,6 @@
 <script setup>
-import { ref, watchEffect } from 'vue';
-import { useUserStore } from '@/stores/user.store.js'
-import Mobile from './cart/Mobile.vue';
 
-const userStore = useUserStore()
+const userStore = UserStore()
 if(!!userStore.user){
     userStore.restoreState()
 }
@@ -90,5 +87,5 @@ watchEffect(() => {
         <!-- Header Cart Content End -->
     </div>
 
-    <Mobile/>
+    <mobile-reponsitive></mobile-reponsitive>
 </template>

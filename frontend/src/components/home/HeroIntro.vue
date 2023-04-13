@@ -1,10 +1,12 @@
 <script setup>
-import { images } from '@/global/index.js'
-import { ref, onMounted } from 'vue'
-import anime from 'animejs'
-import { useUserStore } from '@/stores/user.store.js'
+let shapes = images.shape
+let homeBackground = {
+    src: images.homeBackground.src,
+    alt: images.homeBackground.alt,
+    width: images.homeBackground.width,
+}
 
-const userStore = useUserStore()
+const userStore = UserStore()
 userStore.restoreState()
 
 const lettersEl = ref(null)
@@ -56,8 +58,10 @@ onMounted(() => {
 <template>
     <section class="hero-1 bg-white position-relative d-flex align-items-center justify-content-center overflow-hidden">
         <div class="shapes">
-            <div v-for="(item, index) in images.shape" :key="index" :class="`shape-${index + 1}`">
-                <img :src="item" alt="shape" />
+            <div v-for="(item, index) in shapes" :key="index" :class="`shape-${index + 1}`">
+                <IKImage
+                    :path="item"
+                />
             </div>
         </div>
 
@@ -92,7 +96,7 @@ onMounted(() => {
                     </router-link>
                 </div>
                 <div class="col-lg-6 mt-lg-4 pt-2 mt-5 d-lg-flex d-none" data-aos="fade-left">
-                    <img class="fit-image" :src="images.homeBackground" alt="home Image" />
+                    <IKImage class="fit-image" :path="homeBackground.src" :alt="homeBackground.alt" :width="homeBackground.width" /> 
                 </div>
             </div>
         </div>
