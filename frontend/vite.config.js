@@ -72,6 +72,7 @@ export default defineConfig({
   },
   // server port
   server: {
+    host: true,
     port: 8080,
     // proxy: {
     //   '/api': {
