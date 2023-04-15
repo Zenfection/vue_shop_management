@@ -6,6 +6,8 @@ class ProductService {
     async find({ page, keyword, filter, limit }) {
         page = parseInt(page)
         limit = parseInt(limit)
+        // loại bỏ "" và ''
+        keyword = keyword.replace(/['"]+/g, '')
 
         const sortOptions = [
             { filter: 'discount', sort: { discount: -1 } },
@@ -15,23 +17,23 @@ class ProductService {
 
         const sort = sortOptions.find((option) => option.filter === filter)?.sort || {};
 
-        let query = await this.Product.find({
+        // ignore if keyword = ""
+        const query = this.Product.find({
             $or: [
                 { name: { $regex: keyword, $options: 'i' } },
-                { description: { $regex: keyword, $options: 'i' } },
             ],
         })
             .sort(sort)
             .skip((page - 1) * limit)
 
         if (!!limit) {
-            query = query.limit(limit);
+            query.limit(limit)
         }
 
         return await query.toArray();
     }
 
-    async count(){
+    async count() {
         return await this.Product.countDocuments()
     }
 
