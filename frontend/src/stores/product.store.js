@@ -1,12 +1,27 @@
 export const useProductStore = defineStore('product', {
     state: () => ({
-        products: [],
-        product: null
+        keyword: '',
+        filter: '',
+        countProduct: null,
+        page: 1,
     }),
 
+
     actions: {
-        async fetchProducts() {
-        
+        setKeyword(keyword) {
+            this.keyword = keyword
+        },
+
+        setFilter(filter) {
+            this.filter = filter
+        },
+
+        setCountProduct(countProduct) {
+            this.countProduct = countProduct
+        },
+
+        setPage(page) {
+            this.page = page
         }
-    }
+    },
 })

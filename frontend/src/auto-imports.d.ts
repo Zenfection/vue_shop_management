@@ -13,6 +13,7 @@ declare global {
   const IKUpload: typeof import('imagekit-vue3')['IKUpload']
   const IKVideo: typeof import('imagekit-vue3')['IKVideo']
   const Pace: typeof import('pace-js')['default']
+  const ProductService: typeof import('./services/server.service.js')['ProductService']
   const UserService: typeof import('./services/server.service.js')['UserService']
   const UserStore: typeof import('./stores/user.store.js')['UserStore']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']

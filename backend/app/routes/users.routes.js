@@ -1,6 +1,6 @@
 import express from 'express'
-import { body, oneOf, validationResult } from 'express-validator'
-import { userController } from '../controllers/index.js'
+import { body, oneOf } from 'express-validator'
+import { userController } from '@controllers'
 
 const router = express.Router()
 

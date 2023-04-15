@@ -1,17 +1,21 @@
-import { HttpStatusCode } from "../errors/index.js"
+import httpStatus from 'http-status';
 import jwt from 'jsonwebtoken'
 
 
+// ['/users/login', '/users/register', '/categories', '/products', '/products/count']
+
+const PUBLIC_URLS_REGEX = /\/users\/(login|register)|\/categories|\/products|\/products\/count/;
+
+
 const byPassToken = (req) => {
-    const PUBLIC_URLS = ['/users/login', '/users/register', '/categories', '/products'];
-    let url = req.url.toLowerCase().trim()
-    return PUBLIC_URLS.includes(url)
-}
+    const url = req.url.toLowerCase().trim();
+    return PUBLIC_URLS_REGEX.test(url);
+};
 
 const requireToken = (req, res) => {
-    const token = req.headers['x-access-token'] || req.headers['authorization']
-    if (!token) {
-        res.status(HttpStatusCode.UNAUTHORIZED).json({
+    const token = req.headers?.['x-access-token'] ?? req.headers?.['authorization'] ?? null;
+    if (!!token) {
+        res.status(httpStatus.UNAUTHORIZED).json({
             message: 'Token is required',
         });
         return;
@@ -20,28 +24,26 @@ const requireToken = (req, res) => {
 }
 
 
-export default function checkToken(req, res, next) {
+export default async function checkToken(req, res, next) {
     // check bypass 
     if (byPassToken(req)) {
-        return next()
+        return next();
     }
-
     // check token
     try {
-        const token = requireToken(req, res).replace('Bearer ', '')
-        const decoded = jwt.verify(token, process.env.JWT_SECRET)
-        const isExpired = decoded.exp < Date.now() / 1000
+        const token = requireToken(req, res).replace('Bearer ', '');
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const isExpired = decoded.exp < Date.now() / 1000;
         if (isExpired) {
-            res.status(HttpStatusCode.UNAUTHORIZED).json({
-                message: "Token is expired",
-            })
+            return res.status(httpStatus.UNAUTHORIZED).json({
+                message: 'Token is expired',
+            });
         }
-        return next()
+        return next();
     } catch (error) {
-        res.status(HttpStatusCode.UNAUTHORIZED).json({
-            message: "Unauthorized",
-            error: error.toString()
-        })
-        return
+        return res.status(httpStatus.UNAUTHORIZED).json({
+            message: 'Unauthorized',
+            error: error.toString(),
+        });
     }
 }

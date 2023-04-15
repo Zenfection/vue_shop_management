@@ -1,5 +1,5 @@
 import express from 'express'
-import { studentController } from '../controllers/index.js'
+import { studentController } from '@controllers'
 const router = express.Router()
 
 router.get('/', studentController.getAllStudents)

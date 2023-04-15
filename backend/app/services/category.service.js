@@ -3,8 +3,8 @@ class CategoryService {
         this.Category = client.db().collection('categories')
     }
 
-    async findAll() {
-        return await this.Category.find({}).toArray();
+    async find() {
+        return await this.Category.find().toArray()
     }
 }
 

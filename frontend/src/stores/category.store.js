@@ -8,14 +8,6 @@ export const CategoryStore = defineStore('category', {
     },
 
     actions: {
-        async getCategories() {
-            try {
-
-            } catch (error) {
-                console.error(error);
-            }
-        },
-
         async existState() {
             return localStorage.getItem('categories') ? true : false;
         },

@@ -1,4 +1,4 @@
-import {print, type} from '../utils/index.js'
+import {print, type} from '@utils'
 
 export default class Exception extends Error {
     static DB_USERNAME_PASSWORD = 'Username or password is incorrect'

@@ -1,6 +1,6 @@
-import { Exception } from "../errors/index.js"
-import { StudentService } from "../services/index.js"
-import { MongoDB, print, type } from "../utils/index.js"
+import { Exception } from "../app/errors/index.js"
+import { StudentService } from "../app/services/index.js"
+import { MongoDB, print, type } from "@utils"
 import { faker } from '@faker-js/faker';
 
 // format location vi

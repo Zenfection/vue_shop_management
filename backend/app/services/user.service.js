@@ -96,26 +96,13 @@ class UserService {
     }
 
     async find(filter) {
-        const cursor = this.User.find(filter);
-        return cursor.toArray()
+        const cursor = await this.User.find(filter);
+        return cursor
     }
 
-    async findById(id) {
-        return await this.User.findOne({
-            _id: ObjectId.createFromHexString(id)
-        })
-    }
-
-    async findByEmail(email) {
-        return await this.User.findOne({
-            email
-        })
-    }
-
-    async findByUsername(username) {
-        return await this.User.findOne({
-            username
-        })
+    async findOne(filter) {
+        const cursor = await this.User.findOne(filter);
+        return cursor
     }
 
     async update(id, payload) {

@@ -3,13 +3,16 @@ dotenv.config()
 
 import express from 'express'
 import cors from 'cors'
-import {MongoDB, print, type} from './app/utils/index.js'
-import { usersRouter, studentsRouter, categoriesRouter, productsRouter } from './app/routes/index.js'
+import helmet from 'helmet'
+import {MongoDB, print, type} from '@utils'
+import { usersRouter, categoriesRouter, productsRouter } from './app/routes/index.js'
 import { Exception }  from './app/errors/index.js'
 import checkToken from './app/middlewares/auth.js'
 
 const app = express();
-app.use(cors({
+app.use(helmet())   //? bảo mật với headers bằng middleware
+
+app.use(cors({    //? bảo mật chính sách request
   origin: process.env.FRONTEND_URL.split(','), // allow to server to accept request from different origin
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -22,7 +25,6 @@ app.use(express.json())
 
 // routers
 app.use('/users', usersRouter)
-app.use('/students', studentsRouter)
 app.use('/categories', categoriesRouter)
 app.use('/products', productsRouter)
 

@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@morpheme/rating':
+    specifier: 1.0.0-beta.8
+    version: 1.0.0-beta.8
   '@vueuse/head':
     specifier: ^1.1.23
     version: 1.1.23(vue@3.2.47)
@@ -43,6 +46,12 @@ dependencies:
   vue-select:
     specifier: 4.0.0-beta.6
     version: 4.0.0-beta.6(vue@3.2.47)
+  vue-skeletor:
+    specifier: ^1.0.6
+    version: 1.0.6
+  vue3-star-ratings:
+    specifier: ^1.1.0
+    version: 1.1.0(vue@3.2.47)
 
 devDependencies:
   '@rushstack/eslint-patch':
@@ -1797,6 +1806,12 @@ packages:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
+
+  /@morpheme/rating@1.0.0-beta.8:
+    resolution: {integrity: sha512-J82A3oeQrxjqVZ2wL/tsRNErZ5OO3btR/5aqYEU0oDxsDRQt6FXxXuCNn6Dx/nOLwD+52ZezcVCTo308LlSNXw==}
+    dependencies:
+      vue: 3.2.47
+    dev: false
 
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -4753,6 +4768,19 @@ packages:
     resolution: {integrity: sha512-K+zrNBSpwMPhAxYLTCl56gaMrWZGgayoWCLqe5rWwkB8aUbAUh7u6sXjIR7v4ckp2WKC7zEEUY27g6h1MRsIHw==}
     peerDependencies:
       vue: 3.x
+    dependencies:
+      vue: 3.2.47
+    dev: false
+
+  /vue-skeletor@1.0.6:
+    resolution: {integrity: sha512-ER4vHlFSXCW3ixK2DlczUE6CZliHsn4d2TvZ9/26C6Oq8zoyEY23BsqweMPtF8QULSz1+G5m2New1BwKNVOZhQ==}
+    dev: false
+
+  /vue3-star-ratings@1.1.0(vue@3.2.47):
+    resolution: {integrity: sha512-dDGZAn64N9DvaJxCm0Zoy+2pauWioK4ayj7iAH89sVTxMbmrPkhlC9B527PL+t1wcPWH0wIZaFZZp5OMO5hRrA==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      vue: ^3.0.5
     dependencies:
       vue: 3.2.47
     dev: false

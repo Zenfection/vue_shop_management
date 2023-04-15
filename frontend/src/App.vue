@@ -1,6 +1,6 @@
 <script setup>
 import "@/assets/icon/icon-zen.min.js"; // icon fontAwesomePro 6
-
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 useHead({
     title: "ZenShop",
     meta: {

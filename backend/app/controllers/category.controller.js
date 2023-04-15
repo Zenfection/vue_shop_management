@@ -1,15 +1,18 @@
-import { categoryRepository } from "../repositories/index.js"
-import { HttpStatusCode } from "../errors/index.js"
+import { MongoDB } from '@utils'
+import { CategoryService } from '@services'
+import createError from 'http-errors'
+import httpStatus from 'http-status'
 
-const getAllCategories = async (req, res) => {
+const getAll = async (req, res, next) => {
     try {
-        const result = await categoryRepository.getAll()
-        res.status(HttpStatusCode.OK).json(result)
-    } catch (error) {
-        res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json(error)
+        const category = new CategoryService(MongoDB.client)
+        const result = await category.find()
+        res.status(httpStatus.OK).json(result)
+    } catch (exception) {
+        throw createError(httpStatus.INTERNAL_SERVER_ERROR, exception)
     }
 }
 
 export default {
-    getAllCategories
+    getAll
 }

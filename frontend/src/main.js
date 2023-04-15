@@ -4,6 +4,9 @@ import generatedRoutes from '~pages'
 import { createRouter, createWebHistory } from 'vue-router'
 import { createHead } from '@vueuse/head'
 
+//TODO Components
+import { Skeletor } from 'vue-skeletor';
+
 const imageKitConfig = {
     urlEndpoint: import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT,
     publicKey: import.meta.env.VITE_IMAGEKIT_PUBLIC_KEY,
@@ -26,6 +29,8 @@ const app = createApp(App)
                 .use(createPinia())
                 .use(head)
                 .use(createImageKitVue(imageKitConfig));
+
+app.component(Skeletor.name, Skeletor);
 
 app.mount('#app');
 

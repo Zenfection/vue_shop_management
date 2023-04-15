@@ -1,5 +1,5 @@
-import { ObjectId } from 'mongodb';
-import validator from 'validator';
+import { ObjectId } from 'mongodb'
+import validator from 'validator'
 
 class StudentService {
     constructor(client) {

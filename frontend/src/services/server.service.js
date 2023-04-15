@@ -18,6 +18,17 @@ const categoryService = (baseUrl) => ({
     // deleteAll: async () => await http.delete(baseUrl),
 })
 
+const productService = (baseUrl) => ({
+    getAll: async () => await http.get(baseUrl),
+    getCount: async () => await http.get(`${baseUrl}/count`),
+    getFilter: async ({
+        filter = {},
+        limit = 10,
+        page = 1,
+        keyword = ''
+    }) => await http.get(`${baseUrl}?filter=${filter}&limit=${limit}&page=${page}&keyword=${keyword}`),
+})
 
 export const UserService = userService('/users');
 export const CategoryService = categoryService('/categories');
+export const ProductService = productService('/products');
