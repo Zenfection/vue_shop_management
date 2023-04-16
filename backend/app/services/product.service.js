@@ -3,11 +3,13 @@ class ProductService {
         this.Product = client.db().collection('products')
     }
 
-    async find({ page, keyword, filter, limit }) {
+    async find({ page, keyword, category, filter, limit }) {
         page = parseInt(page)
         limit = parseInt(limit)
-        // loại bỏ "" và ''
-        keyword = keyword.replace(/['"]+/g, '')
+
+        if(category == 'all'){
+            category = null
+        }
 
         const sortOptions = [
             { filter: 'discount', sort: { discount: -1 } },
@@ -19,9 +21,12 @@ class ProductService {
 
         // ignore if keyword = ""
         const query = this.Product.find({
-            $or: [
-                { name: { $regex: keyword, $options: 'i' } },
-            ],
+            ...(category ? { category: { $eq: category } } : {}),
+            ...(keyword ? { name: { $regex: keyword, $options: 'i' } } : {}),
+            
+            // $or: [
+            //     { name: { $regex: keyword, $options: 'i' } },
+            // ]
         })
             .sort(sort)
             .skip((page - 1) * limit)

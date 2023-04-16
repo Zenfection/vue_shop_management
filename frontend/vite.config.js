@@ -4,8 +4,9 @@ import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import Inspector from 'vite-plugin-vue-inspector'
-import Pages from 'vite-plugin-pages'
 import Layouts from 'vite-plugin-vue-layouts'
+import VueRouter from 'unplugin-vue-router/vite'
+import { VueRouterAutoImports } from 'unplugin-vue-router'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,6 +14,13 @@ export default defineConfig({
     Components({
       dirs: ['./src/components'],
       dts: "./src/components.d.ts"
+    }),
+    VueRouter({
+      routesFolder: './src/pages',
+      extensions: ['.vue'],
+      autoImport: true,
+      dts: './src/typed-router.d.ts',
+      importMode: 'async',
     }),
     AutoImport({
       include: [
@@ -23,7 +31,7 @@ export default defineConfig({
       imports: [
         'vue',
         'pinia',
-        'vue-router',
+        VueRouterAutoImports,
         '@vueuse/head',
         // custom imports
         {
@@ -58,7 +66,6 @@ export default defineConfig({
       ],
     }),
     vue(),
-    Pages(),
     Layouts(),
     Inspector(),
   ],

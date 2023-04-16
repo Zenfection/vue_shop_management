@@ -1,7 +1,7 @@
 import App from '@/App.vue'
 import { setupLayouts } from 'virtual:generated-layouts'
-import generatedRoutes from '~pages'
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router/auto'
+import { routes } from 'vue-router/auto/routes'
 import { createHead } from '@vueuse/head'
 
 //TODO Components
@@ -14,13 +14,12 @@ const imageKitConfig = {
     registerGlobalComponents: true,
 };
 
-const routes = setupLayouts(generatedRoutes);
 const head = createHead()
 
 // Khởi tạo router và gán vào biến router
 const router = createRouter({
     history: createWebHistory(),
-    routes,
+    routes: setupLayouts(routes),
 });
 
 // Kết nối App với router và kết nối ứng dụng với phần tử HTML
@@ -37,9 +36,4 @@ app.mount('#app');
 // Khởi động các thư viện Pace và Aos
 Pace.start();
 Aos.init();
-
-
-// import '@unocss/reset/tailwind.css';
-// import './styles/main.css';
-// import 'uno.css';
 

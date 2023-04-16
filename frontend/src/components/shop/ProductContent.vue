@@ -1,36 +1,45 @@
 <script setup>
 import { Rating } from '@morpheme/rating';
+import { computed, onMounted } from 'vue';
 
-const props = defineProps({
-    page: {
-        type: Number,
-        required: true,
-    },
-    keyword: {
-        type: String,
-        required: true,
-    },
-});
+const storeProduct = useProductStore()
+const storeCategory = useCategoryStore()
+
+const query = useRoute().query
+
+const page = computed(() => storeProduct.page)
+const keyword = computed(() => storeProduct.keyword)
+const category =  computed(() => storeCategory.currentCategory)
+
 
 const fetchProduct = async () => {
     return new Promise(async (resolve) => {
+        console.log(page.value, keyword.value, category.value)
         const response = await ProductService.getFilter({
-            page: props.page,
-            keyword: props.keyword,
+            page: page.value,
+            keyword: keyword.value,
+            category: category.value,
             limit: 9
         });
         resolve(response)
     });
 }
 
-
 const products = ref(await fetchProduct())
 
-watch(() => props.page, (value) => {
+// watch page, keyword, category
+watch([page, keyword, category], () => {
     fetchProduct().then((response) => {
         products.value = response
     })
 })
+
+onMounted(() => {
+    fetchProduct().then((response) => {
+        products.value = response
+    })
+})
+
 
 const formatter = new Intl.NumberFormat('vi-VN', {
     style: 'currency',

@@ -21,7 +21,8 @@ const getTopProduct = async (req, res, next) => {
             filter: req.query.filter ?? {},
             limit: req.query.limit ?? 10 , 
             page: req.query.page ?? 1,
-            keyword: req.query.keyword ?? ''
+            keyword: req.query.keyword,
+            category: req.query.category
         })
         // ignore result.sold
         const rest = result.map(({ sold, ...rest }) => rest)

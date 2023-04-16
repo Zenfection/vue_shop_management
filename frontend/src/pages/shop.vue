@@ -3,11 +3,6 @@ useHead({
     title: 'Mua Hàng',
 })
 
-const store = useProductStore()
-
-const page = computed(() => store.page)
-const keyword = computed(() => store.keyword)
-const filter = computed(() => store.filter)
 </script>
 
 <template>
@@ -20,21 +15,18 @@ const filter = computed(() => store.filter)
                     
                     <Suspense>
                         <template #default>
-                            <ProductContent :page="page" :keyword="keyword"/>
+                            <ProductContent />
                         </template>
 
                         <template #fallback>
                             <ProductContentSkeleton :total="9" />
                         </template>
                     </Suspense>
-
-
-
-                    <Paginator :page="page"></Paginator>
-
                 </div>
 
                 <SideBar />
+
+
             </div>
         </div>
     </div>

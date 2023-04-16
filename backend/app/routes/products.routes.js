@@ -8,6 +8,7 @@ router
     .get('/', [
         body('page').optional().isInt(),
         body('keyword').optional().isString(),
+        body('category').optional().isString(),
         body('filter').optional().isString(), 
         body('limit').optional().isInt()
     ], productController.getTopProduct)

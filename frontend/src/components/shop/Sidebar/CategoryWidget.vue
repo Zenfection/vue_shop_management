@@ -1,9 +1,20 @@
 <script setup>
+
 const store = useCategoryStore()
 store.restoreState()
 
-const categoryFilter = ref('all')
-const categories = ref(store.allCategories)
+const query = useRoute().query
+const router = useRouter()
+
+const categoryFilter = ref(query.category || 'all')
+const categories = ref(store.categories)
+
+watch(categoryFilter, () => {
+    store.setCurrentCategory(categoryFilter.value || 'all')
+    const update = { ...query, category: categoryFilter.value }
+    router.push({ query: update })
+})
+
 </script>
 
 <template>

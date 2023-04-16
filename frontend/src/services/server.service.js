@@ -25,8 +25,9 @@ const productService = (baseUrl) => ({
         filter = {},
         limit = 10,
         page = 1,
-        keyword = ''
-    }) => await http.get(`${baseUrl}?filter=${filter}&limit=${limit}&page=${page}&keyword=${keyword}`),
+        keyword,
+        category
+    }) => await http.get(`${baseUrl}?filter=${filter}&limit=${limit}&page=${page}&keyword=${keyword}&category=${category}`),
 })
 
 export const UserService = userService('/users');

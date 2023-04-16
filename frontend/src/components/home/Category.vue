@@ -6,7 +6,7 @@ const getCategories = async () => {
     return new Promise(async (resolve) => {
         if (store.existState()) {
             store.restoreState();
-            resolve(store.allCategories);
+            resolve(store.categories);
         } else {
             try {
                 const response = await CategoryService.getAll();

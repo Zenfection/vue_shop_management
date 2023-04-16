@@ -1,11 +1,8 @@
 export const useCategoryStore = defineStore('category', {
     state: () => ({
         categories: [],
+        currentCategory: 'all',
     }),
-
-    getters: {
-        allCategories: (state) => state.categories,
-    },
 
     actions: {
         existState() {
@@ -25,5 +22,9 @@ export const useCategoryStore = defineStore('category', {
                 this.categories = JSON.parse(localStorage.getItem('categories')).value;
             }
         },
+
+        setCurrentCategory(category) {
+            this.currentCategory = category;
+        }
     },
 });
