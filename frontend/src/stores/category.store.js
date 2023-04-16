@@ -1,4 +1,4 @@
-export const CategoryStore = defineStore('category', {
+export const useCategoryStore = defineStore('category', {
     state: () => ({
         categories: [],
     }),
@@ -8,11 +8,11 @@ export const CategoryStore = defineStore('category', {
     },
 
     actions: {
-        async existState() {
+        existState() {
             return localStorage.getItem('categories') ? true : false;
         },
 
-        async saveState(categories) {
+        saveState(categories) {
             const item = {
                 value: categories,
                 expire: new Date().getTime() + 1 * 24 * 60 * 60 * 1000, // 1 days
@@ -20,7 +20,7 @@ export const CategoryStore = defineStore('category', {
             localStorage.setItem('categories', JSON.stringify(item));
         },
 
-        async restoreState() {
+        restoreState() {
             if (localStorage.getItem('categories')) {
                 this.categories = JSON.parse(localStorage.getItem('categories')).value;
             }

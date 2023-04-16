@@ -5,7 +5,6 @@ useHead({
 
 const products = ref([])
 
-
 const store = useProductStore()
 
 const page = computed(() => store.page)

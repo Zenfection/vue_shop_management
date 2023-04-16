@@ -1,8 +1,6 @@
 <script setup>
 import { Rating } from '@morpheme/rating';
 
-const products = ref([])
-
 const props = defineProps({
     filter: {
         type: String,
@@ -16,27 +14,27 @@ const formatter = new Intl.NumberFormat('vi-VN', {
 });
 
 const fetchTopProduct = async () => {
-    try {
-        // set function ProductService is props.typeFilter
-        const response = await ProductService.getFilter({
-            filter: props.filter,
-            limit: 8,
-        });
-        if (response) {
-            products.value = response;
+    return new Promise(async (resolve) => {
+        try {
+            setTimeout(async() => {
+                const response = await ProductService.getFilter({
+                    filter: props.filter,
+                    limit: 8,
+                }); 
+                resolve(response);
+            }, 2000);
+            resolve(response);
+        } catch (exception) {
+            console.log(exception)
         }
-    } catch (exception) {
-        console.log(exception)
-    }
+    })
 }
+
+const products = ref(await fetchTopProduct())
 
 function discountPrice(price, discount) {
     return price - (price * discount / 100);
 }
-
-onMounted(() => {
-    fetchTopProduct()
-})
 </script>
 
 <template>

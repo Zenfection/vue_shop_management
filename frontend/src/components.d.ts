@@ -9,8 +9,12 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AboutContent: typeof import('./components/about/AboutContent.vue')['default']
+    AboutTeam: typeof import('./components/about/AboutTeam.vue')['default']
+    AboutThumb: typeof import('./components/about/AboutThumb.vue')['default']
     CartMenu: typeof import('./components/header/CartMenu.vue')['default']
     Category: typeof import('./components/home/Category.vue')['default']
+    CategorySkeleton: typeof import('./components/skeleton/CategorySkeleton.vue')['default']
     CategoryWidget: typeof import('./components/shop/Sidebar/CategoryWidget.vue')['default']
     Copyright: typeof import('./components/footer/bottom/Copyright.vue')['default']
     Feature: typeof import('./components/footer/top/Feature.vue')['default']
@@ -28,6 +32,7 @@ declare module '@vue/runtime-core' {
     Product: typeof import('./components/header/cart/Product.vue')['default']
     ProductContent: typeof import('./components/shop/ProductContent.vue')['default']
     ProductFeature: typeof import('./components/home/ProductFeature.vue')['default']
+    ProductFeatureSkeleton: typeof import('./components/skeleton/ProductFeatureSkeleton.vue')['default']
     QuickAction: typeof import('./components/footer/top/QuickAction.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
@@ -41,6 +46,7 @@ declare module '@vue/runtime-core' {
     ToolLeft: typeof import('./components/shop/ToolBar/ToolLeft.vue')['default']
     ToolRight: typeof import('./components/shop/ToolBar/ToolRight.vue')['default']
     TopProduct: typeof import('./components/home/ProductFeature/TopProduct.vue')['default']
+    TopProductSkeleton: typeof import('./components/skeleton/TopProductSkeleton.vue')['default']
     UserMenu: typeof import('./components/header/UserMenu.vue')['default']
   }
 }

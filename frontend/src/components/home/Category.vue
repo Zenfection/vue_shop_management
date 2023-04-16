@@ -1,27 +1,25 @@
 <script setup>
-const categories = ref(null)
-const categoryStore = CategoryStore()
+
+const store = useCategoryStore()
 
 const getCategories = async () => {
-    try {
-        if(await categoryStore.existState()){
-            await categoryStore.restoreState();
-            categories.value = categoryStore.allCategories;
+    return new Promise(async (resolve) => {
+        if (store.existState()) {
+            store.restoreState();
+            resolve(store.allCategories);
         } else {
-            const response = await CategoryService.getAll();
-            if (response) {
-                categories.value = response;
+            try {
+                const response = await CategoryService.getAll();
+                store.saveState(response);
+                resolve(response);
+            } catch (error) {
+                console.error(error);
             }
-            categoryStore.saveState(categories.value);
         }
-    } catch (error) {
-        console.error(error);
-    }
+    });
 }
 
-onMounted(() => {
-    getCategories();
-});
+const categories = ref(await getCategories())
 </script>
 
 <template>

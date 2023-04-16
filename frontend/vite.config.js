@@ -49,13 +49,10 @@ export default defineConfig({
           from: 'tiny-slider/src/tiny-slider',
           imports: ['tns'],
         },
-        {
-          from: '@/global/index.js',
-          imports: ['images', 'contents', 'api'],
-        }
       ],
       dts: "./src/auto-imports.d.ts",
       dirs: [
+        './src/global',
         './src/stores',
         './src/services',
       ],
@@ -72,7 +69,6 @@ export default defineConfig({
   },
   // server port
   server: {
-    host: true,
     port: 8080,
     // proxy: {
     //   '/api': {

@@ -1,4 +1,4 @@
-const contents = {
+export const contents = {
     sliders: [
         {
             icon: "fa-duotone fa-rabbit-running fa-3x",
@@ -49,5 +49,3 @@ const contents = {
         }
     ]
 }
-
-export default contents

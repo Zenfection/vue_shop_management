@@ -8,9 +8,9 @@ import { createHead } from '@vueuse/head'
 import { Skeletor } from 'vue-skeletor';
 
 const imageKitConfig = {
-    urlEndpoint: import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT,
-    publicKey: import.meta.env.VITE_IMAGEKIT_PUBLIC_KEY,
-    authenticationEndpoint: import.meta.env.VITE_IMAGEKIT_PRIVATE_KEY,
+    urlEndpoint: api.imagekit.urlEndpoint,
+    publicKey: api.imagekit.publicKey,
+    authenticationEndpoint: api.imagekit.privateKey,
     registerGlobalComponents: true,
 };
 

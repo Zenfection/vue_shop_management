@@ -3,7 +3,7 @@ for (let i = 1; i <= 8; i++) {
     shape.push(`/shapes/shape-${i}.svg`)
 }
 
-const images = {
+export const images = {
     aboutBackground : {
         src: `/about.png`,
         alt: `About Background`,
@@ -23,5 +23,3 @@ const images = {
     },
     shape : shape,
 }
-
-export default images
