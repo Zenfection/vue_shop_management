@@ -3,34 +3,11 @@ useHead({
     title: 'Mua Hàng',
 })
 
-const products = ref([])
-
 const store = useProductStore()
 
 const page = computed(() => store.page)
 const keyword = computed(() => store.keyword)
 const filter = computed(() => store.filter)
-
-const fetchProduct = async () => {
-    try {
-        const response = await ProductService.getFilter({
-            page: page.value,
-            keyword: keyword.value,
-            limit: 9
-        });
-        products.value = response;
-    } catch (exception) {
-        console.log(exception)
-    }
-}
-
-watch(() => page.value, (value) => {
-    fetchProduct();
-})
-
-onMounted(() => {
-    fetchProduct();
-})
 </script>
 
 <template>
@@ -41,7 +18,17 @@ onMounted(() => {
 
                     <ToolBar />
                     
-                    <ProductContent :products="products"/>
+                    <Suspense>
+                        <template #default>
+                            <ProductContent :page="page" :keyword="keyword"/>
+                        </template>
+
+                        <template #fallback>
+                            <ProductContentSkeleton :total="9" />
+                        </template>
+                    </Suspense>
+
+
 
                     <Paginator :page="page"></Paginator>
 

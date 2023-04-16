@@ -1,7 +1,5 @@
 <script setup>
 
-
-
 const store = useProductStore()
 
 const props = defineProps({
@@ -10,6 +8,7 @@ const props = defineProps({
         required: true
     }
 })
+
 const total = computed(() => Math.ceil(store.countProduct / 9))
 
 

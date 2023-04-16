@@ -1,12 +1,35 @@
 <script setup>
 import { Rating } from '@morpheme/rating';
 
-
 const props = defineProps({
-    products: {
-        type: Array,
+    page: {
+        type: Number,
         required: true,
     },
+    keyword: {
+        type: String,
+        required: true,
+    },
+});
+
+const fetchProduct = async () => {
+    return new Promise(async (resolve) => {
+        const response = await ProductService.getFilter({
+            page: props.page,
+            keyword: props.keyword,
+            limit: 9
+        });
+        resolve(response)
+    });
+}
+
+
+const products = ref(await fetchProduct())
+
+watch(() => props.page, (value) => {
+    fetchProduct().then((response) => {
+        products.value = response
+    })
 })
 
 const formatter = new Intl.NumberFormat('vi-VN', {
@@ -51,7 +74,7 @@ function discountPrice(price, discount) {
                     </RouterLink>
                 </h5>
                 <span class="rating">
-                    <Rating :rating="product.ranking" read-only increment="0.5" />
+                    <Rating :rating="product.ranking" read-only :increment="0.5" />
                 </span>
                 <span class="price" v-if="product.discount > 0">
                     <span class="new">

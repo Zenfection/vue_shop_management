@@ -16,13 +16,10 @@ const formatter = new Intl.NumberFormat('vi-VN', {
 const fetchTopProduct = async () => {
     return new Promise(async (resolve) => {
         try {
-            setTimeout(async() => {
-                const response = await ProductService.getFilter({
-                    filter: props.filter,
-                    limit: 8,
-                }); 
-                resolve(response);
-            }, 2000);
+            const response = await ProductService.getFilter({
+                filter: props.filter,
+                limit: 8,
+            });
             resolve(response);
         } catch (exception) {
             console.log(exception)
@@ -62,7 +59,7 @@ function discountPrice(price, discount) {
         <div class="content">
             <h5 class="title"><a class="product-title">{{ product.name }}</a></h5>
             <span class="rating">
-                <Rating :rating="product.ranking" read-only increment="0.5" />
+                <Rating :rating="product.ranking" read-only :increment="0.5" />
             </span>
             <span class="price" v-if="product.discount > 0">
                 <span class="new">

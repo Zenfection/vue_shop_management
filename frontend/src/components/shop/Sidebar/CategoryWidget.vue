@@ -1,9 +1,9 @@
 <script setup>
-const categoryStore = CategoryStore()
-categoryStore.restoreState()
+const store = useCategoryStore()
+store.restoreState()
 
 const categoryFilter = ref('all')
-const categories = ref(categoryStore.allCategories)
+const categories = ref(store.allCategories)
 </script>
 
 <template>
