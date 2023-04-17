@@ -10,8 +10,7 @@ useHead({
         <div class="container">
 
             <div class="row m-b-n50">
-                <div class="col-12 col-lg-6 m-b-50 order-2 order-lg-1" data-aos="fade-right" data-aos-duration="1000">
-
+                <div class="col-12 col-lg-6 m-b-50 order-2 order-lg-1">
                     <!-- Section Title Start -->
                     <div class="contact-title p-b-15">
                         <h2 class="title">Gửi yêu cầu</h2>
@@ -67,7 +66,7 @@ useHead({
                     <!-- Contact Form Wrapper End -->
 
                 </div>
-                <div class="col-12 col-lg-6 m-b-50 order-1 order-lg-2" data-aos="fade-left" data-aos-duration="1500">
+                <div class="col-12 col-lg-6 m-b-50 order-1 order-lg-2">
                     <!-- Section Title End -->
                     <!-- Google Map Area Start -->
                     <div class="google-map-area w-100">

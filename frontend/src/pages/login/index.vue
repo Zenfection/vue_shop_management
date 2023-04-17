@@ -28,7 +28,7 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-    <div class="section section-margin login" data-aos="fade-right">
+    <div class="section section-margin login">
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 col-md-8 m-auto">

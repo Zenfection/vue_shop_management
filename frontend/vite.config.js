@@ -41,12 +41,6 @@ export default defineConfig({
           'animejs': [
             ['default', 'anime'],
           ],
-          'aos': [
-            ['default', 'Aos'],
-          ],
-          'pace-js': [
-            ['default', 'Pace'],
-          ],
         },
         // import { createImageKitVue } from "imagekit-vue3"
         {

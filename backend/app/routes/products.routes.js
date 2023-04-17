@@ -11,8 +11,8 @@ router
         body('category').optional().isString(),
         body('filter').optional().isString(), 
         body('limit').optional().isInt()
-    ], productController.getTopProduct)
+    ], productController.getProductFilter)
 
-    .get('/count', productController.getTotal)
+router.get('/:id', productController.getProduct)
 
 export default router

@@ -20,7 +20,6 @@ useHead({
 
 <style>
 @import 'bootstrap/dist/css/bootstrap.min.css';
-@import 'aos/dist/aos.css';
 @import "@/assets/css/style-v2.min.css";
 @import "vue-skeletor/dist/vue-skeletor.css";
 </style>

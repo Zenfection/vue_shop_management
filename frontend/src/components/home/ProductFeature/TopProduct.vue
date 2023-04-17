@@ -1,6 +1,4 @@
 <script setup>
-import { Rating } from '@morpheme/rating';
-
 const props = defineProps({
     filter: {
         type: String,
@@ -19,8 +17,10 @@ const fetchTopProduct = async () => {
             const response = await ProductService.getFilter({
                 filter: props.filter,
                 limit: 8,
+                keyword: '',
+                category: '',
             });
-            resolve(response);
+            resolve(response.data);
         } catch (exception) {
             console.log(exception)
         }
@@ -37,7 +37,7 @@ function discountPrice(price, discount) {
 <template>
     <div class="col-12 col-sm-6 col-lg-3 product-wrapper m-b-40 product" v-for="product in products" :key="product._id">
         <div class="thumb">
-            <RouterLink to="">
+            <RouterLink :to="`product/${product._id}`">
                 <IKImage class="fit-image p-10" :path="`/products/${product.image}`" alt="Product" width="250" />
             </RouterLink>
             <span class="badges">

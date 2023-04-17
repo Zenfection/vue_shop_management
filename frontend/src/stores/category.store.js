@@ -1,7 +1,7 @@
 export const useCategoryStore = defineStore('category', {
     state: () => ({
         categories: [],
-        currentCategory: 'all',
+        currentCategory: useRoute().query.category || null,
     }),
 
     actions: {

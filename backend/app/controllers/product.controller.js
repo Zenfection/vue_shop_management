@@ -5,10 +5,18 @@ import httpStatus from 'http-status'
 import { validationResult } from 'express-validator'
 
 const getProduct = async (req, res, next) => {
-
+    try {
+        const product = new ProductService(MongoDB.client)
+        const result = await product.findById(req.params.id)
+        // ignore result.sold
+        const { sold, ...rest } = result
+        res.status(httpStatus.OK).json(rest)
+    } catch (error) {
+        throw createError(httpStatus.INTERNAL_SERVER_ERROR, error)
+    }
 }
 
-const getTopProduct = async (req, res, next) => {
+const getProductFilter = async (req, res, next) => {
     // check validate
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -24,29 +32,25 @@ const getTopProduct = async (req, res, next) => {
             keyword: req.query.keyword,
             category: req.query.category
         })
+        const total = await product.count({
+            keyword: req.query.keyword,
+            category: req.query.category
+        })
         // ignore result.sold
-        const rest = result.map(({ sold, ...rest }) => rest)
-        res.status(httpStatus.OK).json(rest)
-    } catch (error) {
-        throw createError(httpStatus.INTERNAL_SERVER_ERROR, error)
-    }
-}
-
-const getTotal = async (req, res, next) => {
-    try {
-        const product = new ProductService(MongoDB.client)
-        const result = await product.count()
+        const { sold, ...rest } = result
         res.status(httpStatus.OK).json({
-            value: result
+            data: rest,
+            total: total
         })
     } catch (error) {
         throw createError(httpStatus.INTERNAL_SERVER_ERROR, error)
     }
 }
 
+
 export default {
     getProduct,
-    getTopProduct,
-    getTotal
+    getProductFilter,
+
 }
 

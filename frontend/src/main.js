@@ -6,6 +6,9 @@ import { createHead } from '@vueuse/head'
 
 //TODO Components
 import { Skeletor } from 'vue-skeletor';
+import AosVue from "aos-vue";
+import Pace from "pace-js";
+import { Rating } from '@morpheme/rating'
 
 const imageKitConfig = {
     urlEndpoint: api.imagekit.urlEndpoint,
@@ -25,15 +28,16 @@ const router = createRouter({
 // Kết nối App với router và kết nối ứng dụng với phần tử HTML
 const app = createApp(App)
                 .use(router)
+                .use(AosVue)
                 .use(createPinia())
                 .use(head)
                 .use(createImageKitVue(imageKitConfig));
 
 app.component(Skeletor.name, Skeletor);
+app.component('Rating', Rating);
 
 app.mount('#app');
 
 // Khởi động các thư viện Pace và Aos
 Pace.start();
-Aos.init();
 

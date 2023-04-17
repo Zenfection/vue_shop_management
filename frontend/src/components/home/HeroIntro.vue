@@ -69,7 +69,7 @@ onMounted(() => {
 
         <div class="container">
             <div class="row align-items-center text-center text-lg-start">
-                <div class="col-lg-6 mt-4 pt-2" data-aos="fade-in">
+                <aos-vue class="col-lg-6 mt-4 pt-2" animation="fade-right">
                     <div class="text-primary mb-3 fw-hero h6">
                         Được phát triển bởi
                         <a href="https://facebook.com/zenfection" target="_blank">
@@ -82,9 +82,9 @@ onMounted(() => {
                             <span class="letters pb-0 fw-hero" ref="lettersEl">Zen Shop Order</span>
                         </span>
                     </div>
-                    <p class="my-4 fw-hero h5">
+                    <div class="my-4 fw-hero h5">
                         <i class="fa-duotone fa-phone-volume"></i> Liên hệ với tôi nếu bạn có ý tưởng
-                    </p>
+                    </div>
 
                     <p class="text-danger mb-2 fw-hero">
                         Sản phẩm được phát triển cả nhân nên có rất nhiều lỗi <br />
@@ -96,10 +96,10 @@ onMounted(() => {
                     <RouterLink v-if="!isLogged" to="login" class="btn btn-primary mt-4">Đăng Nhập
                         <i class="fa-duotone fa-arrow-right-to-bracket fa-xl"></i>
                     </RouterLink>
-                </div>
-                <div class="col-lg-6 mt-lg-4 pt-2 mt-5 d-lg-flex d-none" data-aos="fade-left">
+                </aos-vue>
+                <aos-vue class="col-lg-6 mt-lg-4 pt-2 mt-5 d-lg-flex d-none" animation="fade-left">
                     <IKImage class="fit-image" :path="homeBackground.src" :alt="homeBackground.alt" :width="homeBackground.width" /> 
-                </div>
+                </aos-vue>
             </div>
         </div>
         <!-- end container -->

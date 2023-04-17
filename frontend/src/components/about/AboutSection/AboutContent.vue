@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-6 align-self-center m-b-30" data-aos="fade-left" data-aos-duration="1500">
+    <aos-vue class="col-md-6 align-self-center m-b-30" animation="fade-left" :duration="600">
         <!-- About Content Start -->
         <div class="about-content">
             <h2 class="title">Dự án Web bán thức ăn vặt</h2>
@@ -22,5 +22,5 @@
                 Hệ</RouterLink>
         </div>
         <!-- About Content End -->
-    </div>
+    </aos-vue>
 </template>

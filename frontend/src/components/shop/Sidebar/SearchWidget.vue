@@ -1,11 +1,17 @@
 <script setup>
-    const keyword = ref('')
 
-    const store = useProductStore()
+const store = useProductStore()
 
-    watch(keyword, (value) => {
-        store.setKeyword(value)
-    })
+const query = useRoute().query
+const router = useRouter()
+
+const keyword = ref(store.keyword)
+
+watch(keyword, (value) => {
+    store.setKeyword(value)
+    const update = { ...query, keyword: value }
+    router.push({ query: update })
+})
 </script>
 
 <template>

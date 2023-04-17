@@ -1,27 +1,22 @@
 <script setup>
-import { Rating } from '@morpheme/rating';
-import { computed, onMounted } from 'vue';
-
 const storeProduct = useProductStore()
 const storeCategory = useCategoryStore()
-
-const query = useRoute().query
 
 const page = computed(() => storeProduct.page)
 const keyword = computed(() => storeProduct.keyword)
 const category =  computed(() => storeCategory.currentCategory)
 
-
 const fetchProduct = async () => {
     return new Promise(async (resolve) => {
-        console.log(page.value, keyword.value, category.value)
+        console.log(category.value)
         const response = await ProductService.getFilter({
             page: page.value,
             keyword: keyword.value,
             category: category.value,
             limit: 9
         });
-        resolve(response)
+        storeProduct.setCountProduct(response.total)
+        resolve(response.data)
     });
 }
 
@@ -34,11 +29,11 @@ watch([page, keyword, category], () => {
     })
 })
 
-onMounted(() => {
-    fetchProduct().then((response) => {
-        products.value = response
-    })
-})
+// onMounted(() => {
+//     fetchProduct().then((response) => {
+//         products.value = response
+//     })
+// })
 
 
 const formatter = new Intl.NumberFormat('vi-VN', {
@@ -53,9 +48,9 @@ function discountPrice(price, discount) {
 
 <template>
     <div class="row shop_wrapper grid_3">
-        <div class="col-lg-4 col-md-4 col-sm-6 product product-inner" v-for="product in products" :key="product._id">
+        <aos-vue class="col-lg-4 col-md-4 col-sm-6 product product-inner" v-for="product in products" :key="product._id" animation="fade-in" :duration="200" :once="true">  
             <div class="thumb">
-                <RouterLink to="" class="image">
+                <RouterLink :to="`product/${product._id}`" class="image">
                     <IKImage class="fit-image p-10" :path="`/products/${product.image}`" alt="Product" width="300" />
                 </RouterLink>
 
@@ -78,7 +73,7 @@ function discountPrice(price, discount) {
 
             <div class="content">
                 <h5 class="title">
-                    <RouterLink to="" class="product-title">
+                    <RouterLink :to="`product/${product._id}`" class="product-title">
                         {{ product.name }}
                     </RouterLink>
                 </h5>
@@ -109,10 +104,10 @@ function discountPrice(price, discount) {
                 </div>
                 <!-- Cart Button End -->
 
-                <div v-if="product.quantity == 0" class='ribbon bg-danger' style='top: -20px' onload="soldOutRibbon()">
+                <!-- <div v-if="product.quantity == 0" class='ribbon bg-danger' style='top: -20px' onload="soldOutRibbon()">
                     Đã Bán Hết
-                </div>
+                </div> -->
             </div>
-        </div>
+        </aos-vue>
     </div>
 </template>

@@ -1,9 +1,10 @@
 export const useProductStore = defineStore('product', {
     state: () => ({
-        keyword: '',
+        keyword: useRoute().query.keyword || '',
         filter: '',
         countProduct: null,
-        page: 1,
+        page: parseInt(useRoute().query.page) || 1, //! page must be integer
+        view: useRoute().query.view || 'grid',
     }),
 
 
@@ -22,6 +23,10 @@ export const useProductStore = defineStore('product', {
 
         setPage(page) {
             this.page = page
+        },
+
+        setView(view) {
+            this.view = view
         }
     },
 })

@@ -6,7 +6,7 @@
 
 <template>
     <!-- Register Section Start -->
-    <div data-aos="fade-right" data-aos-offset="300" data-aos-easing="ease-in-sine">
+
         <div class="section section-margin">
             <div class="container">
                 <div class="row">
@@ -48,5 +48,4 @@
                 </div>
             </div>
         </div>
-    </div>
     </template>

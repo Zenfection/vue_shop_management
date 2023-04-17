@@ -14,6 +14,7 @@
     "@vueuse/head": "^1.1.23",
     "animejs": "^3.2.1",
     "aos": "^2.3.4",
+    "aos-vue": "^0.0.5",
     "axios": "^1.3.5",
     "bootstrap": "^5.2.3",
     "dotenv": "^16.0.3",

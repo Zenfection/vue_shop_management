@@ -6,12 +6,12 @@ store.restoreState()
 const query = useRoute().query
 const router = useRouter()
 
-const categoryFilter = ref(query.category || 'all')
+const currentCategory = ref(store.currentCategory)
 const categories = ref(store.categories)
 
-watch(categoryFilter, () => {
-    store.setCurrentCategory(categoryFilter.value || 'all')
-    const update = { ...query, category: categoryFilter.value }
+watch(currentCategory, (value) => {
+    store.setCurrentCategory(value)
+    const update = { ...query, category: value }
     router.push({ query: update })
 })
 
@@ -23,12 +23,12 @@ watch(categoryFilter, () => {
         <div class="sidebar-body justify-content-start">
             <ul class="sidebar-list product-tab-nav">
                 <li>
-                    <a class="cursor-pointer" :class="{ 'active': categoryFilter === 'all' }" @click="categoryFilter = 'all'">
+                    <a class="cursor-pointer" :class="{ 'active': currentCategory === 'all' }" @click="currentCategory = 'all'">
                         <i class="fa-duotone fa-border-all fa-xl"></i> Tất cả sản phẩm
                     </a>
                 </li>
                 <li v-for="item in categories" :key="item._id">
-                    <a class="cursor-pointer" :class="{ 'active': categoryFilter === item.category }" @click="categoryFilter = item.category">
+                    <a class="cursor-pointer" :class="{ 'active': currentCategory === item.category }" @click="currentCategory = item.category">
                         <i class="fa-duotone fa-xl" :class="{
                             'fa-cake-slice': item.category === 'cake',
                             'fa-lollipop': item.category === 'candy',

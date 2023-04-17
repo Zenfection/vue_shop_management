@@ -4,7 +4,7 @@ const store = useProductStore()
 const query = useRoute().query
 const router = useRouter()
 
-const page = ref(parseInt(query.page) || 1)
+const page = ref(store.page)
 
 const total = computed(() => Math.ceil(store.countProduct / 9))
 
@@ -26,6 +26,7 @@ watch(page, () => {
     const update = { ...query, page: page.value }
     router.push({ query: update })
 })
+
 </script>
 
 <template>

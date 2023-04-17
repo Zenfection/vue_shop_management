@@ -2,8 +2,9 @@
   "name": "shop_management_backend",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "exports": "./server.js",
   "type": "module",
+  "homepage": "https://api-shop.zenfection.com",
   "scripts": {
     "dev": "nodemon --loader=./alias-loader.mjs --no-warnings server.js",
     "start": "node --loader=./alias-loader.mjs --no-warnings server.js"

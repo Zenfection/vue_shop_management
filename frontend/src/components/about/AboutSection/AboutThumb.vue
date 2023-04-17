@@ -8,12 +8,12 @@ let aboutBackground = {
 </script>
 
 <template>
-    <div class="col-md-6 pe-lg-5 p-r-15 m-b-30" data-aos="fade-right" data-aos-duration="1000">
+    <aos-vue class="col-md-6 pe-lg-5 p-r-15 m-b-30" animation="fade-right" :duration="700">
         <!-- About Thumb Start -->
         <div class="about-thumb">
             <IKImage class="fit-image" :path="aboutBackground.src" :width="aboutBackground.width"
                 :alt="aboutBackground.alt" />
         </div>
         <!-- About Thumb End -->
-    </div>
+    </aos-vue>
 </template>

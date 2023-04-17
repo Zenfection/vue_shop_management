@@ -36,13 +36,14 @@ import type {
 declare module 'vue-router/auto/routes' {
   export interface RouteNamedMap {
     '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
-    '/about': RouteRecordInfo<'/about', '/about', Record<never, never>, Record<never, never>>,
-    '/account': RouteRecordInfo<'/account', '/account', Record<never, never>, Record<never, never>>,
-    '/cart': RouteRecordInfo<'/cart', '/cart', Record<never, never>, Record<never, never>>,
-    '/contact': RouteRecordInfo<'/contact', '/contact', Record<never, never>, Record<never, never>>,
-    '/login': RouteRecordInfo<'/login', '/login', Record<never, never>, Record<never, never>>,
-    '/register': RouteRecordInfo<'/register', '/register', Record<never, never>, Record<never, never>>,
-    '/shop': RouteRecordInfo<'/shop', '/shop', Record<never, never>, Record<never, never>>,
+    '/about/': RouteRecordInfo<'/about/', '/about', Record<never, never>, Record<never, never>>,
+    '/account/': RouteRecordInfo<'/account/', '/account', Record<never, never>, Record<never, never>>,
+    '/cart/': RouteRecordInfo<'/cart/', '/cart', Record<never, never>, Record<never, never>>,
+    '/contact/': RouteRecordInfo<'/contact/', '/contact', Record<never, never>, Record<never, never>>,
+    '/login/': RouteRecordInfo<'/login/', '/login', Record<never, never>, Record<never, never>>,
+    '/product/[id]': RouteRecordInfo<'/product/[id]', '/product/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
+    '/register/': RouteRecordInfo<'/register/', '/register', Record<never, never>, Record<never, never>>,
+    '/shop/': RouteRecordInfo<'/shop/', '/shop', Record<never, never>, Record<never, never>>,
   }
 }
 

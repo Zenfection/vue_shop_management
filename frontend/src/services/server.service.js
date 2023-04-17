@@ -20,14 +20,26 @@ const categoryService = (baseUrl) => ({
 
 const productService = (baseUrl) => ({
     getAll: async () => await http.get(baseUrl),
-    getCount: async () => await http.get(`${baseUrl}/count`),
     getFilter: async ({
-        filter = {},
-        limit = 10,
-        page = 1,
+        filter,
+        limit,
+        page,
         keyword,
         category
-    }) => await http.get(`${baseUrl}?filter=${filter}&limit=${limit}&page=${page}&keyword=${keyword}&category=${category}`),
+    }) => {
+        let url = `${baseUrl}?`;
+
+        if (!!filter) url += `filter=${filter}&`;
+        if (!!limit) url += `limit=${limit}&`;
+        if (!!page) url += `page=${page}&`;
+        if (!!keyword) url += `keyword=${keyword}&`;
+        if (!!category) url += `category=${category}&`;
+
+        // Remove trailing &
+        url = url.replace(/&$/, '');
+        return await http.get(url);
+    },
+    getDetail: async (id) => await http.get(`${baseUrl}/${id}`),
 })
 
 export const UserService = userService('/users');

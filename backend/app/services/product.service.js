@@ -1,3 +1,5 @@
+import { ObjectId } from 'mongodb'
+
 class ProductService {
     constructor(client) {
         this.Product = client.db().collection('products')
@@ -7,7 +9,7 @@ class ProductService {
         page = parseInt(page)
         limit = parseInt(limit)
 
-        if(category == 'all'){
+        if(category === 'all' || category === 'undefined'){
             category = null
         }
 
@@ -23,10 +25,6 @@ class ProductService {
         const query = this.Product.find({
             ...(category ? { category: { $eq: category } } : {}),
             ...(keyword ? { name: { $regex: keyword, $options: 'i' } } : {}),
-            
-            // $or: [
-            //     { name: { $regex: keyword, $options: 'i' } },
-            // ]
         })
             .sort(sort)
             .skip((page - 1) * limit)
@@ -38,10 +36,16 @@ class ProductService {
         return await query.toArray();
     }
 
-    async count() {
-        return await this.Product.countDocuments()
-    }
+    async count({ keyword, category }) {
+        if(category === 'all' || category === 'undefined'){
+            category = null
+        }
 
+        return await this.Product.countDocuments({
+            ...(category ? { category: { $eq: category } } : {}),
+            ...(keyword ? { name: { $regex: keyword, $options: 'i' } } : {}),
+        })
+    }
 
     async findById(id) {
         return await this.Product.findOne({
