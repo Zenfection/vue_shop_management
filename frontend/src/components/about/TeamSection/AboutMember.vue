@@ -7,7 +7,7 @@
 </script>
 
 <template>
-    <aos-vue class="single-team-wrapper" animation="fade-up">
+    <div class="single-team-wrapper" v-motion-slide-visible-bottom>
         <div class="thumb"> 
             <RouterLink to="contact">
                 <IKImage class="fit-image" :path="team1.src" :alt="team1.alt" :height="team1.height" />
@@ -36,5 +36,5 @@
             <h4 class="title">Lê Tuấn Kiệt</h4>
             <h4 class="subtitle">Trưởng dự án</h4>
         </div>
-    </aos-vue>
+    </div>
 </template>

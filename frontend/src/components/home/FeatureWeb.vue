@@ -1,34 +1,5 @@
 <script setup>
     let sliders = contents.sliders;
-
-    onMounted(() => {
-        tns({
-        container: '.feature-slider',
-        loop: true,
-        navPosition: "bottom",
-        speed: 400,
-        mouseDrag: true,
-        controls: false,
-        autoplay: true,
-        autoplayButtonOutput: false,
-        responsive: {
-            640: {
-                edgePadding: 20,
-                gutter: 20,
-                items: 1
-            },
-            700: {
-                edgePadding: 20,
-                gutter: 30,
-                items: 2
-            },
-            900: {
-                edgePadding: 20,
-                items: 4
-            }
-        }
-    });
-    })
 </script>
 
 <template>
@@ -42,7 +13,7 @@
             </div>
             <div class="row text-center">
                 <div class="col-lg-12">
-                    <div class="feature-slider">
+                    <Slider>
                         <div v-for="slider in sliders" :key="slider.title">
                             <div class="mt-4 pt-2">
                                 <div class="solution border rounded position-relative px-4 py-5 ">
@@ -54,13 +25,11 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </Slider>
+                    <!-- <div class="feature-slider">
+                    </div> -->
                 </div>
             </div>
         </div>
     </section>
 </template>
-
-<style>
-    @import "tiny-slider/dist/tiny-slider.css";
-</style>

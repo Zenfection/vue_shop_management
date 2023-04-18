@@ -9,6 +9,8 @@ import { Skeletor } from 'vue-skeletor';
 import AosVue from "aos-vue";
 import Pace from "pace-js";
 import { Rating } from '@morpheme/rating'
+import VueTinySlider from "@mentorkadriu/vue-tiny-slider"
+import { MotionPlugin } from '@vueuse/motion'
 
 const imageKitConfig = {
     urlEndpoint: api.imagekit.urlEndpoint,
@@ -31,10 +33,12 @@ const app = createApp(App)
                 .use(AosVue)
                 .use(createPinia())
                 .use(head)
-                .use(createImageKitVue(imageKitConfig));
+                .use(createImageKitVue(imageKitConfig))
+                .use(MotionPlugin)
 
-app.component(Skeletor.name, Skeletor);
-app.component('Rating', Rating);
+app.component(Skeletor.name, Skeletor)
+app.component('Rating', Rating)
+app.component('VueTinySlider', VueTinySlider)
 
 app.mount('#app');
 

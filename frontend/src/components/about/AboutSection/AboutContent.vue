@@ -1,5 +1,5 @@
 <template>
-    <aos-vue class="col-md-6 align-self-center m-b-30" animation="fade-left" :duration="600">
+    <div class="col-md-6 align-self-center m-b-30" v-motion-slide-right>
         <!-- About Content Start -->
         <div class="about-content">
             <h2 class="title">Dự án Web bán thức ăn vặt</h2>
@@ -22,5 +22,5 @@
                 Hệ</RouterLink>
         </div>
         <!-- About Content End -->
-    </aos-vue>
+    </div>
 </template>

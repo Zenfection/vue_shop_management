@@ -1,57 +1,35 @@
 <script setup>
 
 const props = defineProps({
-    similar_product: {
-        type: Array,
-        required: true,
-    },
+    category: {
+        type: String,
+        required: true
+    }
 })
 
-const similar_product = computed(() => props.similar_product)
+const fetchTopProduct = async () => {
+    return new Promise(async (resolve) => {
+        try {
+            const response = await ProductService.getFilter({
+                category: props.category,
+            });
+            resolve(response.data);
+        } catch (exception) {
+            console.log(exception)
+        }
+    })
+}
+
+const products = ref(await fetchTopProduct())
 
 const formatter = new Intl.NumberFormat('vi-VN', {
     style: 'currency',
-    currency: 'VND',
-});
+    currency: 'VND'
+})
 
 function discountPrice(price, discount) {
-    return price - (price * discount / 100);
+    return price - (price * discount) / 100
 }
-
-function initSlider() {
-    tns({
-            container: '.feature-slider',
-            loop: false,
-            navPosition: "bottom",
-            speed: 400,
-            mouseDrag: true,
-            controls: false,
-            autoplay: true,
-            autoplayButtonOutput: false,
-            responsive: {
-                640: {
-                    edgePadding: 20,
-                    gutter: 20,
-                    items: 1
-                },
-                700: {
-                    edgePadding: 20,
-                    gutter: 30,
-                    items: 2
-                },
-                900: {
-                    edgePadding: 20,
-                    items: 4
-                }
-            }
-        });
-}
-
-onMounted(() => {
-    setTimeout(() => {
-        initSlider()
-    }, 200)
-})
 
 </script>
 
@@ -67,9 +45,9 @@ onMounted(() => {
             </div>
             <div class="row text-center">
                 <div class="col-lg-12">
-                    <div class="feature-slider">
-                        <div class="mt-4 pt-2" v-for="product in similar_product" :key="product._id">
-                            <div class="solution border rounded position-relative px-4 py-5 ">
+                    <Slider>
+                        <div class="mt-4 pt-2" v-for="product in products" :key="product._id">
+                            <div class="solution border rounded position-relative px-4 py-5">
                                 <div class="product-wrapper">
                                     <div class="product">
                                         <!-- Thumb Start  -->
@@ -79,7 +57,7 @@ onMounted(() => {
                                                     alt="Product Image" />
                                             </RouterLink>
                                             <span class="badges" v-if="product.discount > 0">
-                                                <span class='sale'>-{{ product.discount }}%</span>
+                                                <span class="sale">-{{ product.discount }}%</span>
                                             </span>
                                             <div class="action-wrapper">
                                                 <a href="javascript:;" class="action" title="Thêm sản phẩm"><i
@@ -119,13 +97,9 @@ onMounted(() => {
                                 <!-- Product End -->
                             </div>
                         </div>
-                    </div>
+                    </Slider>
                 </div>
             </div>
         </div>
     </div>
-</template> 
-
-<style scoped>
-@import "tiny-slider/dist/tiny-slider.css";
-</style>
+</template>

@@ -37,5 +37,16 @@ onMounted(async () => {
 
     <InfoProduct />
 
-    <SimilarProduct :similar_product="similar_product" />
+    <Suspense>
+        <template #default>
+            <SimilarProduct :category="product.category" />
+        </template>
+
+        <template #fallback>
+            <SimilarProductSkeleton :total="4" />
+        </template>
+    </Suspense>
+
+
+    <!-- <SimilarProduct :similar_product="similar_product" /> -->
 </template>

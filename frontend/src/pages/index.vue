@@ -1,7 +1,7 @@
 <template>
     <HeroIntro />
 
-    <Slider />
+    <FeatureWeb />
 
     <Suspense>
         <template #default>

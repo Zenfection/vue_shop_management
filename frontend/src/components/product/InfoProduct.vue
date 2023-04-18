@@ -7,7 +7,7 @@
         <div class="container">
             <div class="row">
                 <!-- Single Product Tab Start -->
-                <div class="col-lg-12 single-product-tab" data-aos="fade-up" data-aos-duration="500">
+                <div class="col-lg-12 single-product-tab">
                     <ul class="nav nav-tabs m-b-n15" id="myTab" role="tablist">
                         <li class="nav-item m-b-15">
                             <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#connect-1" role="tab" aria-selected="true">Mô Tả</a>
