@@ -1,21 +1,13 @@
 <script setup>
 
-const { params } = useRoute()
-const id = ref(params.id)
+const props = defineProps({
+    product: {
+        type: Object,
+        required: true,
+    },
+})
 
-const storeCategory = useCategoryStore()
-
-const fetchDetailProduct = async () => {
-    try {
-        const response = await ProductService.getDetail(id.value)
-        product.value = response
-        storeCategory.setCurrentCategory(response.category)
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-const product = ref({})
+const product = computed(() => props.product)
 
 const formatter = new Intl.NumberFormat('vi-VN', {
     style: 'currency',
@@ -25,10 +17,6 @@ const formatter = new Intl.NumberFormat('vi-VN', {
 function discountPrice(price, discount) {
     return price - (price * discount / 100);
 }
-
-onMounted(async () => {
-    await fetchDetailProduct()
-})
 </script>
 
 <template>
