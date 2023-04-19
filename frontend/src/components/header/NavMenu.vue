@@ -30,9 +30,9 @@ const navs = [
             <ul>
                 <li class="nav-item" v-for="nav in navs" :key="nav.path">
                     <RouterLink :to="nav.path" exact-active-class="active" active-class="active">
-                        <aos-vue animation="fade-in" :duration="nav.duration">
+                        <div>
                             {{ nav.name }}
-                        </aos-vue>
+                        </div>
                     </RouterLink>
                 </li>
             </ul>

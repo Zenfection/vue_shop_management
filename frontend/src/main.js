@@ -6,11 +6,11 @@ import { createHead } from '@vueuse/head'
 
 //TODO Components
 import { Skeletor } from 'vue-skeletor';
-import AosVue from "aos-vue";
 import Pace from "pace-js";
 import { Rating } from '@morpheme/rating'
 import VueTinySlider from "@mentorkadriu/vue-tiny-slider"
 import { MotionPlugin } from '@vueuse/motion'
+import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
 
 const imageKitConfig = {
     urlEndpoint: api.imagekit.urlEndpoint,
@@ -25,16 +25,23 @@ const head = createHead()
 const router = createRouter({
     history: createWebHistory(),
     routes: setupLayouts(routes),
+    scrollBehavior: (to, from, savedPosition) => {
+        if (savedPosition) {
+            return savedPosition
+        } else {
+            return { top: 0 }
+        }
+    }
 });
 
 // Kết nối App với router và kết nối ứng dụng với phần tử HTML
 const app = createApp(App)
                 .use(router)
-                .use(AosVue)
                 .use(createPinia())
                 .use(head)
-                .use(createImageKitVue(imageKitConfig))
                 .use(MotionPlugin)
+                .use(autoAnimatePlugin)
+                .use(createImageKitVue(imageKitConfig))
 
 app.component(Skeletor.name, Skeletor)
 app.component('Rating', Rating)
@@ -42,6 +49,5 @@ app.component('VueTinySlider', VueTinySlider)
 
 app.mount('#app');
 
-// Khởi động các thư viện Pace và Aos
 Pace.start();
 

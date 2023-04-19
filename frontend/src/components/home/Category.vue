@@ -28,7 +28,7 @@ const categories = ref(await getCategories())
             <h2>Loại Đồ Ăn</h2>
             <!-- Banners Start -->
             <div class="row row-cols-md-3 row-cols-sm-2 row-cols-1 m-b-n30">
-                <div class="col m-b-30" v-for="item in categories" :key="item.name">
+                <div class="col m-b-30" v-for="item in categories" :key="item.name" v-motion-fade-visible-once>
                     <div class="banner hover-style" v-if="item.active">
                         <RouterLink :to="`/shop?category=${item.category}`">
                             <IKImage :path="item.image" class="fit-image p-10" alt="Banner Image" width="450" />

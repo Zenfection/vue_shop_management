@@ -11,24 +11,11 @@ const fetchDetailProduct = async () => {
     }
 }
 
-const fetchSimilarProduct = async () => {
-    try {
-        const response = await ProductService.getFilter({
-            category: product.value.category,
-        })
-        // remove current product
-        similar_product.value = Object.values(response.data).filter(item => item._id !== id.value)
-    } catch (error) {
-        console.log(error)
-    }
-}
 
 const product = ref({})
-const similar_product = ref({})
 
 onMounted(async () => {
     await fetchDetailProduct()
-    await fetchSimilarProduct()
 })
 </script>
 
@@ -39,7 +26,8 @@ onMounted(async () => {
 
     <Suspense>
         <template #default>
-            <SimilarProduct :category="product.category" />
+            <SimilarProduct v-if="product.category" :category="product.category" />
+            <!-- <SimilarProduct :similar_product="similar_product" /> -->
         </template>
 
         <template #fallback>
@@ -48,5 +36,4 @@ onMounted(async () => {
     </Suspense>
 
 
-    <!-- <SimilarProduct :similar_product="similar_product" /> -->
 </template>

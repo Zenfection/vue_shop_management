@@ -11,20 +11,20 @@ useHead({
             <div class="row flex-row-reverse">
                 <div class="col-lg-9 col-12">
 
-                    <ToolBar />
+                    <ToolBar v-motion-fade />
                     
                     <Suspense>
                         <template #default>
-                            <ProductContent />
+                            <ProductContent v-motion-fade />
                         </template>
 
                         <template #fallback>
-                            <ProductContentSkeleton :total="9" />
+                            <ProductContentSkeleton :total="9"  />
                         </template>
                     </Suspense>
                 </div>
 
-                <SideBar />
+                <SideBar v-motion-fade />
 
 
             </div>

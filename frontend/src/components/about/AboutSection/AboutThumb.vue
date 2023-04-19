@@ -1,5 +1,4 @@
 <script setup>
-import { TransitionFade } from '@morev/vue-transitions';
 let aboutBackground = {
     src: images.aboutBackground.src,
     alt: images.aboutBackground.alt,
@@ -9,7 +8,6 @@ let aboutBackground = {
 </script>
 
 <template>
-    <transition-fade>
         <div class="col-md-6 pe-lg-5 p-r-15 m-b-30" v-motion-slide-left>
             <!-- About Thumb Start -->
             <div class="about-thumb">
@@ -18,5 +16,4 @@ let aboutBackground = {
             </div>
             <!-- About Thumb End -->
         </div>
-    </transition-fade>
 </template>

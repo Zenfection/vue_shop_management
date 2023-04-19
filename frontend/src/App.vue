@@ -15,7 +15,11 @@ useHead({
 <template>
     <Header />
 
-    <RouterView />
+    <RouterView>
+    </RouterView>
+        <!-- <transition enter-active-class="animate__animated animate__fadeIn animate__faster" leave-active-class="animate__animated animate__fadeOut animate__faster">
+            <component :is="Component" />
+        </transition> -->
 
     <Footer />
 </template>
@@ -25,5 +29,11 @@ useHead({
 @import "@/assets/css/style-v2.min.css";
 @import "vue-skeletor/dist/vue-skeletor.css";
 @import "https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.min.css";
+
+#app {
+    font-family: 'Inter', sans-serif;
+    font-smooth: always;
+}
+
 </style>
 

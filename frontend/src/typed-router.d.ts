@@ -31,13 +31,14 @@ import type {
   // data fetching
   _DataLoader,
   _DefineLoaderOptions,
-} from 'unplugin-vue-router'
+} from 'unplugin-vue-router/types'
 
 declare module 'vue-router/auto/routes' {
   export interface RouteNamedMap {
     '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
     '/about/': RouteRecordInfo<'/about/', '/about', Record<never, never>, Record<never, never>>,
     '/account/': RouteRecordInfo<'/account/', '/account', Record<never, never>, Record<never, never>>,
+    '/account/[order]': RouteRecordInfo<'/account/[order]', '/account/:order', { order: ParamValue<true> }, { order: ParamValue<false> }>,
     '/cart/': RouteRecordInfo<'/cart/', '/cart', Record<never, never>, Record<never, never>>,
     '/contact/': RouteRecordInfo<'/contact/', '/contact', Record<never, never>, Record<never, never>>,
     '/login/': RouteRecordInfo<'/login/', '/login', Record<never, never>, Record<never, never>>,
@@ -101,7 +102,7 @@ declare module 'vue-router/auto' {
   export function onBeforeRouteUpdate(guard: NavigationGuard<RouteNamedMap>): void
 
   export const RouterLink: RouterLinkTyped<RouteNamedMap>
-  
+
   // Experimental Data Fetching
 
   export function defineLoader<

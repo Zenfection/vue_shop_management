@@ -37,7 +37,7 @@ const handleSubmit = async () => {
                         <div class="section-content text-center m-b-30">
                             <h2 class="title m-b-10">Đăng nhập</h2>
                         </div>
-                        <!-- Form Action  -->
+                        <!--! Form Action  -->
                         <form id="loginForm" @submit.prevent="handleSubmit">
                             <div class="single-input-item m-b-10">
                                 <label for="description" class="form-label">Tài Khoản</label>

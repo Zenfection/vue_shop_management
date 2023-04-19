@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <section class="service-section">
+    <section class="service-section" v-motion-pop-visible-once>
         <div class="container">
             <div class="row justify-content-center text-center">
                 <div class="col-12 mb-4">

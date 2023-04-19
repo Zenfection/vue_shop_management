@@ -23,7 +23,7 @@ watch(currentCategory, (value) => {
         <div class="sidebar-body justify-content-start">
             <ul class="sidebar-list product-tab-nav">
                 <li>
-                    <a class="cursor-pointer" :class="{ 'active': currentCategory === 'all' }" @click="currentCategory = 'all'">
+                    <a class="cursor-pointer" :class="{ 'active': currentCategory === undefined }" @click="currentCategory = 'all'">
                         <i class="fa-duotone fa-border-all fa-xl"></i> Tất cả sản phẩm
                     </a>
                 </li>

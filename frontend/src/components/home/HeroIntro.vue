@@ -69,7 +69,7 @@ onMounted(() => {
 
         <div class="container">
             <div class="row align-items-center text-center text-lg-start">
-                <aos-vue class="col-lg-6 mt-4 pt-2" animation="fade-right">
+                <div class="col-lg-6 mt-4 pt-2" v-motion-slide-left>
                     <div class="text-primary mb-3 fw-hero h6">
                         Được phát triển bởi
                         <a href="https://facebook.com/zenfection" target="_blank">
@@ -96,10 +96,10 @@ onMounted(() => {
                     <RouterLink v-if="!isLogged" to="login" class="btn btn-primary mt-4">Đăng Nhập
                         <i class="fa-duotone fa-arrow-right-to-bracket fa-xl"></i>
                     </RouterLink>
-                </aos-vue>
-                <aos-vue class="col-lg-6 mt-lg-4 pt-2 mt-5 d-lg-flex d-none" animation="fade-left">
+                </div>
+                <div class="col-lg-6 mt-lg-4 pt-2 mt-5 d-lg-flex d-none" v-motion-slide-right>
                     <IKImage class="fit-image" :path="homeBackground.src" :alt="homeBackground.alt" :width="homeBackground.width" /> 
-                </aos-vue>
+                </div>
             </div>
         </div>
         <!-- end container -->
