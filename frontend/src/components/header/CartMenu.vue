@@ -1,77 +1,127 @@
 <script setup>
+import autoAnimate from "@formkit/auto-animate"
 
-const userStore = UserStore()
-if (!!userStore.user) {
-    userStore.restoreState()
+const store = useUserStore()
+if (!store.user) {
+    store.restoreState()
 }
 
-const isLogged = ref(userStore.isAuthenticated ?? false)
+const dropdown = ref() // we need a DOM node
+const show = ref(false)
+
+const isLogged = ref(store.isAuthenticated ?? false)
+const cart = ref(store.cart ?? [])
+
+const totalMoney = computed(() => {
+    let total = 0
+    cart.value.forEach(item => {
+        let discountPrice = item.product.price - (item.product.price * item.product.discount) / 100
+        total += discountPrice * item.amount
+    })
+    return total
+})
+
+const fetchCartUser = async () => {
+    try {
+        const data = {
+            username: store.user.username,
+        };
+        const response = await UserService.cart(data);
+        cart.value = response;
+        store.setCart(response);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+onMounted(() => {
+    if (store.user) {
+        fetchCartUser();
+    }
+    autoAnimate(dropdown.value)
+})
 
 watchEffect(() => {
-    isLogged.value = userStore.isAuthenticated ?? false
+    isLogged.value = store.isAuthenticated ?? false
 })
+
+const formatter = new Intl.NumberFormat('vi-VN', {
+    style: 'currency',
+    currency: 'VND'
+})
+
+function discountPrice(price, discount) {
+    return price - (price * discount) / 100
+}
+
 </script>
 
 
 <template>
-    <!-- Header Action Button Start -->
-    <div class="header-action-btn header-action-btn-cart d-none d-sm-flex">
-    <div class="cart-visible cursor-pointer">
-        <i class="fa-duotone fa-bag-shopping fa-xl"></i>
-        <!-- <?php
-        if (!empty($user)) {
-            $countCart = count($cart);
-            echo "<span class='header-action-num' id='count-cart'>" . $countCart . "</span>";
-        }
-        ?> -->
-    </div>
+    <!--! Header Action Button Start -->
+    <div class="header-action-btn header-action-btn-cart d-none d-sm-flex dropdown" ref="dropdown">
+        <div class="cart-visible cursor-pointer" @click="show = !show">
+            <i class="fa-duotone fa-bag-shopping fa-xl"></i>
+            <span class="header-action-num" id="count-cart" v-if="store.user">
+                {{ cart.length }}
+            </span>
+        </div>
+        <!-- Header Cart Content Start -->
+        <div class="header-cart-content dropdown-label" style="display: block" v-if="show">
+            <!-- Cart Procut Wrapper Start  -->
+            <div class="cart-product-wrapper dropdown-content" v-for="item in cart" :key="item._id">
+                <div class="solution rounded cart-product-inner p-b-20 m-b-20 border-bottom product-inner">
+                    <!-- Single Cart Product Start -->
+                    <div class="single-cart-product">
+                        <div class="cart-product-thumb">
+                            <RouterLink :to="`/product/${item.product._id}`">
+                                <IKImage class="rounded" :path="`/products/${item.product.image}`" alt="Cart Product"
+                                    :width="100" />
+                            </RouterLink>
+                        </div>
+                        <div class="cart-product-content">
+                            <h3 class="title">
+                                <RouterLink :to="`/product/${item._id}`">
+                                    {{ item.product.name }}
+                                </RouterLink>
+                            </h3>
+                            <div class="product-quty-price">
+                                <span class="cart-quantity">
+                                    Số lượng: <strong> {{ item.amount }} </strong>
+                                </span>
+                                <span class="price" v-if="item.product.discount > 0">
+                                    <span class="new">
+                                        {{ formatter.format(discountPrice(item.product.price, item.product.discount)) }}
+                                    </span>
+                                    <span class="old" style="text-decoration: line-through;color: #DC3545;opacity: 0.5;">
+                                        {{ formatter.format(item.product.price) }}
+                                    </span>
+                                </span>
+                                <span class="price" v-else>
+                                    <span class="new">{{ formatter.format(item.product.price) }}</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Cart Product End -->
 
-    <!-- Header Cart Content Start -->
-    <div class="header-cart-content animate__animated">
-        <!-- Cart Procut Wrapper Start  -->
-        <div class="cart-product-wrapper">
-            <!-- <?php
-            if (!empty($user)) {
-                foreach ($cart as $key => $value) {
-                    $id = $value['id_product'];
-                    $name = $value['name'];
-                    $amount = $value['amount'];
-                            $image = $value['image'];
-                            $price = $value['price'];
-                            $discount = $value['discount'];
-                            $discount_price = $price - ($price * $discount / 100);
+                    <!-- Product Remove Start -->
+                    <div class="cart-product-remove">
+                        <a href="javascript:;" class="remove-cart" onclick="deleteProductCart('<?php echo $id?>')"><i
+                                class="fa-duotone fa-trash-can"></i></a>
+                    </div>
+                    <!-- Product Remove End -->
 
-                    $cart_product = [
-                        'id' => $id,
-                                'name' => $name,
-                                'amount' => $amount,
-                                'image' => $image,
-                                'price' => number_price($price),
-                                'discount' => $discount,
-                                'discount_price' => number_price($discount_price),
-                            ];
-            ?> -->
-            <!-- Cart Product/Price Start -->
-            <!-- <?php $this->render('blocks/cart_product', $cart_product)?> -->
-            <!-- Cart Product/Price End -->
-            <!-- <?php
-                }
-            }
-                    ?> -->
+                </div>
             </div>
             <!-- Cart Procut Wrapper -->
 
             <!-- Cart Product Total Start -->
             <div class="cart-product-total p-b-20 m-b-20 border-bottom">
                 <span class="value">Tổng tiền</span>
-                <!-- <?php
-                    if(!empty($user)){
-                        //number format
-                        echo "<span class='value' id='totalmoney'>" . number_price($total_money) . "</span>";
-                    } else {
-                        echo "<span class='value' id='totalmoney'>0 </span>";
-                    }
-                    ?> -->
+                <span class="value">
+                    <strong>{{ formatter.format(totalMoney) }}</strong>
+                </span>
             </div>
             <!-- Cart Product Total End -->
 
@@ -85,5 +135,5 @@ watchEffect(() => {
         <!-- Header Cart Content End -->
     </div>
 
-    <mobile-reponsitive></mobile-reponsitive>
+    <MobileReponsitive />
 </template>

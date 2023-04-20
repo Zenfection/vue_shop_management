@@ -1,6 +1,6 @@
 import { validationResult } from 'express-validator'
 import { MongoDB } from '@utils'
-import { UserService } from '@services'
+import { UserService, CartService } from '@services'
 import createError from 'http-errors'
 import httpStatus from 'http-status'
 import bcrypt from 'bcrypt'
@@ -16,7 +16,6 @@ const login = async (req, res) => {
     }
 
     const { username, email, password } = req.body
-    // if username is undifined, set username = email
     try {
         const User = new UserService(MongoDB.client)
 
@@ -46,7 +45,7 @@ const login = async (req, res) => {
             }
         }
     } catch (exception) {
-        createError(httpStatus.INTERNAL_SERVER_ERROR, exception)
+        throw createError(httpStatus.INTERNAL_SERVER_ERROR, exception)
     }
 }
 
@@ -67,7 +66,7 @@ const register = async (req, res) => {
             })
         }
     } catch (exception) {
-        createError(httpStatus.INTERNAL_SERVER_ERROR, exception)
+        throw createError(httpStatus.INTERNAL_SERVER_ERROR, exception)
     }
 }
 
@@ -89,12 +88,30 @@ const getDetailUser = async (req, res) => {
             })
         }
     } catch (exception) {
-        createError(httpStatus.INTERNAL_SERVER_ERROR, exception)
+        throw createError(httpStatus.INTERNAL_SERVER_ERROR, exception)
+    }
+}
+
+const getCart = async (req, res, next) => {
+    //? Validate request
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(httpStatus.BAD_REQUEST).json({ errors: errors.array() })
+    }
+
+    const { username } = req.body
+    try {
+        const cart = new CartService(MongoDB.client)
+        const result = await cart.findCart(username)
+        res.status(httpStatus.OK).json(result)
+    } catch (exception) {
+        throw createError(httpStatus.INTERNAL_SERVER_ERROR, exception)
     }
 }
 
 export default {
     login,
     register,
-    getDetailUser
+    getDetailUser,
+    getCart
 }

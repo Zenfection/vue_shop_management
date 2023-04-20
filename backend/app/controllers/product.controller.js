@@ -9,8 +9,8 @@ const getProduct = async (req, res, next) => {
         const product = new ProductService(MongoDB.client)
         const result = await product.findById(req.params.id)
         // ignore result.sold
-        const { sold, ...rest } = result
-        res.status(httpStatus.OK).json(rest)
+        // const { sold, ...rest } = result
+        res.status(httpStatus.OK).json(result)
     } catch (error) {
         throw createError(httpStatus.INTERNAL_SERVER_ERROR, error)
     }

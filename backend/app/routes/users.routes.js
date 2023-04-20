@@ -9,14 +9,18 @@ router.get('/:id', userController.getDetailUser)
 router.post('/login', [
     oneOf([
     body('username')
-        .exists().withMessage('Username is required')
-        .isLength({ min: 5 }).withMessage('Username must be at least 5 characters'),
+        .exists()
+        .isLength({ min: 5 }),
     body('email')
-        .exists().withMessage('Email is required')
-        .isEmail().withMessage('Invalid email address')
-    ])
+        .exists().isEmail()
+    ]), body('password').exists().isString(),
 ], userController.login);
 
+
 router.post('/register', userController.register)
+
+router.post('/cart',[
+    body('username').exists().isString(),
+], userController.getCart)
 
 export default router

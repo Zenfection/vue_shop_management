@@ -4,16 +4,22 @@ const props = defineProps({
     category: {
         type: String,
         required: true
+    },
+    id: {
+        type: String,
+        required: true
     }
 })
+
 
 const fetchTopProduct = async () => {
     return new Promise(async (resolve) => {
         try {
-            console.log(props.category)
             const response = await ProductService.getFilter({
                 category: props.category,
             });
+            // filter remove product current
+            response.data = Object.values(response.data).filter(item => item._id != props.id)
             resolve(response.data);
         } catch (exception) {
             console.log(exception)

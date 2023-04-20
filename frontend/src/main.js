@@ -31,7 +31,7 @@ const router = createRouter({
         } else {
             return { top: 0 }
         }
-    }
+    },
 });
 
 // Kết nối App với router và kết nối ứng dụng với phần tử HTML

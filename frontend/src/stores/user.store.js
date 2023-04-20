@@ -1,7 +1,8 @@
-export const UserStore = defineStore('user', {
+export const useUserStore = defineStore('user', {
     state: () => ({
         user: null,
-        token: null
+        token: null,
+        cart: null
     }),
 
     getters: {
@@ -28,6 +29,17 @@ export const UserStore = defineStore('user', {
                 user: this.user,
                 token: this.token
             }));
+        },
+
+        logout() {
+            this.user = null;
+            this.token = null;
+
+            window.localStorage.removeItem('user');
+        },
+
+        setCart(cart) {
+            this.cart = cart;
         },
 
         restoreState() {

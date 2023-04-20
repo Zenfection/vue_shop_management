@@ -22,8 +22,8 @@ const fetchProduct = async () => {
 const products = ref(await fetchProduct())
 
 // watch page, keyword, category
-watch([page, keyword, category], () => {
-    fetchProduct().then((response) => {
+watch([page, keyword, category], async() => {
+    await fetchProduct().then((response) => {
         products.value = response
     })
 })

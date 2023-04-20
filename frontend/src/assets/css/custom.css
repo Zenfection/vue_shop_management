@@ -175,7 +175,13 @@
 }
 
 .solution {
-    transition: all0 0.5s ease-in-out;
+    position: relative;
+    padding: 1rem;
+    border-radius: 50%;
+    box-shadow: 0px 2px 8px rgba(45, 35, 66, 0.3), inset 0px -3px 0px 0px rgba(0, 0, 0, 0.05), inset 0px -3px 0px 0px #F2F4FF;
+    transition: box-shadow 0.15s ease,transform 0.15s ease;
+    /* transition: all0 0.5s ease-in-out; */
+    will-change: box-shadow,transform;
 }
 
 .solution .sol-icon {
@@ -184,7 +190,21 @@
 
 .solution:hover,
 .solution.active {
-    box-shadow: 0px 0px 12px 8px rgba(31, 27, 81, 0.05) !important;
+    box-shadow: 0px 4px 8px rgba(45, 35, 66, 0.4), 0px 7px 13px -3px rgba(45, 35, 66, 0.3), inset 0px -3px 0px #F2F4FF;
+    transform: translateY(-2px);
+}
+
+.solution:focus {
+    box-shadow: inset 0 0 0 1.5px #F2F4FF, 0px 2px 4px rgba(45, 35, 66, 0.4), 0px 7px 13px -3px rgba(45, 35, 66, 0.3), inset 0px -3px 0px #F2F4FF;
+}
+
+.solution:active {
+    box-shadow: inset 0px 3px 0px 0px rgba(0, 0, 0, 0.05), inset 0px 3px 0px #F2F4FF, inset 0px -3px 8px rgba(45, 35, 66, 0.3);
+}
+
+.solution .sol-icon {
+    color: #5d697d;
+    transition: color 0.2s ease-in-out;
 }
 
 .solution:hover .sol-icon,

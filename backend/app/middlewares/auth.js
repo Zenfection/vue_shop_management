@@ -13,14 +13,14 @@ const byPassToken = (req) => {
 };
 
 const requireToken = (req, res) => {
-    const token = req.headers?.['x-access-token'] ?? req.headers?.['authorization'] ?? null;
-    if (!!token) {
+    const token = req.headers?.['x-access-token'] ?? req.headers?.['authorization'] ?? null
+    if (!token) {
         res.status(httpStatus.UNAUTHORIZED).json({
             message: 'Token is required',
-        });
-        return;
+        })
+        return
     }
-    return token;
+    return token
 }
 
 

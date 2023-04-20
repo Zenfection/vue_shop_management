@@ -6,11 +6,13 @@ let homeBackground = {
     width: images.homeBackground.width,
 }
 
-const userStore = UserStore()
-userStore.restoreState()
+const store = useUserStore()
+if(!store.user){
+    store.restoreState()
+}
 
 const lettersEl = ref(null)
-const isLogged = ref(userStore.isAuthenticated ?? false)
+const isLogged = ref(store.isAuthenticated ?? false)
 
 onMounted(() => {
     if (lettersEl.value) {

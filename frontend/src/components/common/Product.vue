@@ -19,7 +19,7 @@ function discountPrice(price, discount) {
 </script>
 
 <template>
-    <div class="solution border rounded position-relative px-3 py-4" v-motion-fade>
+    <div class="solution border rounded position-relative" v-motion-fade>
         <div class="product-wrapper">
             <div class="product">
                 <!-- Thumb Start  -->

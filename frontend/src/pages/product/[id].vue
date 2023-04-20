@@ -1,6 +1,9 @@
 <script setup>
-const { params } = useRoute()
-const id = ref(params.id)
+import { watch } from 'vue';
+
+
+const $route = useRoute()
+const id = computed(() => $route.params.id)
 
 const fetchDetailProduct = async () => {
     try {
@@ -11,23 +14,34 @@ const fetchDetailProduct = async () => {
     }
 }
 
-
 const product = ref({})
 
 onMounted(async () => {
     await fetchDetailProduct()
 })
+
+watch(id, async () => {
+    await fetchDetailProduct()
+})
+
 </script>
 
 <template>
-    <SummaryProduct :product="product" />
+    <Suspense>
+        <template #default>
+            <SummaryProduct v-if="product" :product="product" :id="id" />
+        </template>
+
+        <template #fallback>
+            <SummaryProductSkeleton v-if="product" />
+        </template>
+    </Suspense>
 
     <InfoProduct />
 
     <Suspense>
         <template #default>
-            <SimilarProduct v-if="product.category" :category="product.category" />
-            <!-- <SimilarProduct :similar_product="similar_product" /> -->
+            <SimilarProduct v-if="product.category" :category="product.category" :id="id"/>
         </template>
 
         <template #fallback>

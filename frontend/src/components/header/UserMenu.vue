@@ -1,14 +1,14 @@
 <script setup>
-import { RouterLink } from 'vue-router';
 
+const store = useUserStore()
+if(!store.user){
+    store.restoreState()
+}
 
-const userStore = UserStore()
-userStore.restoreState()
-
-const isLogged = ref(userStore.isAuthenticated ?? false)
+const isLogged = ref(store.isAuthenticated ?? false)
 
 watchEffect(() => {
-    isLogged.value = userStore.isAuthenticated ?? false
+    isLogged.value = store.isAuthenticated ?? false
 })
 </script>
 

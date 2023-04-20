@@ -1,3 +1,0 @@
-<template>
-    Cart Product
-</template>

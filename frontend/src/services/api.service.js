@@ -1,9 +1,11 @@
+const token = JSON.parse(window.localStorage.getItem('user')).token ?? null;
+
 const instance = axios.create({
     baseURL: api.backend,
     headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        //'Authorization': 'Bearer your-token-here',
+        'Authorization': `Bearer ` + token,
     },
 });
 

@@ -4,7 +4,7 @@ useHead({
     title: 'Đăng nhập',
 })
 
-const userStore = UserStore();
+const store = useUserStore();
 const router = useRouter();
 
 const username = ref(null);
@@ -18,7 +18,7 @@ const handleSubmit = async () => {
         };
         const response = await UserService.login(data);
         if (response.user) {
-            userStore.login(response.user)
+            store.login(response.user)
             router.push(`/`)
         }
     } catch (error) {
