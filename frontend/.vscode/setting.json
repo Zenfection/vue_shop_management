@@ -1,5 +1,0 @@
-{
-    "typescript.preferences.autoImportFileExcludePatterns": [
-      "vue-router"
-    ]
-  }
