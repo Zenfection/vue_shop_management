@@ -37,7 +37,7 @@
                                     <i class="fa-duotone fa-user-pen"/> Chi Tiết
                                 </a>
                                 <a href="#account-password" data-bs-toggle="tab"><i class="fa-duotone fa-key-skeleton" /> Mật Khẩu</a>
-                                <a href="javascript;" @click="logout">
+                                <a @click="logout">
                                     <i class="fa-duotone fa-arrow-right-from-bracket" /> Đăng Xuất
                                 </a>
                             </div>
