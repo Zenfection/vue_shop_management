@@ -30,14 +30,7 @@ function discountPrice(price, discount) {
                     <span class="badges" v-if="product.discount > 0">
                         <span class="sale">-{{ product.discount }}%</span>
                     </span>
-                    <div class="action-wrapper">
-                        <a href="javascript:;" class="action" title="Thêm sản phẩm"><i class="fa-duotone fa-plus-large"
-                                onclick="addProductCart('<?php echo $id ?>', 1)"></i></a>
-                        <a href="javascript:;" class="action wishlist" title="Wishlist"><i
-                                class="fa-duotone fa-heart"></i></a>
-                        <a href="javascript:;" class="action cart" id="viewcart" title="Cart"><i
-                                class="fa-duotone fa-cart-circle-plus"></i></a>
-                    </div>
+                    <ActionWrapper :id="product._id" />
                 </div>
                 <!-- Thumb End  -->
 

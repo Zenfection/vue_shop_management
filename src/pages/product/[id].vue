@@ -1,6 +1,4 @@
 <script setup>
-import { watch } from 'vue';
-
 
 const $route = useRoute()
 const id = computed(() => $route.params.id)

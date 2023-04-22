@@ -1,5 +1,7 @@
 <script setup>
 
+import { toast } from 'vue3-toastify'; 
+
 useHead({
     title: 'Đăng nhập',
 })
@@ -10,19 +12,53 @@ const router = useRouter();
 const username = ref(null);
 const password = ref(null);
 
+const toastLoginSucess = () => {
+    toast.success('Đăng nhập thành công', {
+        position: 'top-right',
+        timeout: 2000,
+        closeOnClick: true,
+        pauseOnFocusLoss: false,
+        pauseOnHover: false,
+        draggable: true,
+        showCloseButtonOnHover: false,
+        hideProgressBar: false,
+        closeButton: 'button',
+        icon: true,
+        rtl: false,
+    });
+}
+
+const toastLoginFailed = () => {
+    toast.error('Đăng nhập thất bại', {
+        position: 'top-right',
+        timeout: 2000,
+        closeOnClick: true,
+        pauseOnFocusLoss: false,
+        pauseOnHover: false,
+        draggable: true,
+        showCloseButtonOnHover: false,
+        hideProgressBar: false,
+        closeButton: 'button',
+        icon: true,
+        rtl: false,
+    });
+}
+
 const handleSubmit = async () => {
     try {
         const data = {
             username: username.value,
             password: password.value
-        };
-        const response = await UserService.login(data);
-        if (response.user) {
+        }
+        const response = await UserService.login(data)
+        if (response.user) {  // success
+            toastLoginSucess()
             store.login(response.user)
             router.push(`/`)
         }
     } catch (error) {
-        console.log(error);
+        toastLoginFailed()
+        console.log(error)
     }
 };
 </script>

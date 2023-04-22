@@ -13,6 +13,7 @@ declare module '@vue/runtime-core' {
     AboutMember: typeof import('./components/about/TeamSection/AboutMember.vue')['default']
     AboutSection: typeof import('./components/about/AboutSection.vue')['default']
     AboutThumb: typeof import('./components/about/AboutSection/AboutThumb.vue')['default']
+    ActionWrapper: typeof import('./components/common/product/ActionWrapper.vue')['default']
     CartMenu: typeof import('./components/header/CartMenu.vue')['default']
     Category: typeof import('./components/home/Category.vue')['default']
     CategorySkeleton: typeof import('./components/skeleton/CategorySkeleton.vue')['default']
