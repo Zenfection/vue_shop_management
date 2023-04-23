@@ -54,7 +54,7 @@ const handleSubmit = async () => {
         if (response.user) {  // success
             toastLoginSucess()
             store.login(response.user)
-            router.push(`/`)
+            router.push('/')
         }
     } catch (error) {
         toastLoginFailed()
@@ -67,7 +67,7 @@ const handleSubmit = async () => {
     <div class="section section-margin login">
         <div class="container">
             <div class="row">
-                <div class="col-lg-7 col-md-8 m-auto">
+                <div class="col-lg-7 col-md-8 m-auto" v-motion-fade>
                     <div class="login-wrapper">
                         <!-- Login Title & Content -->
                         <div class="section-content text-center m-b-30">

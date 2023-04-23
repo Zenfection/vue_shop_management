@@ -22,7 +22,7 @@
                 <div class="myaccount-page-wrapper">
                     <div class="row">
                         <!-- My Account Tab Menu Start -->
-                        <div class="col-lg-3 col-md-4">
+                        <div class="col-lg-3 col-md-4" v-motion-slide-left>
                             <div class="myaccount-tab-menu nav" role="tablist">
                                 <a href="#dashboard" class="active" data-bs-toggle="tab">
                                     <i class="fa-duotone fa-grid-horizontal"/>Dashboard
@@ -45,7 +45,7 @@
                         <!-- My Account Tab Menu End -->
 
                         <!-- My Account Tab Content Start -->
-                        <div class="col-lg-9 col-md-8">
+                        <div class="col-lg-9 col-md-8" v-motion-slide-right>
                             <div class="tab-content" id="myaccountContent">
 
                                 <DashboardAccount />

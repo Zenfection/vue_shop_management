@@ -26,7 +26,7 @@ const fetchCartUser = async () => {
         const data = {
             username: store.user.username,
         };
-        const response = await UserService.cart(data);
+        const response = await UserService.getCart(data);
         cart.value = response;
         store.setCart(response);
     } catch (error) {

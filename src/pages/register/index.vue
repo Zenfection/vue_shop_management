@@ -11,7 +11,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7 col-md-8 m-auto">
-                        <div class="login-wrapper">
+                        <div class="login-wrapper" v-motion-slide-left>
     
                             <!-- Register Title & Content Start -->
                             <div class="section-content text-center m-b-30">
