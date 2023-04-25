@@ -40,6 +40,7 @@ declare module 'vue-router/auto/routes' {
     '/account/': RouteRecordInfo<'/account/', '/account', Record<never, never>, Record<never, never>>,
     '/account/[order]': RouteRecordInfo<'/account/[order]', '/account/:order', { order: ParamValue<true> }, { order: ParamValue<false> }>,
     '/cart/': RouteRecordInfo<'/cart/', '/cart', Record<never, never>, Record<never, never>>,
+    '/checkout/': RouteRecordInfo<'/checkout/', '/checkout', Record<never, never>, Record<never, never>>,
     '/contact/': RouteRecordInfo<'/contact/', '/contact', Record<never, never>, Record<never, never>>,
     '/login/': RouteRecordInfo<'/login/', '/login', Record<never, never>, Record<never, never>>,
     '/product/[id]': RouteRecordInfo<'/product/[id]', '/product/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,

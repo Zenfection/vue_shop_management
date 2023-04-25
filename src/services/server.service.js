@@ -1,5 +1,3 @@
-
-
 const userService = (baseUrl) => ({
     //getAll: async () => await http.get(baseUrl),
     //create: async (data) => await http.post(`${baseUrl}/register`, data),
@@ -45,6 +43,7 @@ const productService = (baseUrl) => ({
     },
     getDetail: async (id) => await http.get(`${baseUrl}/${id}`),
 })
+
 
 export const UserService = userService('/users');
 export const CategoryService = categoryService('/categories');

@@ -51,6 +51,7 @@ const handleSubmit = async () => {
             password: password.value
         }
         const response = await UserService.login(data)
+
         if (response.user) {  // success
             toastLoginSucess()
             store.login(response.user)

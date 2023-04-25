@@ -29,7 +29,6 @@ const addProduct = async (id, amount) => {
             cart[index].amount += 1
         }
     }
-    store.setCart(cart)
 }
 </script>
 

@@ -1,5 +1,7 @@
 <script setup>
 
+const store = useUserStore()
+
 const props = defineProps({
     product: {
         type: Object,
@@ -8,6 +10,17 @@ const props = defineProps({
 })
 
 const product = computed(() => props.product)
+const quantity = ref(1)
+
+const decrementQty = () => {
+    if (quantity.value > 1) {
+        quantity.value--
+    }
+}
+
+const incrementQty = () => {
+    quantity.value++
+}
 
 const formatter = new Intl.NumberFormat('vi-VN', {
     style: 'currency',
@@ -16,6 +29,26 @@ const formatter = new Intl.NumberFormat('vi-VN', {
 
 function discountPrice(price, discount) {
     return price - (price * discount / 100);
+}
+
+const addCart = async() => {
+    try {
+        const data = {
+            username: store.user.username,
+            id_product: product.value._id,
+            amount: quantity.value,
+        };
+        const response = await UserService.addCart(data);   
+        // check if product is already in cart
+        let index = store.cart.findIndex(item => item.product._id === product.value._id)
+        if(index == -1){
+            store.cart.push(response)
+        } else {
+            store.cart[index].amount += 1
+        }
+    } catch (error) {
+        console.log(error);
+    }
 }
 </script>
 
@@ -83,9 +116,9 @@ function discountPrice(price, discount) {
                         <div class="quantity d-flex align-items-center m-b-25">
                             <span class="m-r-10"><strong>Số lượng: </strong></span>
                             <div class="cart-plus-minus">
-                                <input class="cart-plus-minus-box" value="1" type="text" id="qty">
-                                <div class="dec qtybutton">-</div>
-                                <div class="inc qtybutton">+</div>
+                                <input class="cart-plus-minus-box" v-model="quantity" type="text">
+                                <div class="dec qtybutton" @click="decrementQty">-</div>
+                                <div class="inc qtybutton" @click="incrementQty">+</div>
                             </div>
                         </div>
 
@@ -93,7 +126,7 @@ function discountPrice(price, discount) {
                         <div class="cart-btn action-btn m-b-30">
                             <div class="action-cart-btn-wrapper d-flex">
                                 <div class="add-to-cart cursor-pointer">
-                                    <a class="btn btn-primary btn-hover-dark rounded" style="width: 110%">Thêm Vào Giỏ</a>
+                                    <a class="btn btn-primary btn-hover-dark rounded" @click="addCart">Thêm Hàng</a>
                                 </div>
                                 <!-- <a href="#" title="Wishlist" class="heart"><i class="fa-duotone fa-heart fa-xl"></i></a> -->
                             </div>

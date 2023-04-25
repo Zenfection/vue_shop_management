@@ -1,112 +1,186 @@
+<script setup>
+import autoAnimate from "@formkit/auto-animate"
+
+//* API https://provinces.open-api.vn/api/
+const APIProvince = import.meta.env.VITE_API_PROVINCE_VN
+
+const provinces = ref([])
+const districts = ref([])
+const wards = ref([])
+
+const getProvinces = async () => {
+    const { data } = await axios.get(APIProvince)
+    // just store name and code
+    provinces.value = data.map((item) => ({ name: item.name, code: item.code }))
+}
+
+const getDistricts = async (provinceCode) => {
+    const { data } = await axios.get(`${APIProvince}p/${provinceCode}`, {
+        params: { depth: 2, },
+    }, {
+        headers: { 'Access-Control-Allow-Origin': '*' },
+    })
+
+    // just store districts [name, code]
+    districts.value = data.districts.map((item) => ({ name: item.name, code: item.code }))
+}
+
+const getWards = async (districtCode) => {
+    const { data } = await axios.get(`${APIProvince}d/${districtCode}`, {
+        params: { depth: 2, },
+    })
+
+    // just store wards [name, code]
+    wards.value = data.wards.map((item) => ({ name: item.name, code: item.code }))
+}
+
+const store = useUserStore()
+
+const fullname = ref(store.user.fullname)
+const phone = ref(store.user.phone)
+const email = ref(store.user.email)
+const address = ref(store.user.address)
+const province =  ref(store.user.province)
+const district = ref(store.user.district)
+const ward = ref(store.user.ward)
+
+const example = ref()
+
+onMounted(async () => {
+    example.value.querySelectorAll(".formkit-outer").forEach(autoAnimate)
+    await getProvinces()
+})
+
+const submit = () => {
+    alert("Success!")
+}
+
+watch(province,async (value) => {
+    const provinceCode = provinces.value.find((item) => item.name === value).code
+    await getDistricts(provinceCode)
+})
+
+watch(district, async (value) => {
+    const districtCode = districts.value.find((item) => item.name === value).code
+    await getWards(districtCode)
+})
+
+</script>
+
 <template>
     <div class="tab-pane fade" id="account-info" role="tabpanel">
         <div class="myaccount-content">
             <h3 class="title"> Chi Tiết Tài Khoản</h3>
             <div class="account-details-form">
-                <form id="changeInfoForm" novalidate>
-                    <div class="single-input-item m-b-15">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="single-input-item m-b-15">
-                                    <label for="full-name" class="required m-b-10">Họ và Tên</label>
-                                    <input type="text" id="fullname" name="fullname" placeholder="Nhập họ và tên"
-                                        value="<?php echo $fullname ?>" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="single-input-item m-b-15">
-                                    <label for="last-name" class="required m-b-10">Số điện thoại</label>
-                                    <input type="text" id="phone" name="phone" placeholder="Chưa có số điện thoại"
-                                        value="<?php echo $phone ?>" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
+                <div class="example formkit-example" ref="example">
+        <FormKit type="form" :submit-attrs="{ inputClass: 'btn btn-primary btn-hover-dark rounded' }" @submit="submit">
+            <div class="single-input-item m-b-15">
+                <div class="row">
+                    <div class="col-lg-6">
+                    <FormKit 
+                        v-model="fullname"
+                        type="text" 
+                        label="Họ và Tên" 
+                        prefix-icon="info"
+                        help="Hãy nhập họ và tên của bạn." 
+                        name="fullname"
+                        validation="required|length:5,20" 
+                        validation-visibility="dirty" 
+                        :validation-messages="{
+                            matches: 'Họ và tên không được để trống',
+                        }" 
+                    />
                     </div>
-                    <div class="single-input-item m-b-15">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="single-input-item m-b-15">
-                                    <label for="display-name" class="required m-b-10">UserName</label>
-                                    <input readonly class="form-control" type='text' id='display-name'
-                                        placeholder='<?php echo $user ?>' />
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="single-input-item m-b-15">
-                                    <label for="email" class="required m-b-10">Email</label>
-                                    <input type="email" class="form-control" name="email" id="email"
-                                        placeholder="Nhập Email" value="<?php echo $email ?>" />
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-lg-6">
+                        <FormKit 
+                            v-model="phone"
+                            type="tel" 
+                            label="Số điện thoại"
+                            prefix-icon="telephone"
+                            help="Hãy nhập số điện thoại của bạn." 
+                            name="phone" 
+                            validation="required|matches:/^[0-9]{10}$/"
+                            validation-visibility="dirty" 
+                            :validation-messages="{
+                                matches: 'Số điện thoại không hợp lệ',
+                            }" 
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class="single-input-item m-b-15">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <FormKit
+                            v-model="email"
+                            type="email"
+                            label="Email"
+                            prefix-icon="email"
+                            help="Hãy nhập email của bạn."
+                            validation="required|email|ends_with:.com"
+                            validation-visibility="live"
+                            placeholder="kietdeptrai@gmai.com"
+                            :validation-messages="{
+                                required: 'Email không được để trống',
+                                email: 'Email không hợp lệ',
+                                ends_with: 'Email phải kết thúc bằng .com',
+                            }"
+                        />
                     </div>
 
-                    <div class="single-input-item m-b-15">
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="checkout-form-list">
-                                    <label for="province" class="form-label">Tỉnh Thành</label>
-                                    <select class="nice-select" id="province" name="province" onchange="loadCity()">
-                                        <!-- <?php
-                                                                    if ($province != "") {
-                                                                        echo "<option value='" . $province . "' selected>" . $province . "</option>";
-                                                                    }
-                                                                    foreach ($province_data as $key => $value) {
-                                                                        if ($value['name'] != $province) {
-                                                                            echo "<option value='" . $value['name'] . "'>" . $value['name'] . "</option>";
-                                                                        }
-                                                                    }
-                                                                    ?> -->
-                                    </select>
-                                </div>
-                            </div>
+                    <div class="col-lg-6">
+                        <FormKit 
+                            v-model="address"
+                            type="text"
+                            label="Địa chỉ"
+                            prefix-icon="text"
+                            help="Hãy nhập địa chỉ của bạn."
+                            validation="required|length:5,20"
+                            validation-visibility="dirty"
+                            :validation-messages="{
+                                matches: 'Địa chỉ không được để trống',
+                            }"
+                        />
+                    </div>
+                </div>
+            </div>
 
-                            <div class="col-lg-4">
-                                <div class="checkout-form-list">
-                                    <label for="city" class="form-label">Thành phố/Quận/Huyện</label>
-                                    <select class="nice-select" id="city" name="city" onchange="loadWard()">
-                                        <!-- <?php
-                                                                    if ($city != "") {
-                                                                        echo "<option value='" . $city . "' selected>" . $city . "</option>";
-                                                                    }
-                                                                    foreach ($city_data as $key => $value) {
-                                                                        if ($value['full_name'] != $city) {
-                                                                            echo "<option value='" . $value['full_name'] . "'>" . $value['full_name'] . "</option>";
-                                                                        }
-                                                                    }
-                                                                    ?> -->
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="checkout-form-list">
-                                    <label for="ward" class="form-label">Phường/Xã</label>
-                                    <select class="nice-select" id="ward" name="ward">
-                                        <!-- <?php
-                                                                    if ($ward != "") {
-                                                                        echo "<option value='" . $ward . "' selected>" . $ward . "</option>";
-                                                                    }
-                                                                    foreach ($ward_data as $key => $value) {
-                                                                        if ($value['name'] != $city) {
-                                                                            echo "<option value='" . $value['full_name'] . "'>" . $value['full_name'] . "</option>";
-                                                                        }
-                                                                    }
-                                                                    ?> -->
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+            <div class="single-input-item m-b-15">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <FormKit
+                            v-model="province"
+                            type="select"
+                            label="Chọn Tỉnh"
+                            name="province"
+                            :options="provinces.map((item) => item.name)"
+                        />
+                    </div>
+                    <div class="col-lg-4">
+                        <FormKit
+                            v-model="district"
+                            type="select"
+                            label="Chọn Quận"
+                            name="district"
+                            :options="districts.map((item) => item.name)"
+                        />
                     </div>
 
-                    <div class="single-input-item m-b-15">
-                        <label for="address" class="required m-b-5">Địa Chỉ</label>
-                        <input type="text" name="address" id="address" placeholder="Nhập địa chỉ"
-                            value="<?php echo $address ?>" class="form-control" />
+                    <div class="col-lg-4">
+                        <FormKit
+                            v-model="ward"
+                            type="select"
+                            label="Chọn Huyện"
+                            name="ward"
+                            :options="wards.map((item) => item.name)"
+                        />
                     </div>
-                    <div class="single-input-item single-item-button m-t-30">
-                        <button type="button" class="btn btn btn-primary btn-hover-dark rounded-0">Lưu Thay Đổi</button>
-                    </div>
-                </form>
+                </div>
+            </div>
+        </FormKit>
+    </div>
+            </div>
         </div>
     </div>
-</div></template>
+</template>

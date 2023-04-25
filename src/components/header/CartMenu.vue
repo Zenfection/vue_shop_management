@@ -1,25 +1,18 @@
 <script setup>
-import autoAnimate from "@formkit/auto-animate"
 
 const store = useUserStore()
 if (!store.user) {
     store.restoreState()
 }
 
-const dropdown = ref() // we need a DOM node
 const show = ref(false)
 
-const isLogged = ref(store.isAuthenticated ?? false)
-const cart = ref(store.cart ?? [])
-
-const totalMoney = computed(() => {
-    let total = 0
-    cart.value.forEach(item => {
-        let discountPrice = item.product.price - (item.product.price * item.product.discount) / 100
-        total += discountPrice * item.amount
-    })
-    return total
+const isLogged = computed(() => {
+    return store?.isAuthenticated ?? false
 })
+
+const cart = ref(store.cart ?? [])
+const totalMoney = computed(() => store.totalMoney)
 
 const fetchCartUser = async () => {
     try {
@@ -34,15 +27,10 @@ const fetchCartUser = async () => {
     }
 }
 
-onMounted(() => {
-    if (store.user) {
-        fetchCartUser();
+onMounted(async() => {
+    if (isLogged.value) {
+        await fetchCartUser();
     }
-    autoAnimate(dropdown.value)
-})
-
-watchEffect(() => {
-    isLogged.value = store.isAuthenticated ?? false
 })
 
 const formatter = new Intl.NumberFormat('vi-VN', {
@@ -54,22 +42,38 @@ function discountPrice(price, discount) {
     return price - (price * discount) / 100
 }
 
+const removeCart = async (item) => {
+    try {
+        const data = {
+            username: store.user.username,
+            id_product: item.product._id,
+            amount: item.amount,
+        };
+        const response = await UserService.removeCart(data);
+        if (response) {
+            cart.value.splice(cart.value.indexOf(item), 1);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 </script>
 
 
 <template>
     <!--! Header Action Button Start -->
-    <div class="header-action-btn header-action-btn-cart d-none d-sm-flex dropdown" ref="dropdown">
+    <div class="header-action-btn header-action-btn-cart d-none d-sm-flex">
         <div class="cart-visible cursor-pointer" @click="show = !show">
             <i class="fa-duotone fa-bag-shopping fa-xl"></i>
-            <span class="header-action-num" id="count-cart" v-if="store.user">
+            <span class="header-action-num" v-if="isLogged">
                 {{ cart.length }}
             </span>
         </div>
         <!-- Header Cart Content Start -->
-        <div class="header-cart-content dropdown-label" style="display: block" v-if="show">
+        <ul class="header-cart-content" style="display: block" v-if="show" v-motion-fade v-auto-animate>
             <!-- Cart Procut Wrapper Start  -->
-            <div class="cart-product-wrapper dropdown-content" v-for="item in cart" :key="item._id">
+            <li class="cart-product-wrapper" v-for="item in cart" :key="item._id">
                 <div class="solution rounded cart-product-inner p-b-20 m-b-20 border-bottom product-inner">
                     <!-- Single Cart Product Start -->
                     <div class="single-cart-product">
@@ -107,20 +111,21 @@ function discountPrice(price, discount) {
 
                     <!-- Product Remove Start -->
                     <div class="cart-product-remove">
-                        <a href="javascript:;" class="remove-cart" onclick="deleteProductCart('<?php echo $id?>')"><i
-                                class="fa-duotone fa-trash-can"></i></a>
+                        <a class="remove-cart" @click="removeCart(item)">
+                            <i class="fa-duotone fa-trash-can" />
+                        </a>
                     </div>
                     <!-- Product Remove End -->
 
                 </div>
-            </div>
+            </li>
             <!-- Cart Procut Wrapper -->
 
             <!-- Cart Product Total Start -->
             <div class="cart-product-total p-b-20 m-b-20 border-bottom">
                 <span class="value">Tổng tiền</span>
                 <span class="value">
-                    <strong>{{ formatter.format(totalMoney) }}</strong>
+                    <strong>{{ totalMoney }}</strong>
                 </span>
             </div>
             <!-- Cart Product Total End -->
@@ -128,10 +133,10 @@ function discountPrice(price, discount) {
             <!-- Cart Product Button Start -->
             <div class="cart-product-btn m-t-20">
                 <RouterLink to="" class="btn btn-outline-light btn-hover-primary w-100">Giỏ Hàng</RouterLink>
-                <RouterLink to="" class="btn btn-outline-light btn-hover-primary w-100 m-t-20">Thanh Toán</RouterLink>
+                <RouterLink to="/checkout" class="btn btn-outline-light btn-hover-primary w-100 m-t-20">Thanh Toán</RouterLink>
             </div>
             <!-- Cart Product Button End -->
-        </div>
+        </ul>
         <!-- Header Cart Content End -->
     </div>
 
