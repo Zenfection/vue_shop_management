@@ -25,7 +25,6 @@ useHead({
 @import "vue-skeletor/dist/vue-skeletor.css";
 @import 'vue3-toastify/dist/index.css';
 @import "https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.min.css";
-@import "vue-select/dist/vue-select.css";
 
 @import "@/assets/css/pace.min.css";
 @import "@/assets/css/style.css";
