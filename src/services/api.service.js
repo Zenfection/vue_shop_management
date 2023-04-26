@@ -15,5 +15,6 @@ export const http = {
     get: async (url) => (await instance.get(url)).data,
     post: async (url, data) => (await instance.post(url, data)).data,
     put: async (url, data) => (await instance.put(url, data)).data,
+    patch: async (url, data) => (await instance.patch(url, data)).data,
     delete: async (url) => (await instance.delete(url)).data,
 };

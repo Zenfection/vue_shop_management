@@ -63,6 +63,7 @@ export const useUserStore = defineStore('user', {
                 this.user = user.user;
                 this.token = user.token;
             }
-        }
+        },
+
     }
 });

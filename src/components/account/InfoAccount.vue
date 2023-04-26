@@ -1,5 +1,6 @@
 <script setup>
 import autoAnimate from "@formkit/auto-animate"
+import { toast } from 'vue3-toastify'; 
 
 //* API https://provinces.open-api.vn/api/
 const APIProvince = import.meta.env.VITE_API_PROVINCE_VN
@@ -51,8 +52,35 @@ onMounted(async () => {
     await getProvinces()
 })
 
-const submit = () => {
-    alert("Success!")
+const submit = async() => {
+    try {
+        // filter fullname, phone, email, address, province, district, ward not change
+        const data = {
+            fullname: fullname.value == store.user.fullname ? null : fullname.value,
+            phone: phone.value == store.user.phone ? null : phone.value,
+            email: email.value == store.user.email ? null : email.value,
+            address: address.value == store.user.address ? null : address.value,
+            province: province.value == store.user.province ? null : province.value,
+            district: district.value == store.user.district ? null : district.value,
+            ward: ward.value == store.user.ward ? null : ward.value,
+        }
+
+        // filter data not null
+        const filterData = Object.fromEntries(Object.entries(data).filter(([_, v]) => v != null))
+        // add id user into filterData
+        filterData.id = store.user.id
+        console.log(filterData)
+        const response = await UserService.updateUser(filterData)
+        console.log(response.data)
+        if(response){
+            store.login(response.data)
+        }
+        alert("Cập nhật thành công")
+
+
+    } catch (exception) {
+        console.log(exception)
+    }
 }
 
 watch(province,async (value) => {
@@ -81,7 +109,7 @@ watch(district, async (value) => {
                         v-model="fullname"
                         type="text" 
                         label="Họ và Tên" 
-                        prefix-icon="info"
+                        suffix-icon="info"
                         help="Hãy nhập họ và tên của bạn." 
                         name="fullname"
                         validation="required|length:5,20" 
@@ -96,7 +124,7 @@ watch(district, async (value) => {
                             v-model="phone"
                             type="tel" 
                             label="Số điện thoại"
-                            prefix-icon="telephone"
+                            suffix-icon="telephone"
                             help="Hãy nhập số điện thoại của bạn." 
                             name="phone" 
                             validation="required|matches:/^[0-9]{10}$/"
@@ -116,7 +144,7 @@ watch(district, async (value) => {
                             v-model="email"
                             type="email"
                             label="Email"
-                            prefix-icon="email"
+                            suffix-icon="email"
                             help="Hãy nhập email của bạn."
                             validation="required|email|ends_with:.com"
                             validation-visibility="live"
@@ -134,7 +162,7 @@ watch(district, async (value) => {
                             v-model="address"
                             type="text"
                             label="Địa chỉ"
-                            prefix-icon="text"
+                            suffix-icon="text"
                             help="Hãy nhập địa chỉ của bạn."
                             validation="required|length:5,20"
                             validation-visibility="dirty"
@@ -158,6 +186,12 @@ watch(district, async (value) => {
                         />
                     </div>
                     <div class="col-lg-4">
+                        <label for="district">Chọn Quận</label>
+                        <!-- <v-select 
+                            :options="districts.map((item) => item.name)" 
+                            label="Chọn Quận" 
+                            name="district"
+                            :reduce="country => country.code" /> -->
                         <FormKit
                             v-model="district"
                             type="select"

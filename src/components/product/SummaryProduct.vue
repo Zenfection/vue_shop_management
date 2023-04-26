@@ -44,7 +44,7 @@ const addCart = async() => {
         if(index == -1){
             store.cart.push(response)
         } else {
-            store.cart[index].amount += 1
+            store.cart[index].amount += quantity.value
         }
     } catch (error) {
         console.log(error);

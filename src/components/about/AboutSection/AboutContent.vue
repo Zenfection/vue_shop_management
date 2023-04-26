@@ -12,10 +12,10 @@
                     <span><i class="fa-brands fa-bootstrap fa-xl"></i></span> Bootstrap 5
                 </li>
                 <li>
-                    <span><i class="fa-brands fa-js fa-xl"></i></span> Jquery Ajax
+                    <span><i class="fa-brands fa-js fa-xl"></i></span> Vue 3
                 </li>
                 <li>
-                    <span><i class="fa-brands fa-php fa-xl"></i></span> PHP MVC
+                    <span><i class="fa-brands fa-php fa-xl"></i></span> JS Library
                 </li>
             </ul>
             <RouterLink to="contact" class="btn btn-primary btn-hover-dark">Liên

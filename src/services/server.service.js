@@ -2,6 +2,7 @@ const userService = (baseUrl) => ({
     //getAll: async () => await http.get(baseUrl),
     //create: async (data) => await http.post(`${baseUrl}/register`, data),
     login: async (data) => await http.post(`${baseUrl}/login`, data),
+    updateUser: async (data) => await http.patch(`${baseUrl}/update`, data),
     getCart: async (data) => await http.post(`${baseUrl}/getcart`, data),
     addCart: async (data) => await http.post(`${baseUrl}/addcart`, data),
     removeCart: async (data) => await http.post(`${baseUrl}/removecart`, data),

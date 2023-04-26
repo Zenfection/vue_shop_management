@@ -30,7 +30,7 @@ const categories = ref(await getCategories())
             <div class="row row-cols-md-3 row-cols-sm-2 row-cols-1 m-b-n30">
                 <div class="col m-b-30" v-for="item in categories" :key="item.name" v-motion-fade-visible-once>
                     <div class="banner hover-style" v-if="item.active">
-                        <RouterLink :to="`/shop?category=${item.category}`">
+                        <RouterLink :to="`/shop?category=${item.category}`" @click="store.currentCategory = item.category">
                             <IKImage :path="item.image" class="fit-image p-10" alt="Banner Image" width="450" />
                         </RouterLink>
                     </div>

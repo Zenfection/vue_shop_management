@@ -14,6 +14,7 @@ import { Rating } from '@morpheme/rating'
 import VueTinySlider from "@mentorkadriu/vue-tiny-slider"
 import { MotionPlugin } from '@vueuse/motion'
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
+import vSelect from 'vue-select'
 
 
 const imageKitConfig = {
@@ -51,6 +52,7 @@ app.use(createImageKitVue(imageKitConfig))
 app.component(Skeletor.name, Skeletor)
 app.component('Rating', Rating)
 app.component('VueTinySlider', VueTinySlider)
+app.component('v-select', vSelect)
 
 
 app.mount('#app')

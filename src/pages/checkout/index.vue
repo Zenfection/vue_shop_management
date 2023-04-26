@@ -104,6 +104,7 @@ const orderSubmit = async() => {
                                 :validation-messages="{
                                     matches: 'Họ và tên không được để trống',
                                 }" 
+                                :floating-label="false"
                             />
                             </div>
                         </div>
@@ -123,6 +124,7 @@ const orderSubmit = async() => {
                                     :validation-messages="{
                                         matches: 'Số điện thoại không hợp lệ',
                                     }" 
+                                    :floating-label="false"
                                 />
                             </div>
                         </div>
@@ -138,6 +140,7 @@ const orderSubmit = async() => {
                                     name="email"
                                     validation="required|email|ends_with:.com"
                                     validation-visibility="live" 
+                                    :floating-label="false"
                                 />
                             </div>
                         </div>
@@ -153,6 +156,7 @@ const orderSubmit = async() => {
                                     name="address"
                                     validation="required|length:5,100"
                                     validation-visibility="dirty" 
+                                    :floating-label="false"
                                 />
                             </div>
                         </div>

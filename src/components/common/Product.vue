@@ -52,6 +52,9 @@ function discountPrice(price, discount) {
                             </span>
                             <span class="old">{{ formatter.format(product.price) }}></span>
                         </span>
+                        <span class="price" v-else>
+                            {{ formatter.format(product.price) }}
+                        </span>
                     </span>
                 </div>
                 <!-- Content End  -->

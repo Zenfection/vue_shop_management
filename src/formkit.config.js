@@ -10,7 +10,8 @@ const config = {
       animate: "fade",
       duration: 500,
     }),
-    createFloatingLabelsPlugin({
+    createFloatingLabelsPlugin({  
+      useAsDefault: true,
     }),
   ]
 }
