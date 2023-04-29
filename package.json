@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest --coverage"
   },
   "dependencies": {
     "@formkit/addons": "^0.16.4",
@@ -37,6 +38,7 @@
     "vite": "^4.3.0",
     "vite-plugin-node": "^3.0.2",
     "vite-plugin-vue-inspector": "^3.4.0",
-    "vite-plugin-vue-layouts": "^0.8.0"
+    "vite-plugin-vue-layouts": "^0.8.0",
+    "vitest": "^0.30.1"
   }
 }

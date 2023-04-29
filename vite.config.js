@@ -87,9 +87,7 @@ export default defineConfig({
       'pinia',
       'axios',
       'animejs',
-      'tiny-slider',
       'imagekit-vue3',
-      'vueuse/head',
     ],
   },
 })
