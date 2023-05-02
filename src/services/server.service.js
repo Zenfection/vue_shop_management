@@ -46,6 +46,61 @@ const productService = (baseUrl) => ({
 })
 
 
+/*
+    const getProvinces = async () => {
+    const { data } = await axios.get(APIProvince)
+    // just store name and code
+    provinces.value = data.map((item) => ({ name: item.name, code: item.code }))
+}
+
+const getDistricts = async (provinceCode) => {
+    const { data } = await axios.get(`${APIProvince}p/${provinceCode}`, {
+        params: { depth: 2, },
+    }, {
+        headers: { 'Access-Control-Allow-Origin': '*' },
+    })
+
+    // just store districts [name, code]
+    districts.value = data.districts.map((item) => ({ name: item.name, code: item.code }))
+}
+
+const getWards = async (districtCode) => {
+    const { data } = await axios.get(`${APIProvince}d/${districtCode}`, {
+        params: { depth: 2, },
+    })
+
+    // just store wards [name, code]
+    wards.value = data.wards.map((item) => ({ name: item.name, code: item.code }))
+}
+*/
+const APIProvince = import.meta.env.VITE_API_PROVINCE_VN
+const pcVNService = () => ({
+    getProvinces: async () => {
+        const { data } = await axios.get(APIProvince)
+        return data.map((item) => ({ name: item.name, code: item.code }))
+    },
+
+    getDistricts: async (provinceCode) => {
+        const { data } = await axios.get(`${APIProvince}p/${provinceCode}`, {
+            params: { depth: 2, },
+        }, {
+            headers: { 'Access-Control-Allow-Origin': '*' },
+        })
+
+        return data.districts.map((item) => ({ name: item.name, code: item.code }))
+    },
+
+    getWards: async (districtCode) => {
+        const { data } = await axios.get(`${APIProvince}d/${districtCode}`, {
+            params: { depth: 2, },
+        })
+
+        return data.wards.map((item) => ({ name: item.name, code: item.code }))
+    }
+})
+
+
 export const UserService = userService('/users');
 export const CategoryService = categoryService('/categories');
 export const ProductService = productService('/products');
+export const PCVNService = pcVNService();

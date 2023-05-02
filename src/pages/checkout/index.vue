@@ -1,63 +1,54 @@
 <script setup>
 
 
+// Store
 const store = useUserStore()
 
-const fullname = ref(store.user.fullname ?? '')
-const phone = ref(store.user.phone ?? '')
-const email = ref(store.user.email ?? '')
-const address = ref(store.user.address ?? '')
-const province = ref(store.user.province ?? '')
-const district = ref(store.user.district ?? '')
-const ward = ref(store.user.ward ?? '')
+// Refs
+const fullname = ref(store.user.fullname || '')
+const phone = ref(store.user.phone || '')
+const email = ref(store.user.email || '')
+const address = ref(store.user.address || '')
+const province = ref(store.user.province || '')
+const district = ref(store.user.district || '')
+const ward = ref(store.user.ward || '')
 
+// Computed
 const cart = computed(() => store.cart ?? [])
 const totalMoney = computed(() => store.totalMoney)
-
-const APIProvince = import.meta.env.VITE_API_PROVINCE_VN
 
 const provinces = ref([])
 const districts = ref([])
 const wards = ref([])
 
-const getProvinces = async () => {
-    const { data } = await axios.get(APIProvince)
-    // just store name and code
-    provinces.value = data.map((item) => ({ name: item.name, code: item.code }))
-}
-
-const getDistricts = async (provinceCode) => {
-    const { data } = await axios.get(`${APIProvince}p/${provinceCode}`, {
-        params: { depth: 2, },
-    }, {
-        headers: { 'Access-Control-Allow-Origin': '*' },
-    })
-
-    // just store districts [name, code]
-    districts.value = data.districts.map((item) => ({ name: item.name, code: item.code }))
-}
-
-const getWards = async (districtCode) => {
-    const { data } = await axios.get(`${APIProvince}d/${districtCode}`, {
-        params: { depth: 2, },
-    })
-
-    // just store wards [name, code]
-    wards.value = data.wards.map((item) => ({ name: item.name, code: item.code }))
-}
 
 onMounted(async () => {
-    await getProvinces()
+    provinces.value = await PCVNService.getProvinces()
+
+    const provinceCode = provinces.value.find((item) => item.name === province.value).code
+    districts.value = await PCVNService.getDistricts(provinceCode)
+
+    const districtCode = districts.value.find((item) => item.name === district.value).code
+    wards.value = await PCVNService.getWards(districtCode)
 })
 
 watch(province,async (value) => {
-    const provinceCode = provinces.value.find((item) => item.name === value).code
-    await getDistricts(provinceCode)
+    if(value){
+        const provinceCode = provinces.value.find((item) => item.name === value).code
+        if(provinceCode){
+            districts.value = await PCVNService.getDistricts(provinceCode)
+            wards.value = [] //! reset wards
+        }
+    }
 })
 
 watch(district, async (value) => {
-    const districtCode = districts.value.find((item) => item.name === value).code
-    await getWards(districtCode)
+    if(value){
+        const districtCode = districts.value.find((item) => item.name === value).code
+        if(districtCode){
+            wards.value = await PCVNService.getWards(districtCode)
+        }
+    }
 })
 
 const formatter = new Intl.NumberFormat('vi-VN', {
@@ -70,7 +61,19 @@ function discountPrice(price, discount) {
 }
 
 const orderSubmit = async() => {
-    console.log(123);
+    const data = {
+        fullname: fullname.value,
+        phone: phone.value,
+        email: email.value,
+        address: address.value,
+        province: province.value,
+        district: district.value,
+        ward: ward.value,
+        cart: cart.value,
+        totalMoney: totalMoney.value,
+    }
+
+    console.log(data)
 }
 </script>
 
