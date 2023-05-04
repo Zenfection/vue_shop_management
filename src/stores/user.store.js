@@ -3,6 +3,7 @@ export const useUserStore = defineStore('user', {
         user: null,
         token: null,
         cart: [],
+        orders: []
     }),
 
     getters: {
@@ -54,6 +55,10 @@ export const useUserStore = defineStore('user', {
             this.cart = [];
         },
 
+        setOrder(orders) {
+            this.orders = orders;
+        },
+
         restoreState() {
             const user = JSON.parse(window.localStorage.getItem('user'));
 
@@ -62,6 +67,6 @@ export const useUserStore = defineStore('user', {
                 this.token = user.token;
             }
         },
-
     }
+
 });

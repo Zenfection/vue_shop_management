@@ -1,26 +1,32 @@
-<script>
-// import {
-//     Dataset,
-//     DatasetItem,
-//     DatasetInfo,
-//     DatasetPager,
-//     DatasetSearch,
-//     DatasetShow
-// } from 'vue-dataset'
-
+<script setup>
 //* Store
 const store = useUserStore()
 
+const orders = computed(() => store.orders)
+const orderStatus = computed(() => {
+    // 0: đang chờ duyệt, 1: đang vận chuyển, 3: đã giao hàng, 3: đã hủy
+    return {
+        0: 'Đang chờ duyệt',
+        1: 'Đang vận chuyển',
+        2: 'Đã giao hàng',
+        3: 'Đã hủy'
+    }
+})
 const fetchOrderData = async () => {
     try {
-        const response = await OrderService.getOrder(store.user.username)
-        console.log(response)
-    } catch(error){
+        const data = {
+            username: store.user.username
+        }
+        const response = await OrderService.getOrder(data)
+        if(response) {
+            store.setOrder(response)
+        }
+    } catch (error) {
         console.log(error)
     }
 }
 
-onMounted(async() => {
+onMounted(async () => {
     await fetchOrderData()
 })
 
@@ -44,33 +50,20 @@ onMounted(async() => {
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- <?php
-                                                    if (!empty($getOrder)) {
-                                                        $count = count($getOrder);
-                                                        if ($count == 0) {
-                                                            echo "<p class='saved-message'>Hiện bạn chưa đặt đơn hàng nào !!!</p>";
-                                                        } else {
-                                                            for ($i = 0; $i < $count; $i++) {
-                                                                $id_order = $getOrder[$i]['id_order'];
-                                                                $order_date = $getOrder[$i]['order_date'];
-                                                                $status = $getOrder[$i]['status'];
-                                                                $total_money = $getOrder[$i]['total_money'];
-                                                    ?>
-                                                                <tr id="id_order<?php echo $id_order ?>">
-                                                                    <td><?php echo $id_order ?></td>
-                                                                    <td><?php echo $order_date ?></td>
-                                                                    <td><?php echo $status ?></td>
-                                                                    <td><?php echo number_price($total_money) ?></td>
-                                                                    <td><a class="btn btn btn-dark btn-hover-primary btn-sm rounded" href="/account/order/<?php echo $id_order ?>">Xem</a></td>
-                                                                </tr>
-                                                    <?php
-                                                            }
-                                                        }
-                                                    };
-                                                    ?> -->
+                        <p class='saved-message' v-if="orders.length == 0">Hiện bạn chưa đặt đơn hàng nào !!!</p>
+                        <tr v-for="order in orders" :key="order._id">   
+                            <td>{{ order.orderID }}</td>
+                            <td>{{ order.order_date }}</td>
+                            <td>{{ orderStatus[order.status] }}</td>
+                            <td>{{ order.total_price }}</td>
+                            <td>
+                                <RouterLink :to="`/account/order/${order.orderID}`" class="btn btn-light btn-hover-primary btn-sm rounded" :href="'/account/order/' + order._id">Xem</RouterLink>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </template>
+
