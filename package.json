@@ -17,6 +17,7 @@
     "@formkit/vue": "next",
     "@mentorkadriu/vue-tiny-slider": "^0.1.8",
     "@morpheme/rating": "1.0.0-beta.8",
+    "vue-dataset": "3.5.3",
     "@vueuse/head": "^1.1.26",
     "@vueuse/motion": "2.0.0-beta.12",
     "animejs": "^3.2.1",

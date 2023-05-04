@@ -10,6 +10,7 @@ declare global {
   const IKImage: typeof import('imagekit-vue3')['IKImage']
   const IKUpload: typeof import('imagekit-vue3')['IKUpload']
   const IKVideo: typeof import('imagekit-vue3')['IKVideo']
+  const OrderService: typeof import('./services/server.service.js')['OrderService']
   const PCVNService: typeof import('./services/server.service.js')['PCVNService']
   const ProductService: typeof import('./services/server.service.js')['ProductService']
   const UserService: typeof import('./services/server.service.js')['UserService']

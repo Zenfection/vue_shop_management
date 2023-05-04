@@ -1,24 +1,15 @@
 const userService = (baseUrl) => ({
-    //getAll: async () => await http.get(baseUrl),
-    //create: async (data) => await http.post(`${baseUrl}/register`, data),
     login: async (data) => await http.post(`${baseUrl}/login`, data),
     updateUser: async (data) => await http.patch(`${baseUrl}/update`, data),
+    //* CART
     getCart: async (data) => await http.post(`${baseUrl}/getcart`, data),
     addCart: async (data) => await http.post(`${baseUrl}/addcart`, data),
     removeCart: async (data) => await http.post(`${baseUrl}/removecart`, data),
-    //get: async (id) => await http.get(`${baseUrl}/${id}`),
-    //update: async (id, data) => await http.put(`${baseUrl}/${id}`, data),
-    //delete: async (id) => await http.delete(`${baseUrl}/${id}`),
-    //deleteAll: async () => await http.delete(baseUrl),
 })
+
 
 const categoryService = (baseUrl) => ({
     getAll: async () => await http.get(baseUrl),
-    // create: async (data) => await http.post(baseUrl, data),
-    // get: async (id) => await http.get(`${baseUrl}/${id}`),
-    // update: async (id, data) => await http.put(`${baseUrl}/${id}`, data),
-    // delete: async (id) => await http.delete(`${baseUrl}/${id}`),
-    // deleteAll: async () => await http.delete(baseUrl),
 })
 
 const productService = (baseUrl) => ({
@@ -45,34 +36,12 @@ const productService = (baseUrl) => ({
     getDetail: async (id) => await http.get(`${baseUrl}/${id}`),
 })
 
+const orderService = (baseUrl) => ({
+    getOrder: async (data) => await http.post(`${baseUrl}/get`, data),
+    createOrder: async (data) => await http.post(`${baseUrl}/create`, data),
+})
 
-/*
-    const getProvinces = async () => {
-    const { data } = await axios.get(APIProvince)
-    // just store name and code
-    provinces.value = data.map((item) => ({ name: item.name, code: item.code }))
-}
 
-const getDistricts = async (provinceCode) => {
-    const { data } = await axios.get(`${APIProvince}p/${provinceCode}`, {
-        params: { depth: 2, },
-    }, {
-        headers: { 'Access-Control-Allow-Origin': '*' },
-    })
-
-    // just store districts [name, code]
-    districts.value = data.districts.map((item) => ({ name: item.name, code: item.code }))
-}
-
-const getWards = async (districtCode) => {
-    const { data } = await axios.get(`${APIProvince}d/${districtCode}`, {
-        params: { depth: 2, },
-    })
-
-    // just store wards [name, code]
-    wards.value = data.wards.map((item) => ({ name: item.name, code: item.code }))
-}
-*/
 const APIProvince = import.meta.env.VITE_API_PROVINCE_VN
 const pcVNService = () => ({
     getProvinces: async () => {
@@ -103,4 +72,5 @@ const pcVNService = () => ({
 export const UserService = userService('/users');
 export const CategoryService = categoryService('/categories');
 export const ProductService = productService('/products');
+export const OrderService = orderService('/orders');
 export const PCVNService = pcVNService();

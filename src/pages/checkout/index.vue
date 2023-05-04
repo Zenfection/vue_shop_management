@@ -1,19 +1,20 @@
 <script setup>
-
-
-// Store
+//* Store
 const store = useUserStore()
+const router = useRouter()
 
-// Refs
-const fullname = ref(store.user.fullname || '')
-const phone = ref(store.user.phone || '')
-const email = ref(store.user.email || '')
-const address = ref(store.user.address || '')
-const province = ref(store.user.province || '')
-const district = ref(store.user.district || '')
-const ward = ref(store.user.ward || '')
+//* Refs
+const customer = ref({
+    fullname: store.user.fullname || '',
+    phone: store.user.phone || '',
+    email: store.user.email || '',
+    address: store.user.address || '',
+    province: store.user.province || '',
+    district: store.user.district || '',
+    ward: store.user.ward || ''
+})
 
-// Computed
+//* Computed
 const cart = computed(() => store.cart ?? [])
 const totalMoney = computed(() => store.totalMoney)
 
@@ -21,33 +22,46 @@ const provinces = ref([])
 const districts = ref([])
 const wards = ref([])
 
+//* FUNCTION
+async function loadDistricts(provinceCode) {
+    districts.value = await PCVNService.getDistricts(provinceCode)
+    wards.value = [] // reset wards
+}
+
+async function loadWards(districtCode) {
+    wards.value = await PCVNService.getWards(districtCode)
+}
 
 onMounted(async () => {
     provinces.value = await PCVNService.getProvinces()
 
-    const provinceCode = provinces.value.find((item) => item.name === province.value).code
-    districts.value = await PCVNService.getDistricts(provinceCode)
-
-    const districtCode = districts.value.find((item) => item.name === district.value).code
-    wards.value = await PCVNService.getWards(districtCode)
-})
-
-watch(province,async (value) => {
-    if(value){
-        const provinceCode = provinces.value.find((item) => item.name === value).code
+    let province = customer.value.province
+    if(province){
+        const provinceCode = provinces.value.find((item) => item.name === province)?.code
         if(provinceCode){
-            districts.value = await PCVNService.getDistricts(provinceCode)
-            wards.value = [] //! reset wards
+            await loadDistricts(provinceCode)
+            let district = customer.value.district
+            if (district) {
+                const districtCode = districts.value.find((item) => item.name === district)?.code
+                if (districtCode) {
+                    await loadWards(districtCode)
+                }
+            }
         }
     }
 })
 
-watch(district, async (value) => {
-    if(value){
-        const districtCode = districts.value.find((item) => item.name === value).code
-        if(districtCode){
-            wards.value = await PCVNService.getWards(districtCode)
-        }
+watch(() => customer.value.province, async (province) => {
+    const provinceCode = provinces.value.find((item) => item.name === province)?.code
+    if (provinceCode) {
+        await loadDistricts(provinceCode)
+    }
+})
+
+watch(() => customer.value.district, async (district) => {
+    const districtCode = districts.value.find((item) => item.name === district)?.code
+    if (districtCode) {
+        await loadWards(districtCode)
     }
 })
 
@@ -62,18 +76,32 @@ function discountPrice(price, discount) {
 
 const orderSubmit = async() => {
     const data = {
-        fullname: fullname.value,
-        phone: phone.value,
-        email: email.value,
-        address: address.value,
-        province: province.value,
-        district: district.value,
-        ward: ward.value,
-        cart: cart.value,
-        totalMoney: totalMoney.value,
+        username: store.user.username,
+        customer: customer.value,
+        total_price: store.totalMoney,
+        products: cart.value.map((item) => ({
+            id: item.id_product,
+            amount: item.amount,
+            price: item.product.price,
+            discount: item.product.discount,
+            name: item.product.name,
+            image: item.product.image
+        }))
     }
 
-    console.log(data)
+    console.log(JSON.stringify(data, null, 2))
+    try{
+        const response = await OrderService.createOrder(data)
+        if(response){
+            alert('Đặt Hàng Thành Công')
+            store.clearCart()
+            // emit event to cartMenu
+            router.push('/account')
+        }
+    } catch (error){
+        alert('Đặt Hàng Thất Bại')
+        console.log(error)
+    }
 }
 </script>
 
@@ -97,7 +125,7 @@ const orderSubmit = async() => {
                         <div class="col-md-6">
                             <div class="checkout-form-list">
                             <FormKit 
-                                v-model="fullname"
+                                v-model="customer.fullname"
                                 type="text" 
                                 label="Họ và Tên" 
                                 prefix-icon="info"
@@ -116,7 +144,7 @@ const orderSubmit = async() => {
                         <div class="col-md-6">
                             <div class="checkout-form-list">
                                 <FormKit 
-                                    v-model="phone"
+                                    v-model="customer.phone"
                                     type="tel" 
                                     prefix-icon="telephone"
                                     label="Số điện thoại"
@@ -136,7 +164,7 @@ const orderSubmit = async() => {
                         <div class="col-md-6">
                             <div class="checkout-form-list">
                                 <FormKit
-                                    v-model="email"
+                                    v-model="customer.email"
                                     type="email"
                                     prefix-icon="email"
                                     label="Email"
@@ -152,7 +180,7 @@ const orderSubmit = async() => {
                         <div class="col-md-6">
                             <div class="checkout-form-list">
                                 <FormKit
-                                    v-model="address"
+                                    v-model="customer.address"
                                     type="text"
                                     prefix-icon="text"
                                     label="Địa chỉ"
@@ -167,7 +195,7 @@ const orderSubmit = async() => {
                         <!-- ? Province, Disstrict, Ward Field -->
                         <div class="col-md-4">
                         <FormKit
-                            v-model="province"
+                            v-model="customer.province"
                             type="select"
                             label="Chọn Tỉnh"
                             name="province"
@@ -176,7 +204,7 @@ const orderSubmit = async() => {
                     </div>
                     <div class="col-md-4">
                         <FormKit
-                            v-model="district"
+                            v-model="customer.district"
                             value="district"
                             type="select"
                             label="Chọn Quận"
@@ -187,7 +215,7 @@ const orderSubmit = async() => {
 
                     <div class="col-md-4">
                         <FormKit
-                            v-model="ward"
+                            v-model="customer.ward"
                             type="select"
                             label="Chọn Huyện"
                             name="ward"

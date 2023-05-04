@@ -2,24 +2,18 @@ export const useUserStore = defineStore('user', {
     state: () => ({
         user: null,
         token: null,
-        cart: null,
+        cart: [],
     }),
 
     getters: {
         isAuthenticated: state => !!state.token,
         totalMoney: state => {
-
-            const formatter = new Intl.NumberFormat('vi-VN', {
-                style: 'currency',
-                currency: 'VND'
-            })
-
             let total = 0;
             state.cart.forEach(item => {
                 let discountPrice = item.product.price - (item.product.price * item.product.discount) / 100
                 total += discountPrice * item.amount
             });
-            return formatter.format(total);
+            return total
         }
     },
 
@@ -54,6 +48,10 @@ export const useUserStore = defineStore('user', {
 
         setCart(cart) {
             this.cart = cart;
+        },
+
+        clearCart(){
+            this.cart = [];
         },
 
         restoreState() {

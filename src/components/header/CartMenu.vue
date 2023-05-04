@@ -1,45 +1,31 @@
 <script setup>
 
+//* Store
 const store = useUserStore()
 if (!store.user) {
     store.restoreState()
 }
 
+//* Ref
 const show = ref(false)
 
-const isLogged = computed(() => {
-    return store?.isAuthenticated ?? false
-})
-
-const cart = ref(store.cart ?? [])
+//* Computed
+const cart = computed(() => store.cart)
+const isLogged = computed(() => store.isAuthenticated)
 const totalMoney = computed(() => store.totalMoney)
 
+//* Function
 const fetchCartUser = async () => {
     try {
         const data = {
             username: store.user.username,
-        };
-        const response = await UserService.getCart(data);
-        cart.value = response;
-        store.setCart(response);
+        }
+        const response = await UserService.getCart(data)
+        cart.value = response
+        store.setCart(response)
     } catch (error) {
-        console.log(error);
+        console.log(error)
     }
-}
-
-onMounted(async() => {
-    if (isLogged.value) {
-        await fetchCartUser();
-    }
-})
-
-const formatter = new Intl.NumberFormat('vi-VN', {
-    style: 'currency',
-    currency: 'VND'
-})
-
-function discountPrice(price, discount) {
-    return price - (price * discount) / 100
 }
 
 const removeCart = async (item) => {
@@ -57,6 +43,21 @@ const removeCart = async (item) => {
         console.log(error);
     }
 }
+
+const formatter = new Intl.NumberFormat('vi-VN', {
+    style: 'currency',
+    currency: 'VND'
+})
+
+function discountPrice(price, discount) {
+    return price - (price * discount) / 100
+}
+
+onMounted(async() => {
+    if (isLogged.value) {
+        await fetchCartUser();
+    }
+})
 
 </script>
 

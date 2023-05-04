@@ -1,3 +1,31 @@
+<script>
+// import {
+//     Dataset,
+//     DatasetItem,
+//     DatasetInfo,
+//     DatasetPager,
+//     DatasetSearch,
+//     DatasetShow
+// } from 'vue-dataset'
+
+//* Store
+const store = useUserStore()
+
+const fetchOrderData = async () => {
+    try {
+        const response = await OrderService.getOrder(store.user.username)
+        console.log(response)
+    } catch(error){
+        console.log(error)
+    }
+}
+
+onMounted(async() => {
+    await fetchOrderData()
+})
+
+</script>
+
 <template>
     <div class="tab-pane fade" id="orders" role="tabpanel">
         <div class="myaccount-content">
