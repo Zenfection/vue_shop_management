@@ -37,7 +37,8 @@ const productService = (baseUrl) => ({
 })
 
 const orderService = (baseUrl) => ({
-    getOrder: async (data) => await http.post(`${baseUrl}/get`, data),
+    getOrderAll: async (data) => await http.post(`${baseUrl}/`, data),
+    getOrderDetail: async (data) => await http.post(`${baseUrl}/${data.id}`, data),
     createOrder: async (data) => await http.post(`${baseUrl}/create`, data),
 })
 

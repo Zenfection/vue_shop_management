@@ -17,7 +17,7 @@ const fetchOrderData = async () => {
         const data = {
             username: store.user.username
         }
-        const response = await OrderService.getOrder(data)
+        const response = await OrderService.getOrderAll(data)
         if(response) {
             store.setOrder(response)
         }

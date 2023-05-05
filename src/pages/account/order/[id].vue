@@ -9,10 +9,10 @@ const products = computed(() => order.value.products)
 const fetchOrderData = async() => {
     const data = {
         username: store.user.username,
-        orderID: id.value
+        id: id.value
     }
     try {
-        const response = await OrderService.getOrder(data)
+        const response = await OrderService.getOrderDetail(data)
         if(response){
             order.value = response
         }
