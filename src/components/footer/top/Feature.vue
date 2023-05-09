@@ -1,9 +1,3 @@
-
-import { RouterLink } from 'vue-router';
-
-
-import { RouterLink } from 'vue-router';
-
 <template>
     <div class="col-12 col-sm-6 col-lg-3 m-b-40">
         <div class="single-footer-widget">

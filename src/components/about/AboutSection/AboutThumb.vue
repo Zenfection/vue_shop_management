@@ -1,10 +1,6 @@
-<script setup>
-let aboutBackground = {
-    src: images.aboutBackground.src,
-    alt: images.aboutBackground.alt,
-    width: images.aboutBackground.width,
-}
-
+<script setup lang="ts">
+const { src, alt, width } = images.aboutBackground ?? {}
+const aboutBackground = { src, alt, width }
 </script>
 
 <template>

@@ -1,9 +1,6 @@
-<script setup>
-    let team1 = {
-        src: images.team1.src,
-        alt: images.team1.alt,
-        height: images.team1.height,
-    }
+<script setup lang="ts">
+    const { src, alt, height } = images.team1 ?? {}
+    const team1 = { src, alt, height }
 </script>
 
 <template>

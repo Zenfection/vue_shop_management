@@ -24,7 +24,6 @@ export default defineConfig({
     VueRouter({
       routesFolder: './src/pages',
       extensions: ['.vue'],
-      autoImport: true,
       dts: './src/typed-router.d.ts',
       importMode: 'async',
     }),
@@ -39,16 +38,11 @@ export default defineConfig({
         'pinia',
         VueRouterAutoImports,
         '@vueuse/head',
-        // custom imports
         {
-          'axios': [
-            ['default', 'axios'],
-          ],
           'animejs': [
             ['default', 'anime'],
           ],
         },
-        // import { createImageKitVue } from "imagekit-vue3"
         {
           from: 'imagekit-vue3',
           imports: ['createImageKitVue', 'IKImage', 'IKContext', 'IKUpload', 'IKVideo'],
@@ -60,9 +54,9 @@ export default defineConfig({
       ],
       dts: "./src/auto-imports.d.ts",
       dirs: [
-        './src/global',
-        './src/stores',
-        './src/services',
+        './src/global/**',
+        './src/stores/**',
+        './src/services/**',
       ],
     }),
     vue(),
@@ -73,7 +67,7 @@ export default defineConfig({
     port: 8080,
     // proxy: {
     //   '/api': {
-    //     target: 'https://api-shop.zenfection.com',
+    //     target: 'http://localhost:3000',
     //     changeOrigin: true,
     //     rewrite: (path) => path.replace(/^\/api/, '')
     //   }
