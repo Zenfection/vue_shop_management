@@ -24,16 +24,17 @@ class BaseService {
     }
 }
 
+const user = window.localStorage.getItem("user");
+const token = user ? JSON.parse(user)?.token : null;
+
 const instance: AxiosInstance = axios.create({
     baseURL: api.backend,
     headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: `Bearer ${JSON.parse(
-            window.localStorage.getItem("user") ?? ""
-        )?.token ?? null}`,
+        Authorization: `Bearer ${token}`,
     },
-})
+});
 
 export {
     instance,

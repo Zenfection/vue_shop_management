@@ -4,7 +4,7 @@ const store = useProductStore()
 const query = useRoute().query
 const router = useRouter()
 
-const page = ref(store.page)
+const page = ref(store.filter.page)
 
 const total = computed(() => Math.ceil(store.countProduct / 9))
 

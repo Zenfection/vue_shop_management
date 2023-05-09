@@ -1,13 +1,9 @@
-<script setup>
+<script setup lang="ts">
 import "@/assets/icon/icon-zen.min.js"; // icon fontAwesomePro 6
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 useHead({
     title: "ZenShop",
-    meta: {
-        name: "description",
-        content: "ZenShop - Dự án mua sắm trực tuyến Vue3"
-    }
 })
 
 </script>

@@ -1,16 +1,16 @@
-<script setup>
+<script setup lang="ts">
 
-const store = useProductStore()
-
-const query = useRoute().query
+const productStore = useProductStore()
 const router = useRouter()
 
-const keyword = ref(store.keyword)
-
-watch(keyword, (value) => {
-    store.setKeyword(value)
-    const update = { ...query, keyword: value }
-    router.push({ query: update })
+const keyword = computed({
+    get: () => useRoute().query.keyword || productStore.filter.keyword as string,
+    set: (value: string) => {
+        console.log(value)
+        productStore.setFilter({ keyword: value })
+        console.log(productStore.filter)
+        router.push({ query: productStore.filter })
+    },
 })
 </script>
 

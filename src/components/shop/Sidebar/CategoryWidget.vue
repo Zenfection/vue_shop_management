@@ -1,20 +1,20 @@
-<script setup>
+<script setup lang="ts">
 
-const store = useCategoryStore()
-store.restoreState()
-
-const query = useRoute().query
+const categoryStore = useCategoryStore()
+const productStore = useProductStore()
 const router = useRouter()
 
-const currentCategory = ref(store.currentCategory)
-const categories = ref(store.categories)
+categoryStore.restoreState()
 
-watch(currentCategory, (value) => {
-    store.setCurrentCategory(value)
-    const update = { ...query, category: value }
-    router.push({ query: update })
+const currentCategory = computed({
+    get: () => useRoute().query.category || productStore.filter.category as string,
+    set: (value: string) => {
+        productStore.setFilter({ category: value })
+        router.push({ query: productStore.filter })
+    },
 })
 
+const categories = computed(() => categoryStore.categories || []);
 </script>
 
 <template>
@@ -23,12 +23,14 @@ watch(currentCategory, (value) => {
         <div class="sidebar-body justify-content-start">
             <ul class="sidebar-list product-tab-nav">
                 <li>
-                    <a class="cursor-pointer" :class="{ 'active': currentCategory === undefined }" @click="currentCategory = 'all'">
+                    <a class="cursor-pointer" :class="{ 'active': currentCategory === undefined }"
+                        @click="currentCategory = 'all'">
                         <i class="fa-duotone fa-border-all fa-xl"></i> Tất cả sản phẩm
                     </a>
                 </li>
                 <li v-for="item in categories" :key="item._id">
-                    <a class="cursor-pointer" :class="{ 'active': currentCategory === item.category }" @click="currentCategory = item.category">
+                    <a class="cursor-pointer" :class="{ 'active': currentCategory === item.category }"
+                        @click="currentCategory = item.category">
                         <i class="fa-duotone fa-xl" :class="{
                             'fa-cake-slice': item.category === 'cake',
                             'fa-lollipop': item.category === 'candy',
