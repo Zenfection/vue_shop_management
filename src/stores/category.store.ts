@@ -1,7 +1,6 @@
 import { Category } from "../global/types"
 
-export const useCategoryStore = defineStore({
-    id: 'category',
+export const useCategoryStore = defineStore('category', {
     state: () => ({
         categories: [] as Category[],
     }),

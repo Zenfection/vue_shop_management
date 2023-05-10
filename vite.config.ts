@@ -54,8 +54,8 @@ export default defineConfig({
       ],
       dts: "./src/auto-imports.d.ts",
       dirs: [
-        './src/global/**',
-        './src/stores/**',
+        './src/global/',
+        './src/stores/',
         './src/services/**',
       ],
     }),

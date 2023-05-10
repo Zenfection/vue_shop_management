@@ -1,18 +1,12 @@
 import { Product, FilterProduct } from "../global/types"
 
-export const useProductStore = defineStore({
-    id: 'product',
+export const useProductStore = defineStore('product' ,{
     state: () => ({
         filter: {} as FilterProduct,
         countProduct: 0,
         page: parseInt(useRoute().query.page) || 1, //! page must be integer
         view: useRoute().query.view || 'grid',
     }),
-
-    getters: {
-        getPage: (state) => state.page,
-        getFilter: (state) => state.filter,
-    },
 
     actions: {
         setFilter({ category, keyword, page }: { category?: string; keyword?: string; page?: number }) {

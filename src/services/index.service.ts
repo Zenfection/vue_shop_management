@@ -24,8 +24,9 @@ class BaseService {
     }
 }
 
-const user = window.localStorage.getItem("user");
-const token = user ? JSON.parse(user)?.token : null;
+const user = window.localStorage.getItem("user")
+const token = user ? JSON.parse(user)?.value?.token : null
+console.log(token)
 
 const instance: AxiosInstance = axios.create({
     baseURL: api.backend,
@@ -34,7 +35,7 @@ const instance: AxiosInstance = axios.create({
         Accept: "application/json",
         Authorization: `Bearer ${token}`,
     },
-});
+})
 
 export {
     instance,
